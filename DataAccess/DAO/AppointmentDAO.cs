@@ -56,7 +56,7 @@ namespace DataAccess.DAO
                 throw;
             }
         }
-        public async Task<GetALLDTOCount> GetAll(int limit, int offset)
+        public async Task<GetALLDTOCount> GetAll(DateTime appointmentDate, int limit, int offset)
         {
             try
             {
@@ -79,7 +79,6 @@ namespace DataAccess.DAO
                     startTime = startTime.Add(slotDuration);
                 }
 
-
                 var sortedSlots = slots.OrderBy(s => s.StartTime).ToList();
                 sortedSlots = sortedSlots.OrderBy(s => s.StartTime > currentTime ? 0 : 1).ToList();
 
@@ -87,6 +86,7 @@ namespace DataAccess.DAO
                     .Include(a => a.Pet)
                     .Include(a => a.Clinic)
                     .Include(a => a.User)
+                    .Where(a => a.AppointmentDate.Date == appointmentDate.Date) // Lọc theo ngày
                     .OrderBy(a =>
                         a.Status == "inProgress" ? (a.AppointmentDate <= currentTime ? 0 : 1) :
                         a.Status == "waiting" ? (a.AppointmentDate <= currentTime ? 2 : 3) :
@@ -96,6 +96,7 @@ namespace DataAccess.DAO
                     .Skip(offset)
                     .Take(limit)
                     .ToListAsync();
+
                 foreach (var appointment in appointments)
                 {
                     if (appointment.Status != "pending")
@@ -111,9 +112,10 @@ namespace DataAccess.DAO
                     var slot = slots.FirstOrDefault(s => s.SlotNumber == appointment.SlotNumber);
                     appointmentDTOs.Add(appointmentDTO);
                 }
+
                 var appointmentDTOWithCount = new GetALLDTOCount();
                 appointmentDTOWithCount.AppointmentDTOs = appointmentDTOs;
-                appointmentDTOWithCount.Total = _context.Appointments.ToList().Count();
+                appointmentDTOWithCount.Total = _context.Appointments.Count(a => a.AppointmentDate.Date == appointmentDate.Date); // Đếm tổng số cuộc hẹn trong ngày
                 return appointmentDTOWithCount;
             }
             catch (Exception ex)
@@ -122,6 +124,7 @@ namespace DataAccess.DAO
                 throw;
             }
         }
+
 
 
 

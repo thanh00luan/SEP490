@@ -181,19 +181,16 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<GetALLDTOCount> GetPendingAppointment(int limit, int offset)
+        public async Task<GetALLDTOCount> GetPendingAppointment(DateTime appointmentDate, int limit, int offset)
         {
             try
             {
-                var currentTime = DateTime.UtcNow;
-
                 var appointments = await _context.Appointments
                         .Include(a => a.Pet)
                         .Include(a => a.Clinic)
                         .Include(a => a.User)
-                        .Where(a => a.Status == "pending")
-                        .OrderByDescending(a => a.AppointmentDate <= currentTime)
-                        .OrderBy(a => a.AppointmentDate)
+                        .Where(a => a.Status == "pending" && a.AppointmentDate.Date == appointmentDate.Date)
+                        .OrderByDescending(a => a.AppointmentDate)
                         .Skip(offset)
                         .Take(limit)
                         .ToListAsync();
@@ -203,17 +200,18 @@ namespace DataAccess.DAO
                 var appointmentDTOWithCount = new GetALLDTOCount();
                 appointmentDTOWithCount.AppointmentDTOs = appointmentDTOs;
                 appointmentDTOWithCount.Total = await _context.Appointments
-                    .Where(a => (a.Status == "pending"))
+                    .Where(a => a.Status == "pending" && a.AppointmentDate.Date == appointmentDate.Date)
                     .CountAsync();
 
                 return appointmentDTOWithCount;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetPendingAppointment: {ex.Message}");
+                Console.WriteLine($"Error in GetPendingAppointmentsByDate: {ex.Message}");
                 throw;
             }
         }
+
 
         public List<int> GetDoctorAvailability(string doctorId)
         {
