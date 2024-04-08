@@ -144,3 +144,4 @@ C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI\obj\Debug\net5.0\UserAPI.pdb
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI\obj\Debug\net5.0\UserAPI.genruntimeconfig.cache
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI\obj\Debug\net5.0\ref\UserAPI.dll
+C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI\obj\Debug\net5.0\UserAPI.sourcelink.json

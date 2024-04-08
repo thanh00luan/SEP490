@@ -35,11 +35,11 @@ namespace AppointmentAPI.Controllers
 
 
         [HttpGet("getList")]
-        public async Task<IActionResult> GetAllAppointments(int limit, int offset)
+        public async Task<IActionResult> GetAllAppointments(DateTime date, int limit, int offset)
         {
             try
             {
-                var appointments = await _repository.GetAll(limit, offset);
+                var appointments = await _repository.GetAll(date, limit, offset);
                 return Ok(appointments);
             }
             catch (Exception ex)
