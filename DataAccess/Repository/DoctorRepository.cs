@@ -1,5 +1,6 @@
 ﻿using DataAccess.DAO;
 using DataAccess.DTO.Appointment;
+using DataAccess.DTO.Precscription;
 using DataAccess.IRepository;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,7 @@ namespace DataAccess.Repository
             _doctorDAO = doctorDAO;
         }
         public void ConfirmAppointment(string doctorId, string appointmentId)
-        {
-            throw new NotImplementedException();
-        }
+            => _doctorDAO.ConfirmAppointment(doctorId, appointmentId);
         public List<int> GetDoctorAvailability(string doctorId)
             => _doctorDAO.GetDoctorAvailability(doctorId);
 
@@ -30,6 +29,7 @@ namespace DataAccess.Repository
         public void SetDoctorAvailability(string doctorId, List<int> availabilitySlots) 
             => _doctorDAO.SetDoctorAvailability(doctorId, availabilitySlots);
 
-        
+        public Task<PresDTO> GeneratePres(CreateDTO dto)
+         =>_doctorDAO.GeneratePres(dto);
     }
 }

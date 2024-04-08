@@ -28,3 +28,4 @@ C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\DataAccess\bin\D
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\DataAccess\bin\Debug\net5.0\BussinessObject.pdb
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\DataAccess\obj\Debug\net5.0\DataAccess.csproj.Up2Date
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\DataAccess\obj\Debug\net5.0\ref\DataAccess.dll
+C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\DataAccess\obj\Debug\net5.0\DataAccess.sourcelink.json

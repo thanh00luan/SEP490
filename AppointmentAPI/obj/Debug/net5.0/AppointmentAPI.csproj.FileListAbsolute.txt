@@ -71,3 +71,4 @@ C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\AppointmentAPI\b
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\AppointmentAPI\bin\Debug\net5.0\DataAccess.dll
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\AppointmentAPI\bin\Debug\net5.0\BussinessObject.pdb
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\AppointmentAPI\bin\Debug\net5.0\DataAccess.pdb
+C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\AppointmentAPI\obj\Debug\net5.0\AppointmentAPI.sourcelink.json

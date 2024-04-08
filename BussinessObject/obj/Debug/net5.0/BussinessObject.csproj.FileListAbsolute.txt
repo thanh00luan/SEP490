@@ -28,3 +28,4 @@ C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\BussinessObject\
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\BussinessObject\obj\Debug\net5.0\BussinessObject.pdb
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\BussinessObject\obj\Debug\net5.0\BussinessObject.genruntimeconfig.cache
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\BussinessObject\obj\Debug\net5.0\ref\BussinessObject.dll
+C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\BussinessObject\obj\Debug\net5.0\BussinessObject.sourcelink.json

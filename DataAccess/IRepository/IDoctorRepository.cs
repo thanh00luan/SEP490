@@ -1,4 +1,6 @@
-﻿using DataAccess.DTO.Appointment;
+﻿using BussinessObject.Models;
+using DataAccess.DTO.Appointment;
+using DataAccess.DTO.Precscription;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +16,7 @@ namespace DataAccess.IRepository
         void ConfirmAppointment(string doctorId, string appointmentId);
 
         Task<GetALLDTOCount> GetDoctorAppointList(int limit, int offset, string doctorId);
+        Task<PresDTO> GeneratePres(CreateDTO dto);
+
     }
 }

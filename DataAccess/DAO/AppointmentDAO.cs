@@ -131,7 +131,7 @@ namespace DataAccess.DAO
             Appointment newAppointment = _mapper.Map<Appointment>(appointment);
             newAppointment.AppointmentDate = appointment.Date;
             newAppointment.AppointmentId = Guid.NewGuid().ToString();
-            newAppointment.Status = "Pending";
+            newAppointment.Status = "pending";
 
             if (appointment.PetId == null)
             {

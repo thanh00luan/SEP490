@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System;
 using DataAccess.DTO.DDoctor;
 using DataAccess.IRepository;
+using DataAccess.DTO.Precscription;
 
 namespace DoctorAPI.Controllers
 {
@@ -73,5 +74,21 @@ namespace DoctorAPI.Controllers
                 return StatusCode(500, $"Error confirming appointment: {ex.Message}");
             }
         }
+
+        [HttpPost("generateInvoice")]
+        public async Task<IActionResult> GeneratePrescription([FromBody] CreateDTO dto)
+        {
+            try
+            {
+                var presDTO = await _repository.GeneratePres(dto);
+
+                return Ok(presDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error generating prescription: {ex.Message}");
+            }
+        }
+
     }
 }

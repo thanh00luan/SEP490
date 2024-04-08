@@ -32,5 +32,7 @@ namespace BussinessObject.Data
         public DbSet<Storage> Storages { get; set; }
         public DbSet<StorageStatus> StorageStatus { get; set; }
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Employee> Employees { get; set; }
     }
 }

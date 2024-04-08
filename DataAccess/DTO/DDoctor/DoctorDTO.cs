@@ -17,11 +17,6 @@ namespace DataAccess.DTO.DDoctor
 
         public bool DoctorStatus { get; set; }
 
-        //public string ClinicId { get; set; }
-        // public ClinicDTO Clinic { get; set; }
-
-
-        // public string UserId { get; set; }
         // public UserDTO User { get; set; }
 
         // public List<AppointmentDTO> Appointments { get; set; }

@@ -26,5 +26,6 @@ namespace BussinessObject.Models
         public User User { get; set; }
 
         public List<BillMedicine> BillMedicines { get; set; }
+
     }
 }

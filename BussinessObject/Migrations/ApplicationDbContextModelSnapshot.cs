@@ -177,6 +177,24 @@ namespace BussinessObject.Migrations
                     b.ToTable("Doctors");
                 });
 
+            modelBuilder.Entity("BussinessObject.Models.Employee", b =>
+                {
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("EmployeeStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("EmployeeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Employees");
+                });
+
             modelBuilder.Entity("BussinessObject.Models.EnterStorage", b =>
                 {
                     b.Property<string>("ImportCode")
@@ -482,6 +500,15 @@ namespace BussinessObject.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("Clinic");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BussinessObject.Models.Employee", b =>
+                {
+                    b.HasOne("BussinessObject.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
