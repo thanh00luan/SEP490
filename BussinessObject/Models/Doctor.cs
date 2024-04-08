@@ -24,7 +24,9 @@ namespace BussinessObject.Models
 
         public string UserId { get; set; }
         public User User { get; set; }
+        public string Degree { get; set; }
 
+        public List<DoctorSlot> DoctorSlots { get; set; }
         public List<Appointment> Appointments { get; set; }
     }
 }

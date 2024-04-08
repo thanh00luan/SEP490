@@ -6,6 +6,8 @@ using System;
 using DataAccess.DTO.DDoctor;
 using DataAccess.IRepository;
 using DataAccess.DTO.Precscription;
+using DataAccess.RequestDTO;
+using System.Collections.Generic;
 
 namespace DoctorAPI.Controllers
 {
@@ -20,11 +22,11 @@ namespace DoctorAPI.Controllers
         }
 
         [HttpPost("SetSlot")]
-        public IActionResult SetDoctorAvailability([FromBody] DoctorAvailabilityRequest request)
+        public IActionResult SetDoctorAvailability([FromBody] List<SetDoctorRequest> requests)
         {
             try
             {
-                _repository.SetDoctorAvailability(request.DoctorId, request.AvailabilitySlots);
+                _repository.SetDoctorAvailability(requests);
                 return Ok("Doctor availability set successfully.");
             }
             catch (Exception ex)
@@ -33,12 +35,12 @@ namespace DoctorAPI.Controllers
             }
         }
 
-        [HttpGet("getSlot/{doctorId}")]
-        public IActionResult GetDoctorAvailability(string doctorId)
+        [HttpGet("getSlot/{doctorId}/{date}")]
+        public IActionResult GetDoctorAvailability(string doctorId, DateTime date)
         {
             try
             {
-                var availabilitySlots = _repository.GetDoctorAvailability(doctorId);
+                var availabilitySlots = _repository.GetDoctorAvailability(doctorId, date);
                 return Ok(availabilitySlots);
             }
             catch (Exception ex)
@@ -48,11 +50,11 @@ namespace DoctorAPI.Controllers
         }
 
         [HttpGet("getAppointments")]
-        public async Task<IActionResult> GetDoctorAppointments(int limit, int offset, string doctorId)
+        public async Task<IActionResult> GetDoctorAppointments(int limit, int offset, string doctorId, DateTime date)
         {
             try
             {
-                var appointments = await _repository.GetDoctorAppointList(limit, offset, doctorId);
+                var appointments = await _repository.GetDoctorAppointList(limit, offset, doctorId, date);
                 return Ok(appointments);
             }
             catch (Exception ex)

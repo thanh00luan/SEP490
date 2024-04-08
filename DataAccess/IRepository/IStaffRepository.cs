@@ -12,13 +12,13 @@ namespace DataAccess.IRepository
 {
     public interface IStaffRepository
     {
-        public Task<IEnumerable<StaffDTO>> getAlls();
-        public Task<StaffDTO> GetStaffById(string id);
-        public Task AddStaff(StaffDTO StaffDTO);
-        public Task UpdateStaff(StaffDTO Staff);
-        public Task DeleteStaff(string id);
+         Task<IEnumerable<StaffDTO>> getAlls();
+         Task<StaffDTO> GetStaffById(string id);
+         Task AddStaff(StaffDTO StaffDTO);
+         Task UpdateStaff(StaffDTO Staff);
+         Task DeleteStaff(string id);
 
-        public Task<IEnumerable<StaffDTO>> SortStaffByName();
+         Task<IEnumerable<StaffDTO>> SortStaffByName();
 
         Task<GetALLDTOCount> GetPendingAppointment(DateTime appointmentDate, int limit, int offset);
 

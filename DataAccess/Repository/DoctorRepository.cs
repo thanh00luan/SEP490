@@ -2,6 +2,7 @@
 using DataAccess.DTO.Appointment;
 using DataAccess.DTO.Precscription;
 using DataAccess.IRepository;
+using DataAccess.RequestDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,14 @@ namespace DataAccess.Repository
         }
         public void ConfirmAppointment(string doctorId, string appointmentId)
             => _doctorDAO.ConfirmAppointment(doctorId, appointmentId);
-        public List<int> GetDoctorAvailability(string doctorId)
-            => _doctorDAO.GetDoctorAvailability(doctorId);
+        public List<int> GetDoctorAvailability(string doctorId, DateTime registerDate)
+            => _doctorDAO.GetDoctorAvailability(doctorId, registerDate);
 
-        public Task<GetALLDTOCount> GetDoctorAppointList(int limit, int offset, string doctorId)
-            => _doctorDAO.GetDoctorAppointList(limit, offset, doctorId);
+        public Task<GetALLDTOCount> GetDoctorAppointList(int limit, int offset, string doctorId, DateTime date)
+            => _doctorDAO.GetDoctorAppointList(limit, offset, doctorId,date);
 
-        public void SetDoctorAvailability(string doctorId, List<int> availabilitySlots) 
-            => _doctorDAO.SetDoctorAvailability(doctorId, availabilitySlots);
+        public void SetDoctorAvailability(List<SetDoctorRequest> requests) 
+            => _doctorDAO.SetDoctorAvailability(requests);
 
         public Task<PresDTO> GeneratePres(CreateDTO dto)
          =>_doctorDAO.GeneratePres(dto);

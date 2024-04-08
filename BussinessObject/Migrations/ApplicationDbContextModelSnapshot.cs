@@ -156,6 +156,9 @@ namespace BussinessObject.Migrations
                     b.Property<string>("ClinicId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Degree")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Slots")
                         .HasColumnType("nvarchar(max)");
 
@@ -175,6 +178,27 @@ namespace BussinessObject.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Doctors");
+                });
+
+            modelBuilder.Entity("BussinessObject.Models.DoctorSlot", b =>
+                {
+                    b.Property<string>("DoctorSId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("DoctorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("RegisterDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Slots")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DoctorSId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("DoctorSlots");
                 });
 
             modelBuilder.Entity("BussinessObject.Models.Employee", b =>
@@ -504,6 +528,15 @@ namespace BussinessObject.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BussinessObject.Models.DoctorSlot", b =>
+                {
+                    b.HasOne("BussinessObject.Models.Doctor", "Doctor")
+                        .WithMany("DoctorSlots")
+                        .HasForeignKey("DoctorId");
+
+                    b.Navigation("Doctor");
+                });
+
             modelBuilder.Entity("BussinessObject.Models.Employee", b =>
                 {
                     b.HasOne("BussinessObject.Models.User", "User")
@@ -595,6 +628,8 @@ namespace BussinessObject.Migrations
             modelBuilder.Entity("BussinessObject.Models.Doctor", b =>
                 {
                     b.Navigation("Appointments");
+
+                    b.Navigation("DoctorSlots");
                 });
 
             modelBuilder.Entity("BussinessObject.Models.EnterStorage", b =>

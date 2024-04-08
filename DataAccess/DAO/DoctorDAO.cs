@@ -3,6 +3,7 @@ using BussinessObject.Data;
 using BussinessObject.Models;
 using DataAccess.DTO.Appointment;
 using DataAccess.DTO.Precscription;
+using DataAccess.RequestDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,34 @@ namespace DataAccess.DAO
             _mapper = mapper;
         }
 
-        public void SetDoctorAvailability(string doctorId, List<int> availabilitySlots)
+        public void SetDoctorAvailability(List<SetDoctorRequest> requests)
         {
             try
             {
-                var doctor = _context.Doctors.Find(doctorId);
-                doctor.Slots = string.Join(",", availabilitySlots); 
+                foreach (var request in requests)
+                {
+                    var doctorSlot = _context.DoctorSlots.FirstOrDefault(ds => ds.DoctorId == request.DoctorId && ds.RegisterDate.Date == request.RegisterDate.Date);
+
+                    if (doctorSlot == null)
+                    {
+                        doctorSlot = new DoctorSlot
+                        {
+                            DoctorSId = Guid.NewGuid().ToString(),
+                            DoctorId = request.DoctorId,
+                            RegisterDate = request.RegisterDate.Date,
+                            Slots = string.Join(",", request.availabilitySlots.OrderBy(slot => slot))
+                        };
+                        _context.DoctorSlots.Add(doctorSlot);
+                    }
+                    else
+                    {
+                        var existingSlots = doctorSlot.Slots?.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList() ?? new List<int>();
+                        existingSlots.AddRange(request.availabilitySlots);
+                        var uniqueSlots = existingSlots.Distinct().OrderBy(slot => slot).ToList();
+                        doctorSlot.Slots = string.Join(",", uniqueSlots);
+                    }
+                }
+
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -37,17 +60,20 @@ namespace DataAccess.DAO
             }
         }
 
-        public List<int> GetDoctorAvailability(string doctorId)
+        public List<int> GetDoctorAvailability(string doctorId, DateTime registerDate)
         {
             try
             {
-                var doctor = _context.Doctors.Find(doctorId);
-                if (doctor != null && !string.IsNullOrEmpty(doctor.Slots))
+                var doctorSlot = _context.DoctorSlots.FirstOrDefault(ds => ds.DoctorId == doctorId && ds.RegisterDate.Date == registerDate.Date);
+
+                if (doctorSlot != null)
                 {
-                    List<int> availabilitySlots = doctor.Slots.Split(',').Select(int.Parse).ToList(); 
-                    return availabilitySlots;
+                    return doctorSlot.Slots?.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList() ?? new List<int>();
                 }
-                return new List<int>();
+                else
+                {
+                    return null;
+                }
             }
             catch (Exception ex)
             {
@@ -56,42 +82,44 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<GetALLDTOCount> GetDoctorAppointList(int limit, int offset, string doctorId)
+
+        public async Task<GetALLDTOCount> GetDoctorAppointList(int limit, int offset, string doctorId, DateTime date)
         {
             try
             {
                 var currentTime = DateTime.UtcNow;
 
                 var appointments = await _context.Appointments
-            .Include(a => a.Pet)
-            .Include(a => a.Clinic)
-            .Include(a => a.User)
-            .Include(a => a.Doctor)
-            .Where(a => (a.Status == "waiting" || a.Status == "inProgress" || a.Status == "done") && a.DoctorId == doctorId)
-            .OrderBy(a => a.Status == "waiting" ? (a.AppointmentDate <= currentTime ? 0 : 1) :
-                          a.Status == "inProgress" ? (a.AppointmentDate <= currentTime ? 2 : 3) : 4)
-            .ThenBy(a => a.AppointmentDate)
-            .ThenBy(a => a.Status == "done" ? DateTime.MaxValue : a.AppointmentDate) 
-            .Skip(offset)
-            .Take(limit)
-            .ToListAsync();
+                    .Include(a => a.Pet)
+                    .Include(a => a.Clinic)
+                    .Include(a => a.User)
+                    .Include(a => a.Doctor)
+                    .Where(a => a.DoctorId == doctorId && a.AppointmentDate.Date == date.Date)
+                    .OrderBy(a => a.Status == "waiting" ? (a.AppointmentDate <= currentTime ? 0 : 1) :
+                                  a.Status == "inProgress" ? (a.AppointmentDate <= currentTime ? 2 : 3) : 4)
+                    .ThenBy(a => a.AppointmentDate)
+                    .ThenBy(a => a.Status == "done" ? DateTime.MaxValue : a.AppointmentDate)
+                    .Skip(offset)
+                    .Take(limit)
+                    .ToListAsync();
 
                 var appointmentDTOs = _mapper.Map<List<GetAllDTO>>(appointments);
 
                 var appointmentDTOWithCount = new GetALLDTOCount();
                 appointmentDTOWithCount.AppointmentDTOs = appointmentDTOs;
                 appointmentDTOWithCount.Total = await _context.Appointments
-                    .Where(a => (a.Status == "waiting" || a.Status == "inProgress" || a.Status == "done") && a.DoctorId == doctorId) 
+                    .Where(a => a.DoctorId == doctorId && a.AppointmentDate.Date == date.Date)
                     .CountAsync();
 
                 return appointmentDTOWithCount;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetWaitPenApp: {ex.Message}");
+                Console.WriteLine($"Error in GetDoctorAppointList: {ex.Message}");
                 throw;
             }
         }
+
 
         public void ConfirmAppointment(string doctorId, string appointmentId)
         {
