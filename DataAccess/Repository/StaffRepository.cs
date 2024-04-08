@@ -22,8 +22,8 @@ namespace DataAccess.Repository
         }
         public Task AddStaff(StaffDTO StaffDTO) => _StaffDAO.AddStaff(StaffDTO);
 
-        public Task AssignDoctorToAppointment(string appointmentId, string doctorId, int slotNumber)
-            =>_StaffDAO.AssignDoctorToAppointment(appointmentId, doctorId, slotNumber); 
+        public Task AssignDoctorToAppointment(string appointmentId, string doctorId)
+            =>_StaffDAO.AssignDoctorToAppointment(appointmentId, doctorId); 
 
         public Task DeleteStaff(string id)
         {

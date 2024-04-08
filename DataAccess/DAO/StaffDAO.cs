@@ -272,7 +272,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task AssignDoctorToAppointment(string appointmentId, string doctorId, int slotNumber)
+        public async Task AssignDoctorToAppointment(string appointmentId, string doctorId)
         {
             try
             {
@@ -292,7 +292,7 @@ namespace DataAccess.DAO
                 }
                 List<int> availabilitySlots = doctor.Slots.Split(',').Select(int.Parse).ToList();
 
-                availabilitySlots.Remove(slotNumber);
+                availabilitySlots.Remove(appointment.SlotNumber);
 
                 doctor.Slots = string.Join(",", availabilitySlots);
 

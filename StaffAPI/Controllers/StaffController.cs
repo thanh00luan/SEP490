@@ -6,6 +6,7 @@ using System;
 using DataAccess.IRepository;
 using DataAccess.DTO.Employee;
 using DataAccess.Repository;
+using Microsoft.VisualBasic;
 
 namespace StaffAPI.Controllers
 {
@@ -80,11 +81,11 @@ namespace StaffAPI.Controllers
         }
 
         [HttpGet("getLists")]
-        public async Task<IActionResult> GetPendingList(int limit, int offset)
+        public async Task<IActionResult> GetPendingList(DateTime date,int limit, int offset)
         {
             try
             {
-                var appointments = await _StaffRepository.GetPendingAppointment(limit, offset);
+                var appointments = await _StaffRepository.GetPendingAppointment(date,limit, offset);
                 return Ok(appointments);
             }
             catch (Exception ex)
@@ -108,11 +109,11 @@ namespace StaffAPI.Controllers
         }
 
         [HttpPost("assignDoctor")]
-        public async Task<IActionResult> AssignDoctorToAppointment(string appointmentId, string doctorId, int slotNumber)
+        public async Task<IActionResult> AssignDoctorToAppointment([FromBody] AssignDoctorRequest request)
         {
             try
             {
-                await _StaffRepository.AssignDoctorToAppointment(appointmentId, doctorId,slotNumber);
+                await _StaffRepository.AssignDoctorToAppointment(request.AppointmentId, request.DoctorId);
                 return Ok("Doctor assigned successfully.");
             }
             catch (ArgumentException ex)
