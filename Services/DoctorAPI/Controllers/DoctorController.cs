@@ -35,12 +35,12 @@ namespace DoctorAPI.Controllers
             }
         }
 
-        [HttpGet("getSlot/{doctorId}/{date}")]
-        public IActionResult GetDoctorAvailability(string doctorId, DateTime date)
+        [HttpGet("getSlot/{doctorId}/{start}/{end}")]
+        public IActionResult GetDoctorAvailability(string doctorId, DateTime start, DateTime end)
         {
             try
             {
-                var availabilitySlots = _repository.GetDoctorAvailability(doctorId, date);
+                var availabilitySlots = _repository.GetDoctorAvailability(doctorId, start, end);
                 return Ok(availabilitySlots);
             }
             catch (Exception ex)

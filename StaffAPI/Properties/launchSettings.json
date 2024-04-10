@@ -23,7 +23,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:59891/"
+      "applicationUrl": "http://localhost:59892"
     },
     "StaffAPI": {
       "commandName": "Project",

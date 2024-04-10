@@ -181,7 +181,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<GetALLDTOCount> GetPendingAppointment(DateTime appointmentDate, int limit, int offset)
+        public async Task<GetALLDTOCount> GetPendingAppointment(DateTime startDate, DateTime endDate, int limit, int offset)
         {
             try
             {
@@ -189,7 +189,7 @@ namespace DataAccess.DAO
                         .Include(a => a.Pet)
                         .Include(a => a.Clinic)
                         .Include(a => a.User)
-                        .Where(a => a.Status == "pending" && a.AppointmentDate.Date == appointmentDate.Date)
+                        .Where(a => a.Status == "pending" && a.AppointmentDate.Date >= startDate.Date && a.AppointmentDate.Date <= endDate.Date)
                         .OrderByDescending(a => a.AppointmentDate)
                         .Skip(offset)
                         .Take(limit)
@@ -200,7 +200,7 @@ namespace DataAccess.DAO
                 var appointmentDTOWithCount = new GetALLDTOCount();
                 appointmentDTOWithCount.AppointmentDTOs = appointmentDTOs;
                 appointmentDTOWithCount.Total = await _context.Appointments
-                    .Where(a => a.Status == "pending" && a.AppointmentDate.Date == appointmentDate.Date)
+                    .Where(a => a.Status == "pending" && a.AppointmentDate.Date >= startDate.Date && a.AppointmentDate.Date <= endDate.Date)
                     .CountAsync();
 
                 return appointmentDTOWithCount;
@@ -213,17 +213,33 @@ namespace DataAccess.DAO
         }
 
 
-        public List<int> GetDoctorAvailability(string doctorId)
+
+        public List<int> GetDoctorAvailability(string doctorId, DateTime startDate, DateTime endDate)
         {
             try
             {
-                var doctor = _context.Doctors.Find(doctorId);
-                if (doctor != null && !string.IsNullOrEmpty(doctor.Slots))
+                var doctorSlots = _context.DoctorSlots
+                    .Where(ds => ds.DoctorId == doctorId && ds.RegisterDate.Date >= startDate.Date && ds.RegisterDate.Date <= endDate.Date)
+                    .ToList();
+
+                if (doctorSlots.Any())
                 {
-                    List<int> availabilitySlots = doctor.Slots.Split(',').Select(int.Parse).ToList();
-                    return availabilitySlots;
+                    List<int> availability = new List<int>();
+
+                    foreach (var slot in doctorSlots)
+                    {
+                        if (slot.Slots != null)
+                        {
+                            availability.AddRange(slot.Slots.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse));
+                        }
+                    }
+
+                    return availability;
                 }
-                return new List<int>();
+                else
+                {
+                    return new List<int>();
+                }
             }
             catch (Exception ex)
             {
@@ -232,19 +248,19 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<List<AvaibleDoctorDTO>> GetAvailableDoctors(int customerSlot, string clinicId)
+        public async Task<List<AvaibleDoctorDTO>> GetAvailableDoctors(int customerSlot, string clinicId, DateTime start, DateTime end)
         {
             try
             {
                 var doctors = await _context.Doctors
-            .Include(d => d.User) 
-            .Include(d => d.Clinic) 
-            .Where(d => d.ClinicId == clinicId)
-            .ToListAsync();
+                    .Include(d => d.User) 
+                    .Include(d => d.Clinic) 
+                    .Where(d => d.ClinicId == clinicId)
+                    .ToListAsync(); 
                 var availableDoctors = new List<AvaibleDoctorDTO>();
                 foreach (var doctor in doctors)
                 {
-                    var availabilitySlots = GetDoctorAvailability(doctor.DoctorId);
+                    var availabilitySlots = GetDoctorAvailability(doctor.DoctorId, start, end);
                     if (availabilitySlots.Contains(customerSlot))
                     {
                         
@@ -278,27 +294,38 @@ namespace DataAccess.DAO
             {
                 var appointment = await _context.Appointments.FindAsync(appointmentId);
 
-                
                 if (appointment == null)
                 {
                     throw new ArgumentException("Appointment not found.");
                 }
 
-                
                 var doctor = await _context.Doctors.FindAsync(doctorId);
                 if (doctor == null)
                 {
                     throw new ArgumentException("Doctor not found.");
                 }
-                List<int> availabilitySlots = doctor.Slots.Split(',').Select(int.Parse).ToList();
+
+                var doctorSlot = await _context.DoctorSlots.FirstOrDefaultAsync(ds => ds.DoctorId == doctorId && ds.RegisterDate.Date == appointment.AppointmentDate.Date);
+                if (doctorSlot == null)
+                {
+                    throw new ArgumentException("Doctor slot not found for the given date.");
+                }
+
+                var availabilitySlots = doctorSlot.Slots.Split(',').Select(int.Parse).ToList();
+
+                if (!availabilitySlots.Contains(appointment.SlotNumber))
+                {
+                    throw new InvalidOperationException("Selected slot is not available for the doctor.");
+                }
 
                 availabilitySlots.Remove(appointment.SlotNumber);
 
-                doctor.Slots = string.Join(",", availabilitySlots);
+                doctorSlot.Slots = string.Join(",", availabilitySlots);
 
                 appointment.DoctorId = doctorId;
                 appointment.Doctor = doctor;
                 appointment.Status = "waiting";
+
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -307,11 +334,5 @@ namespace DataAccess.DAO
                 throw;
             }
         }
-
-
-
-
-
-
     }
 }

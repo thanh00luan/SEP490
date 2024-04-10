@@ -4,6 +4,10 @@
     <ProjectReference Include="..\BussinessObject\BussinessObject.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO\SuperAdmin\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>

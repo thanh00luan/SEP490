@@ -1,0 +1,67 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/service1/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5679
+        }
+      ],
+      "UpstreamPathTemplate": "/clinics",
+      "UpstreamhttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/appointments/getList",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5678
+        }
+      ],
+      "UpstreamPathTemplate": "/getList",
+      "UpstreamhttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/appointments/book",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5678
+        }
+      ],
+      "UpstreamPathTemplate": "/book",
+      "UpstreamhttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/appointments/slots/{clinicId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5678
+        }
+      ],
+      "UpstreamPathTemplate": "/slots/{clinicId}",
+      "UpstreamhttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/appointments/availableSlots/{clinicId}/{date}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5678
+        }
+      ],
+      "UpstreamPathTemplate": "/availableSlots/{clinicId}/{date}",
+      "UpstreamhttpMethod": [ "GET" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:16515"
+  }
+}

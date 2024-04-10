@@ -29,10 +29,5 @@ namespace BussinessObject.Models
 
         public List<Pet> Pets { get; set; }
 
-
-
-
-
-
     }
 }

@@ -13,7 +13,7 @@ namespace DataAccess.IRepository
     public interface IDoctorRepository
     {
         void SetDoctorAvailability(List<SetDoctorRequest> requests);
-        List<int> GetDoctorAvailability(string doctorId, DateTime registerDate);
+        List<int> GetDoctorAvailability(string doctorId, DateTime startDate, DateTime endDate);
         void ConfirmAppointment(string doctorId, string appointmentId);
 
         Task<GetALLDTOCount> GetDoctorAppointList(int limit, int offset, string doctorId, DateTime date);

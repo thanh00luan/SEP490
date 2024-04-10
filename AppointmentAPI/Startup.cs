@@ -44,11 +44,14 @@ namespace AppointmentAPI
                     builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
 
+            
+
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MyConnection")));
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<AppointmentDAO>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

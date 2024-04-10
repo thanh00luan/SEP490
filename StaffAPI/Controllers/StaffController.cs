@@ -81,11 +81,11 @@ namespace StaffAPI.Controllers
         }
 
         [HttpGet("getLists")]
-        public async Task<IActionResult> GetPendingList(DateTime date,int limit, int offset)
+        public async Task<IActionResult> GetPendingList(DateTime startDate, DateTime endDate,int limit, int offset)
         {
             try
             {
-                var appointments = await _StaffRepository.GetPendingAppointment(date,limit, offset);
+                var appointments = await _StaffRepository.GetPendingAppointment(startDate,endDate, limit, offset);
                 return Ok(appointments);
             }
             catch (Exception ex)

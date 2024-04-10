@@ -2,7 +2,7 @@ using System;
 
 namespace DataAccess.DTO.User
 {
-    public class UserDTO
+    public class UserManaDTO
     {
         public string UserId { get; set; }
         public string UserName { get; set; }

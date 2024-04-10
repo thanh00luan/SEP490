@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClinicAPI", "ClinicAPI\Clin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentAPI", "AppointmentAPI\AppointmentAPI.csproj", "{E7061481-82BA-4A8D-92B0-1F8D40786C11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaffAPI", "StaffAPI\StaffAPI.csproj", "{4E9A3AD8-DC6D-40AF-8DEF-652B41AEA5FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaffAPI", "StaffAPI\StaffAPI.csproj", "{4E9A3AD8-DC6D-40AF-8DEF-652B41AEA5FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

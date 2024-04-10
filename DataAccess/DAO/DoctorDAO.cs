@@ -60,19 +60,31 @@ namespace DataAccess.DAO
             }
         }
 
-        public List<int> GetDoctorAvailability(string doctorId, DateTime registerDate)
+        public List<int> GetDoctorAvailability(string doctorId, DateTime startDate, DateTime endDate)
         {
             try
             {
-                var doctorSlot = _context.DoctorSlots.FirstOrDefault(ds => ds.DoctorId == doctorId && ds.RegisterDate.Date == registerDate.Date);
+                var doctorSlots = _context.DoctorSlots
+                    .Where(ds => ds.DoctorId == doctorId && ds.RegisterDate.Date >= startDate.Date && ds.RegisterDate.Date <= endDate.Date)
+                    .ToList();
 
-                if (doctorSlot != null)
+                if (doctorSlots.Any())
                 {
-                    return doctorSlot.Slots?.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList() ?? new List<int>();
+                    List<int> availability = new List<int>();
+
+                    foreach (var slot in doctorSlots)
+                    {
+                        if (slot.Slots != null)
+                        {
+                            availability.AddRange(slot.Slots.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse));
+                        }
+                    }
+
+                    return availability;
                 }
                 else
                 {
-                    return null;
+                    return new List<int>(); 
                 }
             }
             catch (Exception ex)
@@ -81,6 +93,7 @@ namespace DataAccess.DAO
                 throw;
             }
         }
+
 
 
         public async Task<GetALLDTOCount> GetDoctorAppointList(int limit, int offset, string doctorId, DateTime date)
@@ -134,7 +147,7 @@ namespace DataAccess.DAO
                 }
                 else
                 {
-                    
+                    throw new ArgumentException("Appointment not found.");
                 }
             }
             catch (Exception ex)
