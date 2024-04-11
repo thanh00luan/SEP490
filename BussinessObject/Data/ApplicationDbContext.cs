@@ -15,7 +15,7 @@ namespace BussinessObject.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-RP8V9AM\\SQLEXPRESS;Initial Catalog=SEP490_DoctorPet;User Id = sa; pwd = 123456;Trust Server certificate = true;");
+            optionsBuilder.UseSqlServer("Data Source=KOY;Initial Catalog=SEP490_DoctorPet;User Id = sa; pwd = 123456;Trust Server certificate = true;");
         }
 
         public DbSet<Appointment> Appointments { get; set; }
@@ -34,5 +34,6 @@ namespace BussinessObject.Data
         public DbSet<User> Users { get; set; }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Admin> Admins { get; set; }
     }
 }

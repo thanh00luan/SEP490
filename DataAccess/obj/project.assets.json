@@ -6073,19 +6073,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Thanh Luan\\.nuget\\packages\\": {}
+    "C:\\Users\\Anh Koy\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DataAccess.csproj",
+      "projectUniqueName": "C:\\Users\\Anh Koy\\SEP490_PROJECT\\DataAccess\\DataAccess.csproj",
       "projectName": "DataAccess",
-      "projectPath": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DataAccess.csproj",
-      "packagesPath": "C:\\Users\\Thanh Luan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\obj\\",
+      "projectPath": "C:\\Users\\Anh Koy\\SEP490_PROJECT\\DataAccess\\DataAccess.csproj",
+      "packagesPath": "C:\\Users\\Anh Koy\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Anh Koy\\SEP490_PROJECT\\DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Thanh Luan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Anh Koy\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6099,8 +6099,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\BussinessObject.csproj": {
-              "projectPath": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\BussinessObject.csproj"
+            "C:\\Users\\Anh Koy\\SEP490_PROJECT\\BussinessObject\\BussinessObject.csproj": {
+              "projectPath": "C:\\Users\\Anh Koy\\SEP490_PROJECT\\BussinessObject\\BussinessObject.csproj"
             }
           }
         }
@@ -6109,11 +6109,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -6135,7 +6130,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }
