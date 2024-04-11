@@ -4,6 +4,7 @@ using BussinessObject.Models;
 using DataAccess.DTO.Appointment;
 using DataAccess.DTO.DDoctor;
 using DataAccess.DTO.Employee;
+using DataAccess.RequestDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -214,7 +215,7 @@ namespace DataAccess.DAO
 
 
 
-        public List<int> GetDoctorAvailability(string doctorId, DateTime startDate, DateTime endDate)
+        public List<SetDoctorRequest> GetDoctorAvailability(string doctorId, DateTime startDate, DateTime endDate)
         {
             try
             {
@@ -224,21 +225,30 @@ namespace DataAccess.DAO
 
                 if (doctorSlots.Any())
                 {
-                    List<int> availability = new List<int>();
+                    List<SetDoctorRequest> availabilityList = new List<SetDoctorRequest>();
 
                     foreach (var slot in doctorSlots)
                     {
+                        SetDoctorRequest availability = new SetDoctorRequest
+                        {
+                            DoctorId = doctorId,
+                            availabilitySlots = new List<int>(),
+                            RegisterDate = slot.RegisterDate
+                        };
+
                         if (slot.Slots != null)
                         {
-                            availability.AddRange(slot.Slots.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse));
+                            availability.availabilitySlots.AddRange(slot.Slots.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse));
                         }
+
+                        availabilityList.Add(availability);
                     }
 
-                    return availability;
+                    return availabilityList;
                 }
                 else
                 {
-                    return new List<int>();
+                    return new List<SetDoctorRequest>();
                 }
             }
             catch (Exception ex)
@@ -248,37 +258,54 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<List<AvaibleDoctorDTO>> GetAvailableDoctors(int customerSlot, string clinicId, DateTime start, DateTime end)
+        public async Task<List<AvaibleDoctorDTO>> GetAvailableDoctors(string appointmentId)
         {
             try
             {
-                var doctors = await _context.Doctors
-                    .Include(d => d.User) 
-                    .Include(d => d.Clinic) 
-                    .Where(d => d.ClinicId == clinicId)
-                    .ToListAsync(); 
+                var appointment = await _context.Appointments
+                    .Include(a => a.User)
+                    .Include(a => a.Clinic)
+                    .FirstOrDefaultAsync(a => a.AppointmentId == appointmentId);
+
+                if (appointment == null)
+                {
+                    return new List<AvaibleDoctorDTO>();
+                }
+                var doctors = _context.Doctors.Include(d => d.User).Include(d=>d.Clinic).Where(d => d.ClinicId == appointment.ClinicId).ToList();
                 var availableDoctors = new List<AvaibleDoctorDTO>();
+
                 foreach (var doctor in doctors)
                 {
-                    var availabilitySlots = GetDoctorAvailability(doctor.DoctorId, start, end);
-                    if (availabilitySlots.Contains(customerSlot))
-                    {
-                        
-                        var doctorDTO = new AvaibleDoctorDTO
-                        {
-                            
-                            DoctorName = doctor.User.FullName, 
-                            DoctorStatus = doctor.Status,
-                            ClinicName = doctor.Clinic.ClinicName,
-                            Address = doctor.User.Address,
-                            PhoneNumber = doctor.User.PhoneNumber,
-                            Specialized = doctor.Specialized,
-                        };
+                    var doctorAvailability = GetDoctorAvailability(doctor.DoctorId, appointment.AppointmentDate, appointment.AppointmentDate);
 
-                        availableDoctors.Add(doctorDTO);
+
+                    foreach (var availabilitySlot in doctorAvailability)
+                    {
+                        if (availabilitySlot.availabilitySlots.Contains(appointment.SlotNumber))
+                        {
+                            var isBooked = await _context.Appointments
+                                .AnyAsync(a => a.DoctorId == doctor.DoctorId &&
+                                               a.AppointmentDate == availabilitySlot.RegisterDate &&
+                                               a.SlotNumber == appointment.SlotNumber &&
+                                               a.AppointmentId != appointmentId);
+
+                            if (!isBooked)
+                            {
+                                var doctorDTO = new AvaibleDoctorDTO
+                                {
+                                    DoctorName = doctor.User.FullName,
+                                    DoctorStatus = doctor.Status,
+                                    ClinicName = doctor.Clinic.ClinicName,
+                                    Address = doctor.User.Address,
+                                    PhoneNumber = doctor.User.PhoneNumber,
+                                    Specialized = doctor.Specialized,
+                                };
+
+                                availableDoctors.Add(doctorDTO);
+                            }
+                        }
                     }
                 }
-
                 return availableDoctors;
             }
             catch (Exception ex)
@@ -287,6 +314,7 @@ namespace DataAccess.DAO
                 throw;
             }
         }
+
 
         public async Task AssignDoctorToAppointment(string appointmentId, string doctorId)
         {

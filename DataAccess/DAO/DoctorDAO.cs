@@ -60,7 +60,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public List<int> GetDoctorAvailability(string doctorId, DateTime startDate, DateTime endDate)
+        public List<SetDoctorRequest> GetDoctorAvailability(string doctorId, DateTime startDate, DateTime endDate)
         {
             try
             {
@@ -70,21 +70,30 @@ namespace DataAccess.DAO
 
                 if (doctorSlots.Any())
                 {
-                    List<int> availability = new List<int>();
+                    List<SetDoctorRequest> availabilityList = new List<SetDoctorRequest>();
 
                     foreach (var slot in doctorSlots)
                     {
+                        SetDoctorRequest availability = new SetDoctorRequest
+                        {
+                            DoctorId = doctorId,
+                            availabilitySlots = new List<int>(),
+                            RegisterDate = slot.RegisterDate
+                        };
+
                         if (slot.Slots != null)
                         {
-                            availability.AddRange(slot.Slots.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse));
+                            availability.availabilitySlots.AddRange(slot.Slots.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse));
                         }
+
+                        availabilityList.Add(availability);
                     }
 
-                    return availability;
+                    return availabilityList;
                 }
                 else
                 {
-                    return new List<int>(); 
+                    return new List<SetDoctorRequest>();
                 }
             }
             catch (Exception ex)
@@ -93,6 +102,7 @@ namespace DataAccess.DAO
                 throw;
             }
         }
+
 
 
 

@@ -94,12 +94,12 @@ namespace StaffAPI.Controllers
             }
         }
 
-        [HttpGet("availableDoctors/{customerSlot}/{clinicId}")]
-        public async Task<IActionResult> GetAvailableDoctors(int customerSlot, string clinicId)
+        [HttpGet("availableDoctors/{customerSlot}/{clinicId}/{start}/{end}")]
+        public async Task<IActionResult> GetAvailableDoctors(int customerSlot, string clinicId, DateTime start, DateTime end)
         {
             try
             {
-                var availableDoctors = await _StaffRepository.GetAvailableDoctors(customerSlot, clinicId);
+                var availableDoctors = await _StaffRepository.GetAvailableDoctors(customerSlot, clinicId, start, end);
                 return Ok(availableDoctors);
             }
             catch (Exception ex)

@@ -22,7 +22,7 @@ namespace DataAccess.IRepository
 
         Task<GetALLDTOCount> GetPendingAppointment(DateTime startDate, DateTime endDate, int limit, int offset);
 
-        Task<List<AvaibleDoctorDTO>> GetAvailableDoctors(int customerSlot, string clinicId);
+        Task<List<AvaibleDoctorDTO>> GetAvailableDoctors(string aId);
         Task AssignDoctorToAppointment(string appointmentId, string doctorId);
 
 

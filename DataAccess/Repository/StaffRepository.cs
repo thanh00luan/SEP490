@@ -33,8 +33,8 @@ namespace DataAccess.Repository
         // public Task DeleteStaff(string id)=>_StaffDAO.DeleteStaff(id);
         public Task<IEnumerable<StaffDTO>> getAlls() => _StaffDAO.GetAllStaff();
 
-        public Task<List<AvaibleDoctorDTO>> GetAvailableDoctors(int customerSlot, string clinicId)
-         => _StaffDAO.GetAvailableDoctors(customerSlot, clinicId);
+        public Task<List<AvaibleDoctorDTO>> GetAvailableDoctors(string aId)
+         => _StaffDAO.GetAvailableDoctors(aId);
 
         public Task<GetALLDTOCount> GetPendingAppointment(DateTime startDate, DateTime endDatent, int limit, int offset)
             =>_StaffDAO.GetPendingAppointment(startDate,endDatent, limit, offset);

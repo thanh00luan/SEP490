@@ -21,7 +21,7 @@ namespace DataAccess.Repository
         }
         public void ConfirmAppointment(string doctorId, string appointmentId)
             => _doctorDAO.ConfirmAppointment(doctorId, appointmentId);
-        public List<int> GetDoctorAvailability(string doctorId, DateTime startDate, DateTime endDate)
+        public List<SetDoctorRequest> GetDoctorAvailability(string doctorId, DateTime startDate, DateTime endDate)
             => _doctorDAO.GetDoctorAvailability(doctorId, startDate,endDate);
 
         public Task<GetALLDTOCount> GetDoctorAppointList(int limit, int offset, string doctorId, DateTime date)
