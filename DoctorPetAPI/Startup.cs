@@ -95,6 +95,8 @@ namespace DoctorPetAPI
             services.AddScoped<DoctorDAO>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<AppointmentDAO>();
+            services.AddScoped<IAdminRepository, AdminRepository>();
+            services.AddScoped<SuperAdminDAO>();
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll",

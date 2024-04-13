@@ -1,5 +1,6 @@
 ﻿using DataAccess.DAO;
 using DataAccess.DTO.Admin;
+using DataAccess.DTO.Employee;
 using DataAccess.IRepository;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,17 @@ namespace DataAccess.Repository
         {
             _adminDAO = adminDAO;
         }
+
+        //Staff
+        public Task UpdateStaff(StaffManaDTO staffDTO)
+            => _adminDAO.UpdateStaff(staffDTO);
+        public Task AddStaff(StaffManaDTO staffDTO)
+            =>_adminDAO.AddStaff(staffDTO);
+        public Task<IEnumerable<StaffManaDTO>> GetAllStaff()
+            => _adminDAO.GetAllStaff();
+        public Task<StaffManaDTO> GetStaffById(string id)
+            => _adminDAO.GetStaffById(id);
+        //User
         public Task DeleteUserAsync(string userId)
             =>_adminDAO.DeleteUserAsync(userId);
 
@@ -27,5 +39,11 @@ namespace DataAccess.Repository
 
         public Task UpdateUserAsync(UserManaDTO user)
             =>_adminDAO.UpdateUserAsync(user);
+
+        //Pet
+
+        //Pet Category
+
+
     }
 }

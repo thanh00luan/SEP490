@@ -57,6 +57,8 @@ namespace DataAccess.Mapper
 
             CreateMap<UserManaDTO, User>().ReverseMap();
 
+            CreateMap<DoctorManaDTO, Doctor>().ReverseMap();
+
         }
 
     }

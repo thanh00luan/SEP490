@@ -17,7 +17,7 @@ namespace DataAccess.IRepository
         void BookAppointment(DoctorClinicDTO appointment);
         Task<bool> SetDoctorAvailableSlots(string doctorId, string clinicId, DateTime date, List<int> availableSlots);
 
-        Task<GetALLDTOCount> GetAll(DateTime appointmentDate, int limit, int offset);
+        Task<GetALLDTOCount> GetAll( int limit, int offset);
 
     }
 }

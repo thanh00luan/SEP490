@@ -14,7 +14,7 @@ namespace DataAccess.DTO.DDoctor
         public string PhoneNumber { get; set; }
         public string Specialized { get; set; }
         public bool DoctorStatus { get; set; }
-
+        public string Degree { get; set; }
         public string ClinicName { get; set; }
     }
 }

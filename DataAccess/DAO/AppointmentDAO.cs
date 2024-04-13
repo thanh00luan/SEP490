@@ -56,7 +56,7 @@ namespace DataAccess.DAO
                 throw;
             }
         }
-        public async Task<GetALLDTOCount> GetAll(DateTime appointmentDate, int limit, int offset)
+        public async Task<GetALLDTOCount> GetAll(int limit, int offset)
         {
             try
             {
@@ -86,7 +86,6 @@ namespace DataAccess.DAO
                     .Include(a => a.Pet)
                     .Include(a => a.Clinic)
                     .Include(a => a.User)
-                    .Where(a => a.AppointmentDate.Date == appointmentDate.Date) // Lọc theo ngày
                     .OrderBy(a =>
                         a.Status == "inProgress" ? (a.AppointmentDate <= currentTime ? 0 : 1) :
                         a.Status == "waiting" ? (a.AppointmentDate <= currentTime ? 2 : 3) :
@@ -115,7 +114,7 @@ namespace DataAccess.DAO
 
                 var appointmentDTOWithCount = new GetALLDTOCount();
                 appointmentDTOWithCount.AppointmentDTOs = appointmentDTOs;
-                appointmentDTOWithCount.Total = _context.Appointments.Count(a => a.AppointmentDate.Date == appointmentDate.Date); // Đếm tổng số cuộc hẹn trong ngày
+                appointmentDTOWithCount.Total = await _context.Appointments.CountAsync();
                 return appointmentDTOWithCount;
             }
             catch (Exception ex)
@@ -227,6 +226,52 @@ namespace DataAccess.DAO
                 throw;
             }
         }
+
+        public async Task<List<ClinicSlotsResponse>> GetAvailableSlotsInRange(string clinicId, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var clinic = await _context.Clinics
+                    .Include(c => c.Doctors)
+                    .FirstOrDefaultAsync(c => c.ClinicId == clinicId);
+
+                if (clinic == null)
+                {
+                    throw new Exception($"Clinic with ID {clinicId} not found.");
+                }
+
+                var doctorIds = clinic.Doctors.Select(d => d.DoctorId).ToList();
+
+                var doctorSlots = await _context.DoctorSlots
+                    .Where(ds => doctorIds.Contains(ds.DoctorId) && ds.RegisterDate >= startDate.Date && ds.RegisterDate <= endDate.Date)
+                    .ToListAsync();
+
+                var availableSlots = new List<ClinicSlotsResponse>();
+
+                foreach (var doctorSlot in doctorSlots)
+                {
+                    var slots = doctorSlot.Slots.Split(',').Select(int.Parse).ToList();
+
+                    var clinicSlotResponse = new ClinicSlotsResponse
+                    {
+                        ClinicId = clinicId,
+                        Date = doctorSlot.RegisterDate.ToString("yyyy-MM-dd"),
+                        Slots = slots
+                    };
+
+                    availableSlots.Add(clinicSlotResponse);
+                }
+
+                return availableSlots;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAvailableSlotsInRangeForDoctor: {ex.Message}");
+                throw;
+            }
+        }
+
+
 
 
 

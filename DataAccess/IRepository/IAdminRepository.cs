@@ -1,5 +1,6 @@
 ﻿using BussinessObject.Models;
 using DataAccess.DTO.Admin;
+using DataAccess.DTO.Employee;
 using DataAccess.DTO.Medicine;
 using System;
 using System.Collections.Generic;
@@ -11,32 +12,27 @@ namespace DataAccess.IRepository
 {
     public interface IAdminRepository
     {
-        //Medicine Management
-        //Task<IEnumerable<MedicineDTO>> GetAllMedicineAsync();
-        //Task AddMedicineAsync(MedicineDTO Medicine);
-        //Task UpdateMedicineAsync(MedicineDTO Medicine);
-        //Task DeleteMedicineAsync(string MedicineId);
+        //Pet interface
+
+        //Pet Category interface
 
 
-        //Category Management
-        //Task<IEnumerable<MedicineCategory>> GetAllCategoryAsync();
-        //Task AddCategoryAsync(MedicineCategory category);
-        //Task UpdateCategoryAsync(MedicineCategory category);
-        //Task DeleteCategoryAsync(string cateId);
-
-        //Booking Management
-
-
-        // User Management
+        // User interface
         Task<IEnumerable<UserManaDTO>> GetAllUsersAsync();
         Task<UserManaDTO> GetUserByIdAsync(string userId);
         Task UpdateUserAsync(UserManaDTO user);
         Task DeleteUserAsync(string userId);
 
+        //Staff interface
+        Task AddStaff(StaffManaDTO staffDTO);
+        Task<IEnumerable<StaffManaDTO>> GetAllStaff();
+        Task<StaffManaDTO> GetStaffById(string id);
+        Task UpdateStaff(StaffManaDTO staffDTO);
+
         // Statistic
         //Task<int> GetTotalNumberOfMedicinesAsync();
         //Task<int> GetTotalNumberOfBookingAsync();
         //Task<decimal> GetTotalSalesAsync();
-        
+
     }
 }
