@@ -16,6 +16,12 @@ namespace DataAccess.IRepository
 
         //Pet Category interface
 
+        //Medicine interface
+        Task<IEnumerable<MedicineManaDTO>> getAllMedicineAsync();
+        Task CreateMedicineAsync(MedicineManaDTO medicineDTO);
+        Task<MedicineManaDTO> GetMedicineByIdAsync(string medicineId);
+        Task UpdateMedicineAsync(MedicineManaDTO medicineDTO);
+        Task DeleteMedicineAsync(string medicineId);
 
         // User interface
         Task<IEnumerable<UserManaDTO>> GetAllUsersAsync();
@@ -28,6 +34,8 @@ namespace DataAccess.IRepository
         Task<IEnumerable<StaffManaDTO>> GetAllStaff();
         Task<StaffManaDTO> GetStaffById(string id);
         Task UpdateStaff(StaffManaDTO staffDTO);
+
+        Task DeleteStaffAsync(string id);
 
         // Statistic
         //Task<int> GetTotalNumberOfMedicinesAsync();

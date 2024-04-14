@@ -64,7 +64,7 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("slots/{clinicId}")]
-        public async Task<IActionResult> GetAvailableSlotsInRange(string clinicId, [FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        public async Task<IActionResult> GetAvailableSlotsInRange(string clinicId,DateTime startDate, DateTime endDate)
         {
             try
             {

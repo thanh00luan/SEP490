@@ -17,6 +17,74 @@ namespace DoctorPetAPI.Controllers
         {
             _repository = repository;
         }
+
+        //Medicine
+        [HttpPost("AddMedicine")]
+        public async Task<IActionResult> AddMedicine(MedicineManaDTO dto)
+        {
+            try
+            {
+                await _repository.CreateMedicineAsync(dto);
+                return Ok("Medicine added successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("GetAllMedicine")]
+        public async Task<IActionResult> GetAllMedicine()
+        {
+            try
+            {
+                var medicines = await _repository.getAllMedicineAsync();
+                return Ok(medicines);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("GetMedicineById/{id}")]
+        public async Task<IActionResult> GetMedicineById(string id)
+        {
+            try
+            {
+                var medicine = await _repository.GetMedicineByIdAsync(id);
+                if (medicine != null)
+                    return Ok(medicine);
+                else
+                    return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPut("UpdateMedicine")]
+        public async Task<IActionResult> UpdateMedicine(MedicineManaDTO dto)
+        {
+            try
+            {
+                await _repository.UpdateMedicineAsync(dto);
+                return Ok("Medicine updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpDelete("{medicineId}")]
+        public async Task<IActionResult> DeleteMedicineAsync(string medicineId)
+        {
+            await _repository.DeleteMedicineAsync(medicineId);
+            return Ok("Medicine deleted successfully.");
+        }
+
+
         //Staff 
         [HttpPost("AddStaff")]
         public async Task<IActionResult> AddStaff(StaffManaDTO staffDTO)
@@ -70,6 +138,19 @@ namespace DoctorPetAPI.Controllers
             {
                 await _repository.UpdateStaff(staffDTO);
                 return Ok("Staff updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpDelete("DeleteStaff/{staffId}")]
+        public async Task<IActionResult> DeleteStaff(string staffId)
+        {
+            try
+            {
+                await _repository.DeleteStaffAsync(staffId);
+                return Ok("Staff deleted successfully");
             }
             catch (Exception ex)
             {

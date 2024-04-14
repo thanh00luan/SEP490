@@ -9,6 +9,7 @@ namespace DataAccess.DTO.DDoctor
 {
     public class AvaibleDoctorDTO
     {
+        public string DoctorId { get; set; }
         public string DoctorName { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }

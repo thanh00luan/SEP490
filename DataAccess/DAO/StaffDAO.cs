@@ -182,7 +182,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<GetALLDTOCount> GetPendingAppointment(DateTime startDate, DateTime endDate, int limit, int offset)
+        public async Task<GetALLDTOCount> GetPendingAppointment(DateTime date, int limit, int offset)
         {
             try
             {
@@ -190,7 +190,7 @@ namespace DataAccess.DAO
                         .Include(a => a.Pet)
                         .Include(a => a.Clinic)
                         .Include(a => a.User)
-                        .Where(a => a.Status == "pending" && a.AppointmentDate.Date >= startDate.Date && a.AppointmentDate.Date <= endDate.Date)
+                        .Where(a => a.Status == "pending" && a.AppointmentDate.Date == date.Date )
                         .OrderByDescending(a => a.AppointmentDate)
                         .Skip(offset)
                         .Take(limit)
@@ -201,7 +201,7 @@ namespace DataAccess.DAO
                 var appointmentDTOWithCount = new GetALLDTOCount();
                 appointmentDTOWithCount.AppointmentDTOs = appointmentDTOs;
                 appointmentDTOWithCount.Total = await _context.Appointments
-                    .Where(a => a.Status == "pending" && a.AppointmentDate.Date >= startDate.Date && a.AppointmentDate.Date <= endDate.Date)
+                    .Where(a => a.Status == "pending" && a.AppointmentDate.Date == date.Date)
                     .CountAsync();
 
                 return appointmentDTOWithCount;
@@ -293,6 +293,7 @@ namespace DataAccess.DAO
                             {
                                 var doctorDTO = new AvaibleDoctorDTO
                                 {
+                                    DoctorId = doctor.DoctorId,
                                     DoctorName = doctor.User.FullName,
                                     DoctorStatus = doctor.Status,
                                     ClinicName = doctor.Clinic.ClinicName,

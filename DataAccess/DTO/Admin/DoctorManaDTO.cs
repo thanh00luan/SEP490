@@ -8,12 +8,17 @@ namespace DataAccess.DTO.Admin
 {
     public class DoctorManaDTO
     {
+        public string DoctorId { get; set; }
         public string DoctorName { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string Specialized { get; set; }
-        public bool DoctorStatus { get; set; }
         public string Degree { get; set; }
-        public string ClinicName { get; set; }
+        public bool DoctorStatus { get; set; }
+
+        public string Email { get; set; }
+
+        public DateTime BirthDate { get; set; }
+        public string UserId { get; set; }
     }
 }

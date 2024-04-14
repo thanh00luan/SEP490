@@ -36,8 +36,8 @@ namespace DataAccess.Repository
         public Task<List<AvaibleDoctorDTO>> GetAvailableDoctors(string aId)
          => _StaffDAO.GetAvailableDoctors(aId);
 
-        public Task<GetALLDTOCount> GetPendingAppointment(DateTime startDate, DateTime endDatent, int limit, int offset)
-            =>_StaffDAO.GetPendingAppointment(startDate,endDatent, limit, offset);
+        public Task<GetALLDTOCount> GetPendingAppointment(DateTime date, int limit, int offset)
+            =>_StaffDAO.GetPendingAppointment(date, limit, offset);
 
         public Task<StaffDTO> GetStaffById(string id) => _StaffDAO.GetStaffById(id);
 

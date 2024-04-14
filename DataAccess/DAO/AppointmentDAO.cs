@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace DataAccess.DAO
 {
@@ -131,6 +132,7 @@ namespace DataAccess.DAO
         public void BookAppointment(DoctorClinicDTO appointment)
         {
             Appointment newAppointment = _mapper.Map<Appointment>(appointment);
+            newAppointment.SlotNumber = appointment.Slot;
             newAppointment.AppointmentDate = appointment.Date;
             newAppointment.AppointmentId = Guid.NewGuid().ToString();
             newAppointment.Status = "pending";
@@ -250,16 +252,31 @@ namespace DataAccess.DAO
 
                 foreach (var doctorSlot in doctorSlots)
                 {
-                    var slots = doctorSlot.Slots.Split(',').Select(int.Parse).ToList();
-
-                    var clinicSlotResponse = new ClinicSlotsResponse
+                    if (!string.IsNullOrEmpty(doctorSlot.Slots)) 
                     {
-                        ClinicId = clinicId,
-                        Date = doctorSlot.RegisterDate.ToString("yyyy-MM-dd"),
-                        Slots = slots
-                    };
+                        var slots = doctorSlot.Slots.Split(',').Select(int.Parse).ToList();
 
-                    availableSlots.Add(clinicSlotResponse);
+                        var clinicSlotResponse = new ClinicSlotsResponse
+                        {
+                            ClinicId = clinicId,
+                            Date = doctorSlot.RegisterDate.ToString("yyyy-MM-dd"),
+                            Slots = slots
+                        };
+
+                        availableSlots.Add(clinicSlotResponse);
+                    }
+                    else
+                    {
+                        var clinicSlotResponse = new ClinicSlotsResponse
+                        {
+                            ClinicId = clinicId,
+                            Date = doctorSlot.RegisterDate.ToString("yyyy-MM-dd"),
+                            Slots = new List<int> {  }
+                        };
+                        availableSlots.Add(clinicSlotResponse);
+
+                        Console.WriteLine($"Slots are empty for doctor slot on {doctorSlot.RegisterDate.ToString("yyyy-MM-dd")}");
+                    }
                 }
 
                 return availableSlots;

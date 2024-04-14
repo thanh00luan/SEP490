@@ -20,7 +20,7 @@ namespace DataAccess.IRepository
 
          Task<IEnumerable<StaffDTO>> SortStaffByName();
 
-        Task<GetALLDTOCount> GetPendingAppointment(DateTime startDate, DateTime endDate, int limit, int offset);
+        Task<GetALLDTOCount> GetPendingAppointment(DateTime date, int limit, int offset);
 
         Task<List<AvaibleDoctorDTO>> GetAvailableDoctors(string aId);
         Task AssignDoctorToAppointment(string appointmentId, string doctorId);

@@ -18,6 +18,18 @@ namespace DataAccess.Repository
             _adminDAO = adminDAO;
         }
 
+        //Medicine
+        public Task<IEnumerable<MedicineManaDTO>> getAllMedicineAsync()
+            =>_adminDAO.getAllMedicineAsync();
+        public Task CreateMedicineAsync(MedicineManaDTO medicineDTO)
+            => _adminDAO.CreateMedicineAsync(medicineDTO);
+        public Task<MedicineManaDTO> GetMedicineByIdAsync(string medicineId)
+            =>_adminDAO.GetMedicineByIdAsync(medicineId);
+        public Task UpdateMedicineAsync( MedicineManaDTO medicineDTO)
+            =>_adminDAO.UpdateMedicineAsync(medicineDTO);
+        public Task DeleteMedicineAsync(string medicineId)
+            =>_adminDAO.DeleteMedicineAsync(medicineId);
+
         //Staff
         public Task UpdateStaff(StaffManaDTO staffDTO)
             => _adminDAO.UpdateStaff(staffDTO);
@@ -27,6 +39,8 @@ namespace DataAccess.Repository
             => _adminDAO.GetAllStaff();
         public Task<StaffManaDTO> GetStaffById(string id)
             => _adminDAO.GetStaffById(id);
+        public Task DeleteStaffAsync(string id)
+            =>_adminDAO.DeleteStaffAsync(id);
         //User
         public Task DeleteUserAsync(string userId)
             =>_adminDAO.DeleteUserAsync(userId);
