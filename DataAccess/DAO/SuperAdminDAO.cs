@@ -25,12 +25,36 @@ namespace DataAccess.DAO
 
         // UserManagement
 
-        public async Task<IEnumerable<UserManaDTO>> GetAllUsersAsync()
+        public async Task<UserListDTO> GetAllUsersAsync(int limit, int offset)
         {
-            var users = await _context.Users.ToListAsync();
-            var usersDTO = _mapper.Map<IEnumerable<UserManaDTO>>(users);
-            return usersDTO;
+            try
+            {
+                var usersQuery = _context.Users.OrderBy(u => u.UserId);
+
+                var totalUsers = await usersQuery.CountAsync();
+
+                var users = await usersQuery.Skip(offset).Take(limit).ToListAsync();
+
+                var usersDTO = _mapper.Map<IEnumerable<UserManaDTO>>(users);
+
+                return new UserListDTO
+                {
+                    TotalUsers = totalUsers,
+                    Users = usersDTO
+                };
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in GetAllUsersAsync: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAllUsersAsync: {ex.Message}");
+                throw;
+            }
         }
+
 
         public async Task<UserManaDTO> GetUserByIdAsync(string userId)
         {
@@ -149,14 +173,15 @@ namespace DataAccess.DAO
                 throw;
             }
         }
-        public async Task<IEnumerable<StaffManaDTO>> GetAllStaff()
+        public async Task<StaffListDTO> GetAllStaff(int limit, int offset)
         {
             try
             {
+                var staffQuery = _context.Employees.Include(e => e.User).OrderBy(e => e.UserId);
 
-                var employees = await _context.Employees
-                    .Include(e => e.User)
-                    .ToListAsync();
+                var totalStaff = await staffQuery.CountAsync();
+
+                var employees = await staffQuery.Skip(offset).Take(limit).ToListAsync();
 
                 var staffDTOs = employees.Select(e => new StaffManaDTO
                 {
@@ -170,7 +195,11 @@ namespace DataAccess.DAO
                     UserId = e.UserId
                 });
 
-                return staffDTOs;
+                return new StaffListDTO
+                {
+                    TotalStaff = totalStaff,
+                    Staffs = staffDTOs
+                };
             }
             catch (Exception ex)
             {
@@ -178,6 +207,7 @@ namespace DataAccess.DAO
                 throw;
             }
         }
+
 
         public async Task UpdateStaff(StaffManaDTO staffDTO)
         {
@@ -354,13 +384,34 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<IEnumerable<DoctorDTO>> GetAllDoctors()
+        public async Task<DoctorListDTO> GetAllDoctors(int limit, int offset)
         {
             try
             {
-                var Doctors = await _context.Doctors.ToListAsync();
-                var DoctorDTOs = _mapper.Map<IEnumerable<DoctorDTO>>(Doctors);
-                return DoctorDTOs;
+                var doctorsQuery = _context.Doctors.Include(d=>d.User).OrderBy(d => d.DoctorId);
+
+                var totalDoctors = await doctorsQuery.CountAsync();
+
+                var doctors = await doctorsQuery.Skip(offset).Take(limit).ToListAsync();
+
+                var doctorDTOs = doctors.Select(e => new DoctorManaDTO
+                {
+                    DoctorId = e.DoctorId,
+                    DoctorName = e.User.FullName,
+                    Address = e.User.Address,
+                    PhoneNumber = e.User.PhoneNumber,
+                    Email = e.User.Email,
+                    BirthDate = e.User.Birthday,
+                    DoctorStatus = e.Status,
+                    Degree = e.Degree,
+                    Specialized = e.Specialized,
+                    UserId = e.UserId
+                });
+                return new DoctorListDTO
+                {
+                    TotalDoctor = totalDoctors,
+                    Doctors = doctorDTOs
+                };
             }
             catch (DbUpdateException ex)
             {
@@ -375,81 +426,88 @@ namespace DataAccess.DAO
         }
 
 
-        //public async Task<AddNewDoctorDTO> GetDoctorById(string id)
-        //{
-        //    try
-        //    {
-        //        var Doctor = await _context.Doctors.FindAsync(id);
-        //        return _mapper.Map<AddNewDoctorDTO>(Doctor);
-        //    }
-        //    catch (DbUpdateException ex)
-        //    {
-        //        Console.WriteLine($"Database Error in GetDoctorDTOById: {ex.Message}");
-        //        throw;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"Error in GetDoctorDTOById: {ex.Message}");
-        //        throw;
-        //    }
-        //}
-
-        //public async Task<IEnumerable<DoctorDTO>> SortDoctorByName()
-        //{
-        //    try
-        //    {
-        //        var sortedDoctors = await _context.Doctors.OrderBy(d => d.DoctorName).ToListAsync();
-        //        var sortedDoctorDTOs = _mapper.Map<IEnumerable<DoctorDTO>>(sortedDoctors);
-        //        return sortedDoctorDTOs;
-        //    }
-        //    catch (DbUpdateException ex)
-        //    {
-        //        Console.WriteLine($"Database Error in SortDoctorByName: {ex.Message}");
-        //        throw;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"Error in SortDoctorByName: {ex.Message}");
-        //        throw;
-        //    }
-        //}
 
 
+        public async Task<DoctorManaDTO> GetDoctorById(string id)
+        {
+            try
+            {
+                var Doctor = await _context.Doctors.FindAsync(id);
+                return _mapper.Map<DoctorManaDTO>(Doctor);
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in GetDoctorDTOById: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetDoctorDTOById: {ex.Message}");
+                throw;
+            }
+        }
 
-        //public async Task UpdateDoctor(AddNewDoctorDTO updateDTO)
-        //{
+        public async Task<IEnumerable<DoctorManaDTO>> SortDoctorByName()
+        {
+            try
+            {
+                var sortedDoctors = await _context.Doctors.Include(d=>d.User).OrderBy(d => d.User.FullName).ToListAsync();
+                var sortedDoctorDTOs = _mapper.Map<IEnumerable<DoctorManaDTO>>(sortedDoctors);
+                return sortedDoctorDTOs;
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in SortDoctorByName: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SortDoctorByName: {ex.Message}");
+                throw;
+            }
+        }
 
-        //    try
-        //    {
 
-        //        var existingDoctor = await _context.Doctors.FindAsync(updateDTO.DoctorId);
-        //        if (existingDoctor == null)
-        //        {
-        //            throw new Exception("Không tìm thấy bac si để cập nhật");
-        //        }
-        //        existingDoctor.DoctorId = updateDTO.DoctorId;
-        //        existingDoctor.DoctorName = updateDTO.DoctorName;
-        //        existingDoctor.Address = updateDTO.Address;
-        //        existingDoctor.PhoneNumber = updateDTO.PhoneNumber;
-        //        existingDoctor.Specialized = updateDTO.Specialized;
-        //        existingDoctor.DoctorStatus = updateDTO.DoctorStatus;
-        //        //existingDoctor.ClinicId = updateDTO.ClinicId;
 
-        //        var doctor = _mapper.Map<Doctor>(existingDoctor);
-        //        _context.Doctors.Update(doctor);
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateException ex)
-        //    {
-        //        Console.WriteLine($"Database Error in UpdateClinic: {ex.Message}");
-        //        throw;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"Error in UpdateClinic: {ex.Message}");
-        //        throw;
-        //    }
-        //}
+        public async Task UpdateDoctor(DoctorManaDTO updateDTO)
+        {
+
+            try
+            {
+
+                var existingDoctor = await _context.Doctors.Include(d => d.User)
+                    .FirstOrDefaultAsync(d => d.DoctorId == updateDTO.DoctorId);
+                if (existingDoctor == null)
+                {
+                    throw new Exception("Error in get doctor.");
+                }
+                existingDoctor.User.FullName = updateDTO.DoctorName;
+                existingDoctor.User.Address = updateDTO.Address;
+                existingDoctor.User.PhoneNumber = updateDTO.PhoneNumber;
+                existingDoctor.Specialized = updateDTO.Specialized;
+                existingDoctor.Status = updateDTO.DoctorStatus;
+                existingDoctor.User.Birthday = updateDTO.BirthDate;
+                existingDoctor.User.Email = updateDTO.Email;
+                existingDoctor.Degree = updateDTO.Degree;
+                
+
+                //existingDoctor.ClinicId = updateDTO.ClinicId;
+
+                var doctor = _mapper.Map<Doctor>(existingDoctor);
+                _context.Doctors.Update(doctor);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in UpdateClinic: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in UpdateClinic: {ex.Message}");
+                throw;
+            }
+        }
 
         //Medicine
         public async Task CreateMedicineAsync(MedicineManaDTO medicineDTO)
@@ -469,22 +527,47 @@ namespace DataAccess.DAO
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<MedicineManaDTO>> getAllMedicineAsync()
+        public async Task<MedicineListDTO> GetAllMedicineAsync(int limit, int offset)
         {
-            var medicines = await _context.Medicines.Include(m=>m.MedicineCategory).ToListAsync();
-
-            return medicines.Select(medicine => new MedicineManaDTO
+            try
             {
-                MedicineId = medicine.MedicineId,
-                MedicineName = medicine.MedicineName,
-                MedicineUnit = medicine.MedicineUnit,
-                Prices = medicine.Prices,
-                Inventory = medicine.Inventory,
-                Specifications = medicine.Specifications,
-                MedicineCateId = medicine.MedicineCateId,
-                MedicineCateName = medicine.MedicineCategory.CategoryName 
-            }).ToList();
+                var medicinesQuery = _context.Medicines.Include(m => m.MedicineCategory).OrderBy(m => m.MedicineId);
+
+                var totalMedicines = await medicinesQuery.CountAsync();
+
+                var medicines = await medicinesQuery.Skip(offset).Take(limit).ToListAsync();
+
+                var medicineDTOs = medicines.Select(medicine => new MedicineManaDTO
+                {
+                    MedicineId = medicine.MedicineId,
+                    MedicineName = medicine.MedicineName,
+                    MedicineUnit = medicine.MedicineUnit,
+                    Prices = medicine.Prices,
+                    Inventory = medicine.Inventory,
+                    Specifications = medicine.Specifications,
+                    MedicineCateId = medicine.MedicineCateId,
+                    MedicineCateName = medicine.MedicineCategory.CategoryName
+                });
+
+                return new MedicineListDTO
+                {
+                    TotalMedicine = totalMedicines,
+                    Medicines = medicineDTOs
+                };
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in GetAllMedicineAsync: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAllMedicineAsync: {ex.Message}");
+                throw;
+            }
         }
+
+
 
         public async Task<MedicineManaDTO> GetMedicineByIdAsync(string medicineId)
         {

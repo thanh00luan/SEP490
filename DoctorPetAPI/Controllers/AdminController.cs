@@ -34,11 +34,11 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetAllMedicine")]
-        public async Task<IActionResult> GetAllMedicine()
+        public async Task<IActionResult> GetAllMedicine(int limit, int offset)
         {
             try
             {
-                var medicines = await _repository.getAllMedicineAsync();
+                var medicines = await _repository.getAllMedicineAsync(limit, offset);
                 return Ok(medicines);
             }
             catch (Exception ex)
@@ -101,11 +101,11 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetAllStaff")]
-        public async Task<IActionResult> GetAllStaff()
+        public async Task<IActionResult> GetAllStaff(int limit, int offset)
         {
             try
             {
-                var staff = await _repository.GetAllStaff();
+                var staff = await _repository.GetAllStaff(limit,offset);
                 return Ok(staff);
             }
             catch (Exception ex)
@@ -174,11 +174,11 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetAllUsers")]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers(int limit, int offset)
         {
             try
             {
-                var users = await _repository.GetAllUsersAsync();
+                var users = await _repository.GetAllUsersAsync(limit, offset);
                 return Ok(users);
             }
             catch (Exception ex)
@@ -211,6 +211,66 @@ namespace DoctorPetAPI.Controllers
             {
                 await _repository.UpdateUserAsync(user);
                 return Ok("User updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        //Doctor
+        [HttpDelete("DeleteDoctor/{doctorId}")]
+        public async Task<IActionResult> DeleteDoctor(string doctorId)
+        {
+            try
+            {
+                await _repository.DeleteDoctor(doctorId);
+                return Ok("doctor deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("GetAllDoctors")]
+        public async Task<IActionResult> GetAllDoctor(int limit, int offset)
+        {
+            try
+            {
+                var doctors = await _repository.GetAllDoctors(limit, offset);
+                return Ok(doctors);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("GetDoctorById/{doctorId}")]
+        public async Task<IActionResult> GetDoctorById(string doctorId)
+        {
+            try
+            {
+                var doctor = await _repository.GetDoctorById(doctorId);
+                if (doctor != null)
+                    return Ok(doctor);
+                else
+                    return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPut("UpdateDoctor")]
+        public async Task<IActionResult> UpdateDoctor(DoctorManaDTO doctor)
+        {
+            try
+            {
+                await _repository.UpdateDoctor(doctor);
+                return Ok("Doctor updated successfully");
             }
             catch (Exception ex)
             {
