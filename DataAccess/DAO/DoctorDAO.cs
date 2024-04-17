@@ -213,7 +213,7 @@ namespace DataAccess.DAO
 
                 var presDTO = new PresDTO
                 {
-                    PrescriptionId = prescription.PrescriptionId,
+                    PrescriptionId = Guid.NewGuid().ToString(),
                     Diagnose = prescription.Diagnose,
                     ExaminationDay = prescription.ExaminationDay,
                     CreateDay = prescription.CreateDay,

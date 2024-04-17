@@ -219,6 +219,19 @@ namespace DoctorPetAPI.Controllers
         }
 
         //Doctor
+        [HttpPost("AddDoctor")]
+        public async Task<IActionResult> AddDoctor(DoctorManaDTO dto)
+        {
+            try
+            {
+                await _repository.AddDoctor(dto);
+                return Ok("Doctor added successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
         [HttpDelete("DeleteDoctor/{doctorId}")]
         public async Task<IActionResult> DeleteDoctor(string doctorId)
         {

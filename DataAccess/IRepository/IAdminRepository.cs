@@ -50,5 +50,12 @@ namespace DataAccess.IRepository
         //Task<int> GetTotalNumberOfBookingAsync();
         //Task<decimal> GetTotalSalesAsync();
 
+        //Inventory
+        //Task ImportToStorage(StorageDTO storageDTO);
+        //Task ExportFromStorage(string importCode, int exportQuantity);
+        //Task<IEnumerable<StorageDTO>> GetAllStorageItems(int limit, int offset);
+        //Task<StorageDTO> GetStorageItemByImportCode(string importCode);
+        //Task<IEnumerable<StorageDTO>> GetExpiredItems(DateTime currentDate);
+
     }
 }

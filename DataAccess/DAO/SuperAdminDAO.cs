@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -432,20 +433,40 @@ namespace DataAccess.DAO
         {
             try
             {
-                var Doctor = await _context.Doctors.FindAsync(id);
-                return _mapper.Map<DoctorManaDTO>(Doctor);
-            }
-            catch (DbUpdateException ex)
-            {
-                Console.WriteLine($"Database Error in GetDoctorDTOById: {ex.Message}");
-                throw;
+                var doctor = await _context.Doctors
+                    .Include(d => d.User)
+                    .FirstOrDefaultAsync(d => d.DoctorId == id);
+
+                if (doctor == null)
+                {
+                    
+                    return null;
+                }
+
+                var doctorDTO = new DoctorManaDTO
+                {
+                    DoctorId = doctor.DoctorId,
+                    DoctorName = doctor.User.FullName,
+                    Address = doctor.User.Address,
+                    PhoneNumber = doctor.User.PhoneNumber,
+                    Email = doctor.User.Email,
+                    BirthDate = doctor.User.Birthday,
+                    DoctorStatus = doctor.Status,
+                    Degree = doctor.Degree,
+                    Specialized = doctor.Specialized,
+                    UserId = doctor.UserId
+                };
+
+                return doctorDTO;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetDoctorDTOById: {ex.Message}");
-                throw;
+                // Log the error
+                Console.WriteLine($"Error in GetDoctorById: {ex.Message}");
+                throw; 
             }
         }
+
 
         public async Task<IEnumerable<DoctorManaDTO>> SortDoctorByName()
         {
@@ -514,7 +535,7 @@ namespace DataAccess.DAO
         {
             var medicine = new Medicine
             {
-                MedicineId = medicineDTO.MedicineId,
+                MedicineId = Guid.NewGuid().ToString(),
                 MedicineName = medicineDTO.MedicineName,
                 MedicineUnit = medicineDTO.MedicineUnit,
                 Prices = medicineDTO.Prices,
