@@ -1,5 +1,7 @@
 ﻿using DataAccess.DAO;
+using DataAccess.DTO.Admin;
 using DataAccess.DTO.Appointment;
+using DataAccess.DTO.DDoctor;
 using DataAccess.DTO.Precscription;
 using DataAccess.IRepository;
 using DataAccess.RequestDTO;
@@ -30,7 +32,13 @@ namespace DataAccess.Repository
         public void SetDoctorAvailability(List<SetDoctorRequest> requests) 
             => _doctorDAO.SetDoctorAvailability(requests);
 
-        public Task<PresDTO> GeneratePres(CreateDTO dto)
-         =>_doctorDAO.GeneratePres(dto);
+        public Task<PresDTO> GeneratePres(GeneratePrescriptionDTO dto)
+         => _doctorDAO.GeneratePres(dto);
+
+        public Task<MedicineManaDTO> SearchMedicineByName(string name)
+            => _doctorDAO.SearchMedicineByName(name);
+
+        public Task<MedicineListDTO> getMedicineByCate(string clinicId, string cateId, int limit, int offset)
+            => _doctorDAO.getMedicineByCate(clinicId,cateId, limit, offset);
     }
 }

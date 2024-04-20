@@ -34,5 +34,7 @@ namespace BussinessObject.Models
         public List<Appointment> Appointments { get; set; }
 
         public List<Doctor> Doctors { get; set; }
+
+        public List<Medicine> Medicines { get; set; }
     }
 }

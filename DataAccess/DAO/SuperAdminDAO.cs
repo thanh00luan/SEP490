@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BussinessObject.Data;
 using BussinessObject.Models;
+using DataAccess.DTO;
 using DataAccess.DTO.Admin;
 using DataAccess.DTO.DDoctor;
 using DataAccess.DTO.Employee;
@@ -135,7 +136,7 @@ namespace DataAccess.DAO
                     }
                     else
                     {
-                       
+
                     }
                 }
                 else
@@ -389,7 +390,7 @@ namespace DataAccess.DAO
         {
             try
             {
-                var doctorsQuery = _context.Doctors.Include(d=>d.User).OrderBy(d => d.DoctorId);
+                var doctorsQuery = _context.Doctors.Include(d => d.User).OrderBy(d => d.DoctorId);
 
                 var totalDoctors = await doctorsQuery.CountAsync();
 
@@ -439,7 +440,7 @@ namespace DataAccess.DAO
 
                 if (doctor == null)
                 {
-                    
+
                     return null;
                 }
 
@@ -463,7 +464,7 @@ namespace DataAccess.DAO
             {
                 // Log the error
                 Console.WriteLine($"Error in GetDoctorById: {ex.Message}");
-                throw; 
+                throw;
             }
         }
 
@@ -472,7 +473,7 @@ namespace DataAccess.DAO
         {
             try
             {
-                var sortedDoctors = await _context.Doctors.Include(d=>d.User).OrderBy(d => d.User.FullName).ToListAsync();
+                var sortedDoctors = await _context.Doctors.Include(d => d.User).OrderBy(d => d.User.FullName).ToListAsync();
                 var sortedDoctorDTOs = _mapper.Map<IEnumerable<DoctorManaDTO>>(sortedDoctors);
                 return sortedDoctorDTOs;
             }
@@ -510,7 +511,7 @@ namespace DataAccess.DAO
                 existingDoctor.User.Birthday = updateDTO.BirthDate;
                 existingDoctor.User.Email = updateDTO.Email;
                 existingDoctor.Degree = updateDTO.Degree;
-                
+
 
                 //existingDoctor.ClinicId = updateDTO.ClinicId;
 
@@ -531,7 +532,7 @@ namespace DataAccess.DAO
         }
 
         //Medicine
-        public async Task CreateMedicineAsync(MedicineManaDTO medicineDTO)
+        public async Task CreateMedicineAsync(string clinicId, MedicineManaDTO medicineDTO)
         {
             var medicine = new Medicine
             {
@@ -541,24 +542,28 @@ namespace DataAccess.DAO
                 Prices = medicineDTO.Prices,
                 Inventory = medicineDTO.Inventory,
                 Specifications = medicineDTO.Specifications,
-                MedicineCateId = medicineDTO.MedicineCateId
+                MedicineCateId = medicineDTO.MedicineCateId,
+                ClinicId = clinicId 
             };
 
             _context.Medicines.Add(medicine);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<MedicineListDTO> GetAllMedicineAsync(int limit, int offset)
+        public async Task<MedicineListDTO> GetAllMedicineAsync(string clinicId, int limit, int offset)
         {
             try
             {
-                var medicinesQuery = _context.Medicines.Include(m => m.MedicineCategory).OrderBy(m => m.MedicineId);
+                var clinicMedicinesQuery = _context.Medicines
+                    .Where(m => m.ClinicId == clinicId) 
+                    .Include(m => m.MedicineCategory)
+                    .OrderBy(m => m.MedicineId);
 
-                var totalMedicines = await medicinesQuery.CountAsync();
+                var totalMedicines = await clinicMedicinesQuery.CountAsync();
 
-                var medicines = await medicinesQuery.Skip(offset).Take(limit).ToListAsync();
+                var clinicMedicines = await clinicMedicinesQuery.Skip(offset).Take(limit).ToListAsync();
 
-                var medicineDTOs = medicines.Select(medicine => new MedicineManaDTO
+                var medicineDTOs = clinicMedicines.Select(medicine => new MedicineManaDTO
                 {
                     MedicineId = medicine.MedicineId,
                     MedicineName = medicine.MedicineName,
@@ -587,16 +592,13 @@ namespace DataAccess.DAO
                 throw;
             }
         }
-
-
-
-        public async Task<MedicineManaDTO> GetMedicineByIdAsync(string medicineId)
+        public async Task<MedicineManaDTO> GetMedicineByIdAsync(string clinicId, string medicineId)
         {
             var medicine = await _context.Medicines.FindAsync(medicineId);
 
-            if (medicine == null)
+            if (medicine == null || medicine.ClinicId != clinicId)
             {
-                return null; 
+                return null;
             }
 
             return new MedicineManaDTO
@@ -611,13 +613,13 @@ namespace DataAccess.DAO
             };
         }
 
-        public async Task UpdateMedicineAsync( MedicineManaDTO medicineDTO)
+        public async Task UpdateMedicineAsync(string clinicId, MedicineManaDTO medicineDTO)
         {
             var medicine = await _context.Medicines.FindAsync(medicineDTO.MedicineId);
 
-            if (medicine == null)
+            if (medicine == null || medicine.ClinicId != clinicId)
             {
-                return; 
+                return;
             }
 
             medicine.MedicineName = medicineDTO.MedicineName;
@@ -630,17 +632,137 @@ namespace DataAccess.DAO
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteMedicineAsync(string medicineId)
+        public async Task DeleteMedicineAsync(string clinicId, string medicineId)
         {
             var medicine = await _context.Medicines.FindAsync(medicineId);
 
-            if (medicine == null)
+            if (medicine == null || medicine.ClinicId != clinicId)
             {
-                return; 
+                return;
             }
 
             _context.Medicines.Remove(medicine);
             await _context.SaveChangesAsync();
         }
+
+        //Category
+        public async Task CreateCategoryAsync(CateManaDTO dto)
+        {
+            var generateID = new GenerateID(_context);
+            
+            var cate = new MedicineCategory
+            {
+                MedicineCateId = generateID.GenerateNewCategoryId(),
+                CategoryName = dto.CategoryName
+            };
+
+            _context.MedicineCategories.Add(cate);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<CateManaDTO>> GetAllCateAsync()
+        {
+            try
+            {
+                var cateQuery = _context.MedicineCategories.OrderBy(m => m.MedicineCateId);
+
+                var totalCates = await cateQuery.CountAsync();
+
+                var cate = await cateQuery.ToListAsync();
+
+                var cateDTOs = cate.Select(cate => new CateManaDTO
+                {
+                    MedicineCateId = cate.MedicineCateId,
+                    CategoryName = cate.CategoryName,
+                });
+
+                return cateDTOs;
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in GetAllCateAsync: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAllCateAsync: {ex.Message}");
+                throw;
+            }
+        }
+
+
+
+        public async Task<CateManaDTO> GetCateByIdAsync(string id)
+        {
+            var cate = await _context.MedicineCategories.FindAsync(id);
+
+            if (cate == null)
+            {
+                return null;
+            }
+            
+            return new CateManaDTO
+            {
+                MedicineCateId = cate.MedicineCateId,
+                CategoryName = cate.CategoryName,
+            };
+        }
+
+        public async Task UpdateCateAsync(CateManaDTO dto)
+        {
+            var cate = await _context.MedicineCategories.FindAsync(dto.MedicineCateId);
+
+            if (cate == null)
+            {
+                return;
+            }
+
+            cate.CategoryName = dto.CategoryName;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteCateAsync(string id)
+        {
+            var cate = await _context.MedicineCategories.FindAsync(id);
+
+            if (cate == null)
+            {
+                return;
+            }
+
+            _context.MedicineCategories.Remove(cate);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<CateManaDTO>> SearchByName(string name)
+        {
+            try
+            {
+                var cateQuery = _context.MedicineCategories
+                                    .Where(c => c.CategoryName.Contains(name))
+                                    .OrderBy(c => c.MedicineCateId);
+
+                var totalCates = await cateQuery.CountAsync();
+
+                var cateList = await cateQuery.ToListAsync();
+
+                var cateDTOs = cateList.Select(cate => new CateManaDTO
+                {
+                    MedicineCateId = cate.MedicineCateId,
+                    CategoryName = cate.CategoryName,
+                });
+
+                return cateDTOs;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SearchByName: {ex.Message}");
+                throw;
+            }
+        }
+
     }
 }
+
+
+

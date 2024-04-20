@@ -15,8 +15,8 @@ namespace BussinessObject.Models
         public DateTime CreateDate { get; set; }
         public double TotalPrices { get; set; }
         public int Quantity { get; set; }
-        public string PaymentMethod { get; set; }
-        public bool IsPaid { get; set; }
+        public string PaymentMethod { get; set; }//
+        public bool IsPaid { get; set; }//
         public double Discount { get; set; }
         public string Note { get; set; }
 

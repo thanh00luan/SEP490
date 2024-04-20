@@ -17,11 +17,11 @@ namespace DataAccess.IRepository
         //Pet Category interface
 
         //Medicine interface
-        Task<MedicineListDTO> getAllMedicineAsync(int limit, int offset);
-        Task CreateMedicineAsync(MedicineManaDTO medicineDTO);
-        Task<MedicineManaDTO> GetMedicineByIdAsync(string medicineId);
-        Task UpdateMedicineAsync(MedicineManaDTO medicineDTO);
-        Task DeleteMedicineAsync(string medicineId);
+        Task<MedicineListDTO> getAllMedicineAsync(string clinicId, int limit, int offset);
+        Task CreateMedicineAsync(string clinicId, MedicineManaDTO medicineDTO);
+        Task<MedicineManaDTO> GetMedicineByIdAsync(string clinicId, string medicineId);
+        Task UpdateMedicineAsync(string clinicId, MedicineManaDTO medicineDTO);
+        Task DeleteMedicineAsync(string clinicId, string medicineId);
 
         // User interface
         Task<UserListDTO> GetAllUsersAsync(int limit, int offset);
@@ -44,6 +44,14 @@ namespace DataAccess.IRepository
         Task<DoctorManaDTO> GetDoctorById(string id);
         Task<IEnumerable<DoctorManaDTO>> SortDoctorByName();
         Task UpdateDoctor(DoctorManaDTO updateDTO);
+
+        //Category medicine
+        Task AddCategory(CateManaDTO dto);
+        Task DeleteCategory(string id);
+        Task<IEnumerable<CateManaDTO>> GetAllCategories();
+        Task<CateManaDTO> GetCateById(string id);
+        Task<IEnumerable<CateManaDTO>> SearchByName(string name);
+        Task UpdateCate(CateManaDTO updateDTO);
 
         // Statistic
         //Task<int> GetTotalNumberOfMedicinesAsync();

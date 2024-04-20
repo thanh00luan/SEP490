@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
 using DataAccess.DTO.Employee;
+using DataAccess.DAO;
+using DataAccess.DTO.Clinic;
 
 namespace DoctorPetAPI.Controllers
 {
@@ -20,11 +22,11 @@ namespace DoctorPetAPI.Controllers
 
         //Medicine
         [HttpPost("AddMedicine")]
-        public async Task<IActionResult> AddMedicine(MedicineManaDTO dto)
+        public async Task<IActionResult> AddMedicine(string clinicId, MedicineManaDTO dto)
         {
             try
             {
-                await _repository.CreateMedicineAsync(dto);
+                await _repository.CreateMedicineAsync(clinicId, dto);
                 return Ok("Medicine added successfully");
             }
             catch (Exception ex)
@@ -34,11 +36,11 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetAllMedicine")]
-        public async Task<IActionResult> GetAllMedicine(int limit, int offset)
+        public async Task<IActionResult> GetAllMedicine(string clinicId, int limit, int offset)
         {
             try
             {
-                var medicines = await _repository.getAllMedicineAsync(limit, offset);
+                var medicines = await _repository.getAllMedicineAsync(clinicId, limit, offset);
                 return Ok(medicines);
             }
             catch (Exception ex)
@@ -48,11 +50,11 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetMedicineById/{id}")]
-        public async Task<IActionResult> GetMedicineById(string id)
+        public async Task<IActionResult> GetMedicineById(string clinicId, string id)
         {
             try
             {
-                var medicine = await _repository.GetMedicineByIdAsync(id);
+                var medicine = await _repository.GetMedicineByIdAsync(clinicId, id);
                 if (medicine != null)
                     return Ok(medicine);
                 else
@@ -65,11 +67,11 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpPut("UpdateMedicine")]
-        public async Task<IActionResult> UpdateMedicine(MedicineManaDTO dto)
+        public async Task<IActionResult> UpdateMedicine(string clinicId, MedicineManaDTO dto)           
         {
             try
             {
-                await _repository.UpdateMedicineAsync(dto);
+                await _repository.UpdateMedicineAsync(clinicId, dto);
                 return Ok("Medicine updated successfully");
             }
             catch (Exception ex)
@@ -78,9 +80,9 @@ namespace DoctorPetAPI.Controllers
             }
         }
         [HttpDelete("{medicineId}")]
-        public async Task<IActionResult> DeleteMedicineAsync(string medicineId)
+        public async Task<IActionResult> DeleteMedicineAsync(string clinicId, string medicineId)
         {
-            await _repository.DeleteMedicineAsync(medicineId);
+            await _repository.DeleteMedicineAsync(clinicId, medicineId);
             return Ok("Medicine deleted successfully.");
         }
 
@@ -289,6 +291,52 @@ namespace DoctorPetAPI.Controllers
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
+        }
+
+        //Medicine Category
+        [HttpPost("AddCategory")]
+        public async Task<IActionResult> AddCategory([FromBody] CateManaDTO dto)
+        {
+            await _repository.AddCategory(dto);
+            return Ok("Category added successfully");
+        }
+
+        [HttpDelete("DeleteCategory/{id}")]
+        public async Task<IActionResult> DeleteCategory(string id)
+        {
+            await _repository.DeleteCategory(id);
+            return Ok("Category deleted successfully");
+        }
+
+        [HttpGet("GetAllCategories")]
+        public async Task<IActionResult> GetAllCategories()
+        {
+            var categories = await _repository.GetAllCategories();
+            return Ok(categories);
+        }
+
+        [HttpGet("GetCategoryById/{id}")]
+        public async Task<IActionResult> GetCategoryById(string id)
+        {
+            var category = await _repository.GetCateById(id);
+            if (category == null)
+                return NotFound("Category not found");
+
+            return Ok(category);
+        }
+
+        [HttpGet("SearchCate")]
+        public async Task<IActionResult> SearchCategories(string name)
+        {
+            var categories = await _repository.SearchByName(name);
+            return Ok(categories);
+        }
+
+        [HttpPut("UpdateCategory")]
+        public async Task<IActionResult> UpdateCategory([FromBody] CateManaDTO updateDTO)
+        {
+            await _repository.UpdateCate(updateDTO);
+            return Ok("Category updated successfully");
         }
     }
 }

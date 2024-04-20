@@ -1,5 +1,7 @@
 ﻿using BussinessObject.Models;
+using DataAccess.DTO.Admin;
 using DataAccess.DTO.Appointment;
+using DataAccess.DTO.DDoctor;
 using DataAccess.DTO.Precscription;
 using DataAccess.RequestDTO;
 using System;
@@ -17,7 +19,11 @@ namespace DataAccess.IRepository
         void ConfirmAppointment(string doctorId, string appointmentId);
 
         Task<GetALLDTOCount> GetDoctorAppointList(int limit, int offset, string doctorId, DateTime date);
-        Task<PresDTO> GeneratePres(CreateDTO dto);
+        Task<PresDTO> GeneratePres(GeneratePrescriptionDTO dto);
+
+        Task<MedicineManaDTO> SearchMedicineByName(string name);
+
+        Task<MedicineListDTO> getMedicineByCate(string clinicId, string cateId, int limit, int offset);
 
     }
 }

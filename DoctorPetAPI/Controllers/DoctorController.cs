@@ -76,8 +76,8 @@ namespace DoctorPetAPI.Controllers
             }
         }
 
-        [HttpPost("generateInvoice")]
-        public async Task<IActionResult> GeneratePrescription([FromBody] CreateDTO dto)
+        [HttpPost("generate")]
+        public async Task<IActionResult> GeneratePrescription([FromBody] GeneratePrescriptionDTO dto)
         {
             try
             {
@@ -87,9 +87,41 @@ namespace DoctorPetAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error generating prescription: {ex.Message}");
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpGet("getMedicine/{clinicId}/{cateId}")]
+        public async Task<IActionResult> getMedicineByCate(string clinicId,string cateId, int limit, int offset)
+        {
+            try
+            {
+                var appointments = await _repository.getMedicineByCate(clinicId, cateId, limit, offset);
+                return Ok(appointments);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error getting medicine : {ex.Message}");
+            }
+        }
+
+        [HttpGet("search/{name}")]
+        public async Task<IActionResult> searchMedicineByName(string name)
+        {
+            try
+            {
+                var medicine = await _repository.SearchMedicineByName(name);
+                if (medicine != null)
+                    return Ok(medicine);
+                else
+                    return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
 
     }
 }

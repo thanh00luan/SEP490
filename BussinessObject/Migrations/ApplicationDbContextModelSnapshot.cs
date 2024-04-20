@@ -246,6 +246,9 @@ namespace BussinessObject.Migrations
                     b.Property<string>("MedicineId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("ClinicId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("Inventory")
                         .HasColumnType("int");
 
@@ -265,6 +268,8 @@ namespace BussinessObject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MedicineId");
+
+                    b.HasIndex("ClinicId");
 
                     b.HasIndex("MedicineCateId");
 
@@ -372,6 +377,29 @@ namespace BussinessObject.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Prescriptions");
+                });
+
+            modelBuilder.Entity("BussinessObject.Models.PrescriptionMedicine", b =>
+                {
+                    b.Property<string>("PrescriptionMedicineId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("MedicineId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PrescriptionId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("PrescriptionMedicineId");
+
+                    b.HasIndex("MedicineId");
+
+                    b.HasIndex("PrescriptionId");
+
+                    b.ToTable("prescriptionMedicines");
                 });
 
             modelBuilder.Entity("BussinessObject.Models.Storage", b =>
@@ -548,9 +576,15 @@ namespace BussinessObject.Migrations
 
             modelBuilder.Entity("BussinessObject.Models.Medicine", b =>
                 {
+                    b.HasOne("BussinessObject.Models.Clinic", "Clinic")
+                        .WithMany("Medicines")
+                        .HasForeignKey("ClinicId");
+
                     b.HasOne("BussinessObject.Models.MedicineCategory", "MedicineCategory")
                         .WithMany("Medicines")
                         .HasForeignKey("MedicineCateId");
+
+                    b.Navigation("Clinic");
 
                     b.Navigation("MedicineCategory");
                 });
@@ -576,7 +610,7 @@ namespace BussinessObject.Migrations
 
             modelBuilder.Entity("BussinessObject.Models.Prescription", b =>
                 {
-                    b.HasOne("BussinessObject.Models.Medicine", "Medicine")
+                    b.HasOne("BussinessObject.Models.Medicine", null)
                         .WithMany("Prescriptions")
                         .HasForeignKey("MedicineId");
 
@@ -588,11 +622,24 @@ namespace BussinessObject.Migrations
                         .WithMany("Prescriptions")
                         .HasForeignKey("UserId");
 
-                    b.Navigation("Medicine");
-
                     b.Navigation("Pet");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BussinessObject.Models.PrescriptionMedicine", b =>
+                {
+                    b.HasOne("BussinessObject.Models.Medicine", "Medicine")
+                        .WithMany()
+                        .HasForeignKey("MedicineId");
+
+                    b.HasOne("BussinessObject.Models.Prescription", "Prescription")
+                        .WithMany("PrescriptionMedicines")
+                        .HasForeignKey("PrescriptionId");
+
+                    b.Navigation("Medicine");
+
+                    b.Navigation("Prescription");
                 });
 
             modelBuilder.Entity("BussinessObject.Models.Storage", b =>
@@ -623,6 +670,8 @@ namespace BussinessObject.Migrations
                     b.Navigation("Appointments");
 
                     b.Navigation("Doctors");
+
+                    b.Navigation("Medicines");
                 });
 
             modelBuilder.Entity("BussinessObject.Models.Doctor", b =>
@@ -661,6 +710,11 @@ namespace BussinessObject.Migrations
             modelBuilder.Entity("BussinessObject.Models.PetType", b =>
                 {
                     b.Navigation("Pets");
+                });
+
+            modelBuilder.Entity("BussinessObject.Models.Prescription", b =>
+                {
+                    b.Navigation("PrescriptionMedicines");
                 });
 
             modelBuilder.Entity("BussinessObject.Models.StorageStatus", b =>

@@ -18,11 +18,12 @@ namespace BussinessObject.Models
         public int Inventory { get; set; }
         public string Specifications { get; set; }
         [ForeignKey("MedicineCategory")]
-
         public string MedicineCateId { get; set; }
         public MedicineCategory MedicineCategory { get; set; }
-
         public List<Prescription> Prescriptions { get; set; }
         public List<BillMedicine> BillMedicines { get; set; }
+        [ForeignKey("ClinicId")]
+        public string ClinicId { get; set; }
+        public Clinic Clinic { get; set; }
     }
 }

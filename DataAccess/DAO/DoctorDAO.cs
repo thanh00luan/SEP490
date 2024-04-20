@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using BussinessObject.Data;
 using BussinessObject.Models;
+using DataAccess.DTO.Admin;
 using DataAccess.DTO.Appointment;
+using DataAccess.DTO.DDoctor;
 using DataAccess.DTO.Precscription;
 using DataAccess.RequestDTO;
 using Microsoft.EntityFrameworkCore;
@@ -167,147 +169,167 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<PresDTO> GeneratePres(CreateDTO dto)
+        public async Task<PresDTO> GeneratePres(GeneratePrescriptionDTO dto)
         {
-            try
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                var appointment = await _context.Appointments
-                    .Include(a => a.Pet)
-                    .Include(a => a.User)
-                    .FirstOrDefaultAsync(a => a.AppointmentId == dto.AppointmentId);
-
-                if (appointment == null)
+                try
                 {
-                    throw new ArgumentException("Appointment not found.");
-                }
-                var medicine = await _context.Medicines.FindAsync(dto.MedicineId);
-                if (medicine == null)
-                {
-                    throw new ArgumentException("Medicine not found.");
-                }
+                    var appointment = await _context.Appointments
+                        .Include(a => a.Pet)
+                        .Include(a => a.User)
+                        .FirstOrDefaultAsync(a => a.AppointmentId == dto.CreateDTO.AppointmentId);
 
-                if (medicine.Inventory < dto.Quantity)
-                {
-                    throw new InvalidOperationException("Not enough medicine in stock.");
-                }
-
-                var prescription = new Prescription
-                {
-                    PrescriptionId = Guid.NewGuid().ToString(),
-                    Diagnose = dto.Diagnose,
-                    ExaminationDay = appointment.AppointmentDate,
-                    CreateDay = DateTime.UtcNow,
-                    Reason = dto.Reason,
-                    PetId = appointment.PetId,
-                    MedicineId = dto.MedicineId,
-                    UserId = appointment.UserId
-                };
-
-                medicine.Inventory -= dto.Quantity;
-
-                _context.Prescriptions.Add(prescription);
-
-                appointment.Status = "done";
-
-                await _context.SaveChangesAsync();
-
-                var presDTO = new PresDTO
-                {
-                    PrescriptionId = Guid.NewGuid().ToString(),
-                    Diagnose = prescription.Diagnose,
-                    ExaminationDay = prescription.ExaminationDay,
-                    CreateDay = prescription.CreateDay,
-                    Reason = prescription.Reason,
-                    PetId = prescription.PetId,
-                    PetName = prescription.Pet.PetName,
-                    UserId = prescription.UserId,
-                    FullName = prescription.User.FullName,
-                    MedicineId = prescription.MedicineId,
-                    MedicineName = prescription.Medicine.MedicineName
-                };
-
-                return presDTO;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error generating prescription from appointment: {ex.Message}");
-                throw;
-            }
-        }
-
-        public async Task<string> GenerateInvoiceFromAppointment(GenerateInvoiceDTO dto)
-        {
-            try
-            {
-                var appointment = await _context.Appointments
-                    .Include(a => a.Pet)
-                    .Include(a => a.User)
-                    .FirstOrDefaultAsync(a => a.AppointmentId == dto.AppointmentId);
-
-                if (appointment == null)
-                {
-                    throw new ArgumentException("Appointment not found.");
-                }
-
-                var invoice = new Bill
-                {
-                    BillId = Guid.NewGuid().ToString(),
-                    CreateDate = DateTime.UtcNow,
-                    TotalPrices =await CalculateTotalAmount(appointment, dto.MedicineIds),
-                    Quantity = 1,
-                    PaymentMethod = dto.PaymentMethod, 
-                    IsPaid = dto.IsPaid, 
-                    Discount = dto.Discount, 
-                    Note = dto.Note, 
-                    UserId = appointment.UserId
-                };
-
-                _context.Bills.Add(invoice);
-
-                foreach (var medicineId in dto.MedicineIds)
-                {
-                    var billMedicine = new BillMedicine
+                    if (appointment == null)
                     {
-                        BillMedicineId = Guid.NewGuid().ToString(),
-                        BillId = invoice.BillId,
-                        MedicineId = medicineId,
-                        Quantity = 1 
+                        throw new ArgumentException("Appointment not found.");
+                    }
+
+                    if (string.IsNullOrEmpty(dto.CreateDTO.Diagnose) || string.IsNullOrEmpty(dto.CreateDTO.Reason))
+                    {
+                        throw new ArgumentException("Diagnose and Reason cannot be empty.");
+                    }
+
+                    foreach (var medicineInfo in dto.PrescriptionMedicines)
+                    {
+                        var medicineId = medicineInfo.MedicineId;
+                        var quantity = medicineInfo.Quantity;
+
+                        var medicine = await _context.Medicines.FindAsync(medicineId);
+
+                        if (medicine == null)
+                        {
+                            throw new ArgumentException($"Medicine with ID {medicineId} not found.");
+                        }
+
+                        if (medicine.Inventory < quantity)
+                        {
+                            throw new InvalidOperationException($"Not enough {medicine.MedicineName} in stock.");
+                        }
+                        else
+                        {
+                            medicine.Inventory -= quantity;
+                        }
+                    }
+                    var prescriptionId = Guid.NewGuid().ToString();
+
+                    var prescription = new Prescription
+                    {
+                        PrescriptionId = prescriptionId,
+                        Diagnose = dto.CreateDTO.Diagnose,
+                        ExaminationDay = appointment.AppointmentDate,
+                        CreateDay = DateTime.UtcNow,
+                        Reason = dto.CreateDTO.Reason,
+                        PetId = appointment.PetId,
+                        UserId = appointment.UserId,
+                        
+                        PrescriptionMedicines = dto.PrescriptionMedicines
+                            .Select(medicineInfo => new PrescriptionMedicine
+                            {
+                                PrescriptionMedicineId = Guid.NewGuid().ToString(),
+                                MedicineId = medicineInfo.MedicineId,
+                                Quantity = medicineInfo.Quantity
+                            }).ToList()
                     };
 
-                    _context.BillMedicines.Add(billMedicine);
+                    _context.Prescriptions.Add(prescription);
+                    
+
+                    appointment.Status = "done";
+
+                    await _context.SaveChangesAsync();
+
+                    transaction.Commit();
+
+                    var presDTO = new PresDTO
+                    {
+                        PrescriptionId = prescription.PrescriptionId,
+                        Diagnose = prescription.Diagnose,
+                        ExaminationDay = prescription.ExaminationDay,
+                        CreateDay = prescription.CreateDay,
+                        Reason = prescription.Reason,
+                        PetId = prescription.PetId,
+                        PetName = appointment.Pet.PetName,
+                        UserId = prescription.UserId,
+                        FullName = appointment.User.FullName
+                    };
+
+                    return presDTO;
                 }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    Console.WriteLine($"Error generating prescription from appointment: {ex.Message}");
+                    throw;
+                }
+            }
+        }
+       
+        public async Task<MedicineManaDTO> SearchMedicineByName(string medicineName)
+        {
+            var medicine = await _context.Medicines.Include(m=>m.MedicineCategory).FirstOrDefaultAsync(m => m.MedicineName == medicineName );
 
-                await _context.SaveChangesAsync();
+            if (medicine == null)
+            {
+                return null;
+            }
 
-                return invoice.BillId;
+            return new MedicineManaDTO
+            {
+                MedicineId = medicine.MedicineId,
+                MedicineName = medicine.MedicineName,
+                MedicineUnit = medicine.MedicineUnit,
+                Prices = medicine.Prices,
+                Inventory = medicine.Inventory,
+                Specifications = medicine.Specifications,
+                MedicineCateId = medicine.MedicineCateId,
+                MedicineCateName = medicine.MedicineCategory.CategoryName
+            };
+        }
+
+
+        public async Task<MedicineListDTO> getMedicineByCate(string clinicId, string categoryId, int limit, int offset)
+        {
+            try
+            {
+                var categoryMedicinesQuery = _context.Medicines
+                    .Where(m => m.ClinicId == clinicId && m.MedicineCateId == categoryId)
+                    .Include(m => m.MedicineCategory)
+                    .OrderBy(m => m.MedicineId);
+
+                var totalMedicines = await categoryMedicinesQuery.CountAsync();
+
+                var categoryMedicines = await categoryMedicinesQuery.Skip(offset).Take(limit).ToListAsync();
+
+                var medicineDTOs = categoryMedicines.Select(medicine => new MedicineManaDTO
+                {
+                    MedicineId = medicine.MedicineId,
+                    MedicineName = medicine.MedicineName,
+                    MedicineUnit = medicine.MedicineUnit,
+                    Prices = medicine.Prices,
+                    Inventory = medicine.Inventory,
+                    Specifications = medicine.Specifications,
+                    MedicineCateId = medicine.MedicineCateId,
+                    MedicineCateName = medicine.MedicineCategory.CategoryName
+                });
+
+                return new MedicineListDTO
+                {
+                    TotalMedicine = totalMedicines,
+                    Medicines = medicineDTOs
+                };
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in GetMedicineByCategoryAsync: {ex.Message}");
+                throw;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error generating invoice from appointment: {ex.Message}");
+                Console.WriteLine($"Error in GetMedicineByCategoryAsync: {ex.Message}");
                 throw;
             }
         }
-
-
-        private async Task<double> CalculateTotalAmount(Appointment appointment, List<string> medicineIds)
-        {
-            double totalAmount = 0;
-            foreach (var medicineId in medicineIds)
-            {
-                var medicine = await _context.Medicines.FindAsync(medicineId);
-
-                if (medicine != null)
-                {
-                    totalAmount += medicine.Prices; 
-                }
-            }
-            return totalAmount;
-        }
-
-
-
-
-
 
     }
 }

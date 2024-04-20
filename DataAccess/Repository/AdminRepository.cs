@@ -19,16 +19,16 @@ namespace DataAccess.Repository
         }
 
         //Medicine
-        public Task<MedicineListDTO> getAllMedicineAsync(int limit, int offset)
-            => _adminDAO.GetAllMedicineAsync(limit,offset);
-        public Task CreateMedicineAsync(MedicineManaDTO medicineDTO)
-            => _adminDAO.CreateMedicineAsync(medicineDTO);
-        public Task<MedicineManaDTO> GetMedicineByIdAsync(string medicineId)
-            =>_adminDAO.GetMedicineByIdAsync(medicineId);
-        public Task UpdateMedicineAsync( MedicineManaDTO medicineDTO)
-            =>_adminDAO.UpdateMedicineAsync(medicineDTO);
-        public Task DeleteMedicineAsync(string medicineId)
-            =>_adminDAO.DeleteMedicineAsync(medicineId);
+        public Task<MedicineListDTO> getAllMedicineAsync(string clinicId, int limit, int offset)
+            => _adminDAO.GetAllMedicineAsync(clinicId, limit ,offset);
+        public Task CreateMedicineAsync(string clinicId, MedicineManaDTO medicineDTO)
+            => _adminDAO.CreateMedicineAsync(clinicId, medicineDTO);
+        public Task<MedicineManaDTO> GetMedicineByIdAsync(string clinicId, string medicineId)
+            =>_adminDAO.GetMedicineByIdAsync(clinicId, medicineId);
+        public Task UpdateMedicineAsync(string clinicId, MedicineManaDTO medicineDTO)
+            =>_adminDAO.UpdateMedicineAsync(clinicId, medicineDTO);
+        public Task DeleteMedicineAsync(string clinicId, string medicineId)
+            =>_adminDAO.DeleteMedicineAsync(clinicId, medicineId);
 
         //Medicine Category
 
@@ -69,6 +69,25 @@ namespace DataAccess.Repository
             =>_adminDAO.SortDoctorByName();
         public Task UpdateDoctor(DoctorManaDTO updateDTO)
             =>_adminDAO.UpdateDoctor(updateDTO);
+
+        //Category
+        public Task AddCategory(CateManaDTO dto)
+            => _adminDAO.CreateCategoryAsync(dto);  
+
+        public Task DeleteCategory(string id)
+            =>_adminDAO.DeleteCateAsync(id);
+
+        public Task<IEnumerable<CateManaDTO>> GetAllCategories()
+            =>_adminDAO.GetAllCateAsync();
+
+        public Task<CateManaDTO> GetCateById(string id)
+            =>_adminDAO.GetCateByIdAsync(id);
+
+        public Task<IEnumerable<CateManaDTO>> SearchByName(string name)
+            => _adminDAO.SearchByName(name);
+
+        public Task UpdateCate(CateManaDTO updateDTO)
+            =>_adminDAO.UpdateCateAsync(updateDTO);
 
         //Pet
 

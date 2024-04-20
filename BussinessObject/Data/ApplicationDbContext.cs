@@ -36,5 +36,7 @@ namespace BussinessObject.Data
         public DbSet<Employee> Employees { get; set; }
 
         public DbSet<DoctorSlot> DoctorSlots { get; set; }
+
+        public DbSet<PrescriptionMedicine> prescriptionMedicines { get; set; }
     }
 }

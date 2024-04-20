@@ -17,7 +17,5 @@ namespace DataAccess.DTO.Precscription
         public string PetName { get; set; } 
         public string UserId { get; set; }
         public string FullName { get; set; } 
-        public string MedicineId { get; set; }
-        public string MedicineName { get; set; }
     }
 }
