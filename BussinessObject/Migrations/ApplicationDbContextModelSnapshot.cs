@@ -156,8 +156,8 @@ namespace BussinessObject.Migrations
                     b.Property<string>("ClinicId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Degree")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("DegreeId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Slots")
                         .HasColumnType("nvarchar(max)");
@@ -175,9 +175,24 @@ namespace BussinessObject.Migrations
 
                     b.HasIndex("ClinicId");
 
+                    b.HasIndex("DegreeId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Doctors");
+                });
+
+            modelBuilder.Entity("BussinessObject.Models.DoctorDegree", b =>
+                {
+                    b.Property<string>("DegreeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("DegreeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DegreeId");
+
+                    b.ToTable("DoctorDegrees");
                 });
 
             modelBuilder.Entity("BussinessObject.Models.DoctorSlot", b =>
@@ -347,6 +362,9 @@ namespace BussinessObject.Migrations
                     b.Property<string>("PrescriptionId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("AppointmentId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("CreateDay")
                         .HasColumnType("datetime2");
 
@@ -365,16 +383,13 @@ namespace BussinessObject.Migrations
                     b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("PrescriptionId");
+
+                    b.HasIndex("AppointmentId");
 
                     b.HasIndex("MedicineId");
 
                     b.HasIndex("PetId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Prescriptions");
                 });
@@ -547,11 +562,17 @@ namespace BussinessObject.Migrations
                         .WithMany("Doctors")
                         .HasForeignKey("ClinicId");
 
+                    b.HasOne("BussinessObject.Models.DoctorDegree", "DoctorDegree")
+                        .WithMany()
+                        .HasForeignKey("DegreeId");
+
                     b.HasOne("BussinessObject.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("Clinic");
+
+                    b.Navigation("DoctorDegree");
 
                     b.Navigation("User");
                 });
@@ -610,21 +631,19 @@ namespace BussinessObject.Migrations
 
             modelBuilder.Entity("BussinessObject.Models.Prescription", b =>
                 {
+                    b.HasOne("BussinessObject.Models.Appointment", "Appointment")
+                        .WithMany("Prescriptions")
+                        .HasForeignKey("AppointmentId");
+
                     b.HasOne("BussinessObject.Models.Medicine", null)
                         .WithMany("Prescriptions")
                         .HasForeignKey("MedicineId");
 
-                    b.HasOne("BussinessObject.Models.Pet", "Pet")
+                    b.HasOne("BussinessObject.Models.Pet", null)
                         .WithMany("Prescriptions")
                         .HasForeignKey("PetId");
 
-                    b.HasOne("BussinessObject.Models.User", "User")
-                        .WithMany("Prescriptions")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Pet");
-
-                    b.Navigation("User");
+                    b.Navigation("Appointment");
                 });
 
             modelBuilder.Entity("BussinessObject.Models.PrescriptionMedicine", b =>
@@ -658,6 +677,11 @@ namespace BussinessObject.Migrations
                         .HasForeignKey("ImportCode");
 
                     b.Navigation("EnterStorage");
+                });
+
+            modelBuilder.Entity("BussinessObject.Models.Appointment", b =>
+                {
+                    b.Navigation("Prescriptions");
                 });
 
             modelBuilder.Entity("BussinessObject.Models.Bill", b =>
@@ -729,8 +753,6 @@ namespace BussinessObject.Migrations
                     b.Navigation("Bills");
 
                     b.Navigation("Pets");
-
-                    b.Navigation("Prescriptions");
                 });
 #pragma warning restore 612, 618
         }

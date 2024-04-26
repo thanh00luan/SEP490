@@ -77,20 +77,7 @@ namespace DoctorAPI.Controllers
             }
         }
 
-        [HttpPost("generateInvoice")]
-        public async Task<IActionResult> GeneratePrescription([FromBody] CreateDTO dto)
-        {
-            try
-            {
-                var presDTO = await _repository.GeneratePres(dto);
-
-                return Ok(presDTO);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error generating prescription: {ex.Message}");
-            }
-        }
+        
 
     }
 }

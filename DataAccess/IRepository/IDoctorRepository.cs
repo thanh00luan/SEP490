@@ -21,9 +21,12 @@ namespace DataAccess.IRepository
         Task<GetALLDTOCount> GetDoctorAppointList(int limit, int offset, string doctorId, DateTime date);
         Task<PresDTO> GeneratePres(GeneratePrescriptionDTO dto);
 
-        Task<MedicineManaDTO> SearchMedicineByName(string name);
+        Task<List<MedicineManaDTO>> SearchMedicineByName(string name);
 
         Task<MedicineListDTO> getMedicineByCate(string clinicId, string cateId, int limit, int offset);
+
+        Task<PresDTO> GetPrescription(string appointmentId);
+        Task<MedicineListDTO> SearchMedicineByCategoryAndKeyword(string clinicId, string categoryId, string keyword, int limit, int offset);
 
     }
 }

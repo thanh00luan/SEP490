@@ -20,9 +20,6 @@ namespace BussinessObject.Models
         public string Address { get; set; }
         public DateTime Birthday { get; set; }
         public int UserRole { get; set; }
-
-        public List<Prescription> Prescriptions { get; set; }
-
         public List<Appointment> Appointments { get; set; }
 
         public List<Bill> Bills { get; set; }

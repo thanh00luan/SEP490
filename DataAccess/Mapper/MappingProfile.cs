@@ -45,7 +45,9 @@ namespace DataAccess.Mapper
 
             CreateMap<EditProfileDTO, User>().ReverseMap();
 
-            CreateMap<GetAllDTO, Appointment>().ReverseMap();
+            CreateMap<GetAllDTO, Appointment>()
+                .ForMember(dest => dest.Doctor, opt => opt.MapFrom(src => src.Doctor))
+                .ReverseMap();
 
             CreateMap<DoctorClinicDTO, Appointment>().ReverseMap();
 

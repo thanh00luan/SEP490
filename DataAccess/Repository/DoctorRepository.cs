@@ -35,10 +35,16 @@ namespace DataAccess.Repository
         public Task<PresDTO> GeneratePres(GeneratePrescriptionDTO dto)
          => _doctorDAO.GeneratePres(dto);
 
-        public Task<MedicineManaDTO> SearchMedicineByName(string name)
+        public Task<PresDTO> GetPrescription(string appointmentId)
+            => _doctorDAO.GetPrescription(appointmentId);
+
+        public Task<List<MedicineManaDTO>> SearchMedicineByName(string name)
             => _doctorDAO.SearchMedicineByName(name);
 
         public Task<MedicineListDTO> getMedicineByCate(string clinicId, string cateId, int limit, int offset)
             => _doctorDAO.getMedicineByCate(clinicId,cateId, limit, offset);
+
+        public Task<MedicineListDTO> SearchMedicineByCategoryAndKeyword(string clinicId, string categoryId, string keyword, int limit, int offset)
+            => _doctorDAO.SearchMedicineByCategoryAndKeyword(clinicId, categoryId, keyword, limit, offset);
     }
 }

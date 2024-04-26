@@ -3,8 +3,11 @@ using BussinessObject.Data;
 using BussinessObject.Models;
 using DataAccess.DTO.Admin;
 using DataAccess.DTO.Appointment;
+using DataAccess.DTO.Clinic;
 using DataAccess.DTO.DDoctor;
+using DataAccess.DTO.DPet;
 using DataAccess.DTO.Precscription;
+using DataAccess.DTO.User;
 using DataAccess.RequestDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -128,7 +131,27 @@ namespace DataAccess.DAO
                     .Take(limit)
                     .ToListAsync();
 
-                var appointmentDTOs = _mapper.Map<List<GetAllDTO>>(appointments);
+                var appointmentDTOs = appointments.Select(a => new GetAllDTO
+                {
+                    AppointmentId = a.AppointmentId,
+                    AppointmentDate = a.AppointmentDate,
+                    Reason = a.Reason,
+                    Pet = _mapper.Map<PetDTO>(a.Pet),
+                    Doctor = new DoctorDTO
+                    {
+                        DoctorId = a.DoctorId,
+                        DoctorName = a.User.FullName, 
+                        Address = a.User.Address,
+                        PhoneNumber = a.User.PhoneNumber,
+                        Specialized = a.Doctor.Specialized,
+                        DoctorStatus = a.Doctor.Status,
+                    },
+                    Clinic = _mapper.Map<ClinicDTO>(a.Clinic),
+                    SlotNumber = a.SlotNumber,
+                    Status = a.Status,
+                    User = _mapper.Map<UserReadDTO>(a.User)
+                }).ToList();
+
 
                 var appointmentDTOWithCount = new GetALLDTOCount();
                 appointmentDTOWithCount.AppointmentDTOs = appointmentDTOs;
@@ -220,8 +243,7 @@ namespace DataAccess.DAO
                         ExaminationDay = appointment.AppointmentDate,
                         CreateDay = DateTime.UtcNow,
                         Reason = dto.CreateDTO.Reason,
-                        PetId = appointment.PetId,
-                        UserId = appointment.UserId,
+                        AppointmentId = appointment.AppointmentId,
                         
                         PrescriptionMedicines = dto.PrescriptionMedicines
                             .Select(medicineInfo => new PrescriptionMedicine
@@ -248,10 +270,15 @@ namespace DataAccess.DAO
                         ExaminationDay = prescription.ExaminationDay,
                         CreateDay = prescription.CreateDay,
                         Reason = prescription.Reason,
-                        PetId = prescription.PetId,
+                        PetId = appointment.Pet.PetId,
                         PetName = appointment.Pet.PetName,
-                        UserId = prescription.UserId,
-                        FullName = appointment.User.FullName
+                        UserId = appointment.User.UserId,
+                        FullName = appointment.User.FullName,
+                        PrescriptionMedicines = dto.PrescriptionMedicines.Select(medicineInfo => new PrescriptionMedicineInfoDTO
+                        {
+                            MedicineId = medicineInfo.MedicineId,
+                            Quantity = medicineInfo.Quantity
+                        }).ToList()
                     };
 
                     return presDTO;
@@ -264,17 +291,70 @@ namespace DataAccess.DAO
                 }
             }
         }
-       
-        public async Task<MedicineManaDTO> SearchMedicineByName(string medicineName)
+
+        public async Task<MedicineListDTO> SearchMedicineByCategoryAndKeyword(string clinicId, string categoryId, string keyword, int limit, int offset)
         {
-            var medicine = await _context.Medicines.Include(m=>m.MedicineCategory).FirstOrDefaultAsync(m => m.MedicineName == medicineName );
-
-            if (medicine == null)
+            try
             {
-                return null;
-            }
+                var medicineQuery = _context.Medicines.Include(m=>m.MedicineCategory)
+                    .Where(m => m.ClinicId == clinicId);
 
-            return new MedicineManaDTO
+                if (!string.IsNullOrEmpty(categoryId))
+                {
+                    medicineQuery = medicineQuery.Where(m => m.MedicineCateId == categoryId);
+                }
+
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    medicineQuery = medicineQuery.Where(m => m.MedicineName.Contains(keyword));
+                }
+
+                var distinctMedicineQuery = medicineQuery.Distinct();
+
+                var totalMedicines = await distinctMedicineQuery.CountAsync();
+
+                var medicines = await distinctMedicineQuery.OrderBy(m => m.MedicineId).Skip(offset).Take(limit).ToListAsync();
+
+                var medicineDTOs = medicines.Select(medicine => new MedicineManaDTO
+                {
+                    MedicineId = medicine.MedicineId,
+                    MedicineName = medicine.MedicineName,
+                    MedicineUnit = medicine.MedicineUnit,
+                    Prices = medicine.Prices,
+                    Inventory = medicine.Inventory,
+                    Specifications = medicine.Specifications,
+                    MedicineCateId = medicine.MedicineCateId,
+                    MedicineCateName = medicine.MedicineCategory.CategoryName
+                });
+
+                return new MedicineListDTO
+                {
+                    TotalMedicine = totalMedicines,
+                    Medicines = medicineDTOs
+                };
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in SearchMedicineByCategoryAndKeyword: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SearchMedicineByCategoryAndKeyword: {ex.Message}");
+                throw;
+            }
+        }
+
+
+
+        public async Task<List<MedicineManaDTO>> SearchMedicineByName(string medicineName)
+        {
+            var medicines = await _context.Medicines
+                .Include(m => m.MedicineCategory)
+                .Where(m => m.MedicineName.Contains(medicineName))
+                .ToListAsync();
+
+            return medicines.Select(medicine => new MedicineManaDTO
             {
                 MedicineId = medicine.MedicineId,
                 MedicineName = medicine.MedicineName,
@@ -284,8 +364,10 @@ namespace DataAccess.DAO
                 Specifications = medicine.Specifications,
                 MedicineCateId = medicine.MedicineCateId,
                 MedicineCateName = medicine.MedicineCategory.CategoryName
-            };
+            }).ToList();
         }
+
+
 
 
         public async Task<MedicineListDTO> getMedicineByCate(string clinicId, string categoryId, int limit, int offset)
@@ -330,6 +412,52 @@ namespace DataAccess.DAO
                 throw;
             }
         }
+        public async Task<PresDTO> GetPrescription(string appointmentId)
+        {
+            try
+            {
+                var prescription = await _context.Prescriptions
+                    .Include(p => p.PrescriptionMedicines)
+                    .Include(p => p.Appointment)
+                        .ThenInclude(a => a.Pet)
+                    .Include(p => p.Appointment)
+                        .ThenInclude(a => a.User)
+                    .FirstOrDefaultAsync(p => p.AppointmentId == appointmentId);
+
+                if (prescription == null)
+                {
+                    return null;
+                }
+
+                var presDTO = new PresDTO
+                {
+                    PrescriptionId = prescription.PrescriptionId,
+                    Diagnose = prescription.Diagnose,
+                    ExaminationDay = prescription.ExaminationDay,
+                    CreateDay = prescription.CreateDay,
+                    Reason = prescription.Reason,
+                    PetId = prescription.Appointment.Pet.PetId,
+                    PetName = prescription.Appointment.Pet.PetName,
+                    UserId = prescription.Appointment.User.UserId,
+                    FullName = prescription.Appointment.User.FullName,
+                    PrescriptionMedicines = prescription.PrescriptionMedicines.Select(m => new PrescriptionMedicineInfoDTO
+                    {
+                        MedicineId = m.MedicineId,
+                        Quantity = m.Quantity
+                    }).ToList()
+                };
+
+                return presDTO;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving prescription by appointmentId: {ex.Message}");
+                throw;
+            }
+        }
+
 
     }
+
+
 }

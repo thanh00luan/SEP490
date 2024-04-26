@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.DTO.DDoctor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace DataAccess.DTO.Precscription
         public string PetId { get; set; }
         public string PetName { get; set; } 
         public string UserId { get; set; }
-        public string FullName { get; set; } 
+        public string FullName { get; set; }
+        public List<PrescriptionMedicineInfoDTO> PrescriptionMedicines { get; set; }
     }
 }

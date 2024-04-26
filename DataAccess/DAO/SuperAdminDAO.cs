@@ -5,11 +5,14 @@ using DataAccess.DTO;
 using DataAccess.DTO.Admin;
 using DataAccess.DTO.DDoctor;
 using DataAccess.DTO.Employee;
+using DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,10 +22,13 @@ namespace DataAccess.DAO
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-        public SuperAdminDAO(ApplicationDbContext context, IMapper mapper)
+        private readonly SendMailService _sendMailService;
+
+        public SuperAdminDAO(ApplicationDbContext context, IMapper mapper, SendMailService sendMailService)
         {
             _context = context;
             _mapper = mapper;
+            _sendMailService = sendMailService;
         }
 
         // UserManagement
@@ -300,7 +306,6 @@ namespace DataAccess.DAO
         {
             try
             {
-
                 if (!string.IsNullOrEmpty(doctorDTO.UserId))
                 {
                     var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == doctorDTO.UserId);
@@ -312,7 +317,7 @@ namespace DataAccess.DAO
                         {
                             DoctorId = existingUser.UserId,
                             UserId = existingUser.UserId,
-                            Degree = doctorDTO.Degree,
+                            DegreeId = doctorDTO.DegreeId,
                             Specialized = doctorDTO.Specialized,
                             Status = doctorDTO.DoctorStatus
                         };
@@ -322,48 +327,115 @@ namespace DataAccess.DAO
                     }
                     else
                     {
-
+                        // Xử lý nếu không tìm thấy người dùng
                     }
                 }
                 else
                 {
+                    var uniqueUsername = await GenerateUniqueUsername(doctorDTO.DoctorName);
+
                     var user = new User
                     {
-                        UserId = Guid.NewGuid().ToString(),
+                        UserId = Guid.NewGuid().ToString(), 
+                        UserName = uniqueUsername,
                         FullName = doctorDTO.DoctorName,
                         Email = doctorDTO.Email,
                         PhoneNumber = doctorDTO.PhoneNumber,
                         Address = doctorDTO.Address,
                         Birthday = doctorDTO.BirthDate,
                         UserRole = 3,
+
                     };
+                    var password = "12345678";
+
+                    var hashedPassword = HashPassword(password);
+
+                    user.Password = hashedPassword;
+
                     await _context.Users.AddAsync(user);
                     await _context.SaveChangesAsync();
+
                     var newDoctor = new Doctor
                     {
                         DoctorId = user.UserId,
                         UserId = user.UserId,
-                        Degree = doctorDTO.Degree,
+                        DegreeId = doctorDTO.DegreeId,
                         Specialized = doctorDTO.Specialized,
                         Status = doctorDTO.DoctorStatus
                     };
 
                     await _context.Doctors.AddAsync(newDoctor);
                     await _context.SaveChangesAsync();
+
+                    var email = doctorDTO.Email;
+                    var subject = "Thông tin tài khoản của bạn";
+                    var body = $"Xin chào {user.FullName},\n\nTài khoản của bạn đã được tạo thành công.\n\nTên đăng nhập: {user.UserName}\nMật khẩu: {password}\n\nXin cảm ơn.";
+
+                    await _sendMailService.SendEmailAsync(email, subject, body);
                 }
             }
             catch (DbUpdateException ex)
             {
-                Console.WriteLine($"Database Error: {ex.Message}");
+                Console.WriteLine($"Lỗi Cơ sở dữ liệu: {ex.Message}");
                 throw;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                Console.WriteLine($"Lỗi: {ex.Message}");
                 throw;
             }
         }
-        public async Task DeleteDoctor(string id)
+
+        private async Task<string> GenerateUniqueUsername(string doctorName)
+        {
+            string baseUsername = GenerateBaseUsername(doctorName);
+
+            string username = baseUsername;
+            int counter = 1;
+            while (await IsUsernameExists(username))
+            {
+                username = $"{baseUsername}{counter}";
+                counter++;
+            }
+
+            return username;
+        }
+
+        private async Task<bool> IsUsernameExists(string username)
+        {
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == username);
+            return existingUser != null;
+        }
+
+        private string GenerateBaseUsername(string doctorName)
+        {
+            string lowercaseName = doctorName.ToLower();
+
+            StringBuilder usernameBuilder = new StringBuilder();
+            foreach (char c in lowercaseName)
+            {
+                if (char.IsLetterOrDigit(c)) 
+                {
+                    usernameBuilder.Append(c);
+                }
+            }
+            return usernameBuilder.ToString();
+        }
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+            public async Task DeleteDoctor(string id)
         {
             try
             {
@@ -390,7 +462,7 @@ namespace DataAccess.DAO
         {
             try
             {
-                var doctorsQuery = _context.Doctors.Include(d => d.User).OrderBy(d => d.DoctorId);
+                var doctorsQuery = _context.Doctors.Include(d => d.User).Include(d => d.DoctorDegree).OrderBy(d => d.DoctorId);
 
                 var totalDoctors = await doctorsQuery.CountAsync();
 
@@ -405,7 +477,7 @@ namespace DataAccess.DAO
                     Email = e.User.Email,
                     BirthDate = e.User.Birthday,
                     DoctorStatus = e.Status,
-                    Degree = e.Degree,
+                    DegreeId = e.DegreeId,
                     Specialized = e.Specialized,
                     UserId = e.UserId
                 });
@@ -436,6 +508,7 @@ namespace DataAccess.DAO
             {
                 var doctor = await _context.Doctors
                     .Include(d => d.User)
+                    .Include(d =>d.DoctorDegree)
                     .FirstOrDefaultAsync(d => d.DoctorId == id);
 
                 if (doctor == null)
@@ -453,7 +526,7 @@ namespace DataAccess.DAO
                     Email = doctor.User.Email,
                     BirthDate = doctor.User.Birthday,
                     DoctorStatus = doctor.Status,
-                    Degree = doctor.Degree,
+                    DegreeId = doctor.DegreeId,
                     Specialized = doctor.Specialized,
                     UserId = doctor.UserId
                 };
@@ -473,7 +546,7 @@ namespace DataAccess.DAO
         {
             try
             {
-                var sortedDoctors = await _context.Doctors.Include(d => d.User).OrderBy(d => d.User.FullName).ToListAsync();
+                var sortedDoctors = await _context.Doctors.Include(d => d.User).Include(d => d.DoctorDegree).OrderBy(d => d.User.FullName).ToListAsync();
                 var sortedDoctorDTOs = _mapper.Map<IEnumerable<DoctorManaDTO>>(sortedDoctors);
                 return sortedDoctorDTOs;
             }
@@ -497,7 +570,7 @@ namespace DataAccess.DAO
             try
             {
 
-                var existingDoctor = await _context.Doctors.Include(d => d.User)
+                var existingDoctor = await _context.Doctors.Include(d => d.User).Include(d => d.DoctorDegree)
                     .FirstOrDefaultAsync(d => d.DoctorId == updateDTO.DoctorId);
                 if (existingDoctor == null)
                 {
@@ -510,7 +583,7 @@ namespace DataAccess.DAO
                 existingDoctor.Status = updateDTO.DoctorStatus;
                 existingDoctor.User.Birthday = updateDTO.BirthDate;
                 existingDoctor.User.Email = updateDTO.Email;
-                existingDoctor.Degree = updateDTO.Degree;
+                existingDoctor.DegreeId = updateDTO.DegreeId;
 
 
                 //existingDoctor.ClinicId = updateDTO.ClinicId;
@@ -652,7 +725,7 @@ namespace DataAccess.DAO
             
             var cate = new MedicineCategory
             {
-                MedicineCateId = generateID.GenerateNewCategoryId(),
+                MedicineCateId = generateID.GenerateNewId("MC"),
                 CategoryName = dto.CategoryName
             };
 
@@ -759,6 +832,51 @@ namespace DataAccess.DAO
                 Console.WriteLine($"Error in SearchByName: {ex.Message}");
                 throw;
             }
+        }
+
+        //
+        public async Task<IEnumerable<DoctorDegree>> GetAllDegreeAsync()
+        {
+            try
+            {
+                var cateQuery = _context.DoctorDegrees.OrderBy(m => m.DegreeId);
+
+                var totalCates = await cateQuery.CountAsync();
+
+                var cate = await cateQuery.ToListAsync();
+
+                var degreeDTOs = cate.Select(cate => new DoctorDegree
+                {
+                    DegreeId = cate.DegreeId,
+                    DegreeName = cate.DegreeName,
+                });
+
+                return degreeDTOs;
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in GetAll degree Async: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAll Degree Async: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task CreateDegreeAsync(DoctorDegree dto)
+        {
+            var generateID = new GenerateID(_context);
+
+            var degree = new DoctorDegree
+            {
+                DegreeId = generateID.GenerateNewDoctorId("DD"),
+                DegreeName = dto.DegreeName,
+            };
+
+            _context.DoctorDegrees.Add(degree);
+            await _context.SaveChangesAsync();
         }
 
     }

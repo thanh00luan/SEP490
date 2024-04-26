@@ -24,7 +24,10 @@ namespace BussinessObject.Models
 
         public string UserId { get; set; }
         public User User { get; set; }
-        public string Degree { get; set; }
+        [ForeignKey("DoctorDegree")]
+        public string DegreeId { get; set; }
+
+        public DoctorDegree DoctorDegree { get; set; }
 
         public List<DoctorSlot> DoctorSlots { get; set; }
         public List<Appointment> Appointments { get; set; }

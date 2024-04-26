@@ -1,6 +1,8 @@
-﻿using DataAccess.DAO;
+﻿using BussinessObject.Models;
+using DataAccess.DAO;
 using DataAccess.DTO.Admin;
 using DataAccess.DTO.Employee;
+using DataAccess.DTO.Precscription;
 using DataAccess.IRepository;
 using System;
 using System.Collections.Generic;
@@ -57,6 +59,8 @@ namespace DataAccess.Repository
             =>_adminDAO.UpdateUserAsync(user);
 
         //Doctor
+        public Task<PresDTO> GetPrescription(string appointmentId)
+            => null;
         public Task AddDoctor(DoctorManaDTO doctorDTO)
             =>_adminDAO.AddDoctor(doctorDTO);
         public Task DeleteDoctor(string id)
@@ -92,6 +96,13 @@ namespace DataAccess.Repository
         //Pet
 
         //Pet Category
+
+        //Degree
+        public Task AddDegree(DoctorDegree dto)
+            => _adminDAO.CreateDegreeAsync(dto);
+
+        public Task<IEnumerable<DoctorDegree>> GetDoctorDegrees()
+            => _adminDAO.GetAllDegreeAsync();
 
 
     }

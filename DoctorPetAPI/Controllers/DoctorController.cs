@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using DataAccess.DTO.Admin;
 
 namespace DoctorPetAPI.Controllers
 {
@@ -119,6 +120,38 @@ namespace DoctorPetAPI.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("getInvoice/{appointmentId}")]
+        public async Task<IActionResult> getInvoice(string appointmentId)
+        {
+            try
+            {
+                var press = await _repository.GetPrescription(appointmentId);
+                if (press != null)
+                    return Ok(press);
+                else
+                    return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<List<MedicineManaDTO>>> SearchMedicineByCategoryAndKeyword([FromQuery] string clinicId, [FromQuery] string categoryId, [FromQuery] string keyword,int limit,int offset)
+        {
+            try
+            {
+                var medicines = await _repository.SearchMedicineByCategoryAndKeyword(clinicId, categoryId, keyword, limit, offset);
+                return Ok(medicines);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(500, "An error occurred while processing your request.");
             }
         }
 

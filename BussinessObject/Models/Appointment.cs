@@ -38,6 +38,9 @@ namespace BussinessObject.Models
 
         public User User { get; set; }
 
+        public List<Prescription> Prescriptions { get; set; }
+
+
 
     }
 }

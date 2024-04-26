@@ -1,5 +1,6 @@
-using BussinessObject.Data;
+﻿using BussinessObject.Data;
 using DataAccess.DAO;
+using DataAccess.DTO.MailDTO;
 using DataAccess.DTO.User;
 using DataAccess.IRepository;
 using DataAccess.Mapper;
@@ -84,6 +85,8 @@ namespace DoctorPetAPI
                 ))
                 };
             });
+            var mailsettings = Configuration.GetSection("MailSettings");  
+            services.Configure<MailSettings>(mailsettings);
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MyConnection")));
@@ -95,7 +98,11 @@ namespace DoctorPetAPI
             services.AddScoped<DoctorDAO>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<AppointmentDAO>();
+            services.AddScoped<SendMailService>();
+            services.AddScoped<ISendMailService, SendMailService>();
             services.AddScoped<IAdminRepository, AdminRepository>();
+            services.AddScoped<AdminDAO>();
+            services.AddScoped<ISuperAdminRepo, SuperAdminRepo>();
             services.AddScoped<SuperAdminDAO>();
             services.AddCors(options =>
             {

@@ -16,15 +16,9 @@ namespace BussinessObject.Models
         public DateTime ExaminationDay { get; set; }
         public DateTime CreateDay { get; set; }
         public string Reason { get; set; }
-
-        [ForeignKey("Pet")]
-        public string PetId { get; set; }
-        public Pet Pet { get; set; }
-
-        [ForeignKey("User")]
-        public string UserId { get; set; }
-        public User User { get; set; }
-
+        [ForeignKey("Appointment")]
+        public string AppointmentId { get; set; }
+        public Appointment Appointment { get; set; }
         public ICollection<PrescriptionMedicine> PrescriptionMedicines { get; set; }
     }
 }

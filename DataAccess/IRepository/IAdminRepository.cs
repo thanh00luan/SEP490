@@ -2,6 +2,7 @@
 using DataAccess.DTO.Admin;
 using DataAccess.DTO.Employee;
 using DataAccess.DTO.Medicine;
+using DataAccess.DTO.Precscription;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,7 @@ namespace DataAccess.IRepository
         Task<DoctorManaDTO> GetDoctorById(string id);
         Task<IEnumerable<DoctorManaDTO>> SortDoctorByName();
         Task UpdateDoctor(DoctorManaDTO updateDTO);
+        Task<PresDTO> GetPrescription(string appointmentId);
 
         //Category medicine
         Task AddCategory(CateManaDTO dto);
@@ -52,6 +54,11 @@ namespace DataAccess.IRepository
         Task<CateManaDTO> GetCateById(string id);
         Task<IEnumerable<CateManaDTO>> SearchByName(string name);
         Task UpdateCate(CateManaDTO updateDTO);
+
+        //Degree
+        Task AddDegree(DoctorDegree dto);
+
+        Task<IEnumerable<DoctorDegree>> GetDoctorDegrees();
 
         // Statistic
         //Task<int> GetTotalNumberOfMedicinesAsync();

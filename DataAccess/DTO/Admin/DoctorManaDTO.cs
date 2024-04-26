@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BussinessObject.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace DataAccess.DTO.Admin
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string Specialized { get; set; }
-        public string Degree { get; set; }
+        public string DegreeId { get; set; }
         public bool DoctorStatus { get; set; }
 
         public string Email { get; set; }

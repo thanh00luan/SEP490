@@ -7,6 +7,7 @@ using System;
 using DataAccess.DTO.Employee;
 using DataAccess.DAO;
 using DataAccess.DTO.Clinic;
+using BussinessObject.Models;
 
 namespace DoctorPetAPI.Controllers
 {
@@ -337,6 +338,22 @@ namespace DoctorPetAPI.Controllers
         {
             await _repository.UpdateCate(updateDTO);
             return Ok("Category updated successfully");
+        }
+
+        //Pet
+
+        //Degree
+        [HttpPost("AddDegree")]
+        public async Task<IActionResult> AddDeegree([FromBody] DoctorDegree dto)
+        {
+            await _repository.AddDegree(dto);
+            return Ok("Category added successfully");
+        }
+        [HttpGet("GetAllDegree")]
+        public async Task<IActionResult> GetAllDegrees()
+        {
+            var categories = await _repository.GetDoctorDegrees();
+            return Ok(categories);
         }
     }
 }
