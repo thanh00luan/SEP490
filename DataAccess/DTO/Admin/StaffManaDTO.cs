@@ -18,5 +18,7 @@ namespace DataAccess.DTO.Admin
         public bool EmployeeStatus { get; set; }
 
         public string UserId { get; set; }
+
+        public string ClinicId { get; set; }
     }
 }

@@ -137,6 +137,9 @@ namespace BussinessObject.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<double>("Latitude")
                         .HasColumnType("float");
 
@@ -144,6 +147,8 @@ namespace BussinessObject.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("ClinicId");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Clinics");
                 });
@@ -221,6 +226,9 @@ namespace BussinessObject.Migrations
                     b.Property<string>("EmployeeId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("ClinicId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<bool>("EmployeeStatus")
                         .HasColumnType("bit");
 
@@ -228,6 +236,8 @@ namespace BussinessObject.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("EmployeeId");
+
+                    b.HasIndex("ClinicId");
 
                     b.HasIndex("UserId");
 
@@ -556,6 +566,15 @@ namespace BussinessObject.Migrations
                     b.Navigation("Medicine");
                 });
 
+            modelBuilder.Entity("BussinessObject.Models.Clinic", b =>
+                {
+                    b.HasOne("BussinessObject.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("BussinessObject.Models.Doctor", b =>
                 {
                     b.HasOne("BussinessObject.Models.Clinic", "Clinic")
@@ -588,9 +607,15 @@ namespace BussinessObject.Migrations
 
             modelBuilder.Entity("BussinessObject.Models.Employee", b =>
                 {
+                    b.HasOne("BussinessObject.Models.Clinic", "Clinic")
+                        .WithMany()
+                        .HasForeignKey("ClinicId");
+
                     b.HasOne("BussinessObject.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Clinic");
 
                     b.Navigation("User");
                 });

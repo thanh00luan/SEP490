@@ -135,6 +135,7 @@ namespace DataAccess.DAO
                         {
                             EmployeeId = existingUser.UserId,
                             UserId = existingUser.UserId,
+                            ClinicId = staffDTO.ClinicId,
                         };
 
                         await _context.Employees.AddAsync(Employee);
@@ -164,6 +165,7 @@ namespace DataAccess.DAO
                         EmployeeId = user.UserId,
                         UserId = user.UserId,
                         EmployeeStatus = staffDTO.EmployeeStatus,
+                        ClinicId = staffDTO.ClinicId,
                     };
 
                     await _context.Employees.AddAsync(newEmployee);
@@ -181,11 +183,19 @@ namespace DataAccess.DAO
                 throw;
             }
         }
-        public async Task<StaffListDTO> GetAllStaff(int limit, int offset)
+        public async Task<StaffListDTO> GetAllStaff(string clinicId, int limit, int offset)
         {
             try
             {
-                var staffQuery = _context.Employees.Include(e => e.User).OrderBy(e => e.UserId);
+                var staffQuery = _context.Employees
+                    .Include(e =>e.Clinic)
+                    .Include(e => e.User).OrderBy(e => e.UserId);
+                if(clinicId !=null)
+                {
+                    staffQuery = _context.Employees
+                        .Where(e=>e.ClinicId == clinicId)
+                        .Include(e => e.User).OrderBy(e => e.UserId);
+                }
 
                 var totalStaff = await staffQuery.CountAsync();
 
@@ -200,7 +210,8 @@ namespace DataAccess.DAO
                     Email = e.User.Email,
                     Birthday = e.User.Birthday,
                     EmployeeStatus = e.EmployeeStatus,
-                    UserId = e.UserId
+                    UserId = e.UserId,
+                    ClinicId = e.ClinicId,
                 });
 
                 return new StaffListDTO
@@ -257,34 +268,82 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<StaffManaDTO> GetStaffById(string id)
+        //public async Task<StaffManaDTO> GetStaffById( string id)
+        //{
+        //    try
+        //    {
+        //        var employee = await _context.Employees.FindAsync(id);
+        //        var user = await _context.Users.FindAsync(employee.UserId);
+        //        var emp = new StaffManaDTO
+        //        {
+        //            EmployeeStatus = employee.EmployeeStatus,
+        //            EmployeeId = employee.EmployeeId,
+        //            EmployeeName = user.FullName,
+        //            Address = user.Address,
+        //            Birthday = user.Birthday,
+        //            UserId = user.UserId,
+        //            Email = user.Email,
+        //            PhoneNumber = user.PhoneNumber
+
+        //        };
+        //        return emp;
+        //    }
+        //    catch (DbUpdateException ex)
+        //    {
+        //        Console.WriteLine($"Database Error: {ex.Message}");
+        //        throw;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error: {ex.Message}");
+        //        throw;
+        //    }
+        //}
+
+        public async Task<StaffManaDTO> GetStaffById(string clinicId, string id)
         {
             try
             {
-                var employee = await _context.Employees.FindAsync(id);
-                var user = await _context.Users.FindAsync(employee.UserId);
+
+                var staff = await _context.Employees
+                    .Include(d => d.User)
+                    .Include(d => d.Clinic)
+                    .FirstOrDefaultAsync(d => d.EmployeeId == id);
+
+                if (clinicId != null)
+                {
+                    staff = await _context.Employees
+                    .Where(e => e.ClinicId == clinicId)
+                    .Include(d => d.User)
+                    .Include(d => d.Clinic)
+                    .FirstOrDefaultAsync(d => d.EmployeeId == id);
+                }
+
+                if (staff == null)
+                {
+
+                    return null;
+                }
+                
                 var emp = new StaffManaDTO
                 {
-                    EmployeeStatus = employee.EmployeeStatus,
-                    EmployeeId = employee.EmployeeId,
-                    EmployeeName = user.FullName,
-                    Address = user.Address,
-                    Birthday = user.Birthday,
-                    UserId = user.UserId,
-                    Email = user.Email,
-                    PhoneNumber = user.PhoneNumber
-
+                    EmployeeStatus = staff.EmployeeStatus,
+                    EmployeeId = staff.EmployeeId,
+                    EmployeeName = staff.User.FullName,
+                    Address = staff.User.Address,
+                    Birthday = staff.User.Birthday,
+                    UserId = staff.UserId,
+                    Email = staff.User.Email,
+                    PhoneNumber = staff.User.PhoneNumber,
+                    ClinicId = staff.ClinicId,
                 };
+
                 return emp;
-            }
-            catch (DbUpdateException ex)
-            {
-                Console.WriteLine($"Database Error: {ex.Message}");
-                throw;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                // Log the error
+                Console.WriteLine($"Error in GetDoctorById: {ex.Message}");
                 throw;
             }
         }
@@ -458,11 +517,20 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<DoctorListDTO> GetAllDoctors(int limit, int offset)
+        public async Task<DoctorListDTO> GetAllDoctors(string clinicId, int limit, int offset)
         {
             try
             {
                 var doctorsQuery = _context.Doctors.Include(d => d.User).Include(d => d.DoctorDegree).OrderBy(d => d.DoctorId);
+                if (clinicId != null)
+                {
+                    doctorsQuery = _context.Doctors
+                        .Where(d => d.ClinicId == clinicId)
+                        .Include(d => d.User)
+                        .Include(d => d.DoctorDegree)
+                        .OrderBy(d => d.DoctorId);
+                }
+                
 
                 var totalDoctors = await doctorsQuery.CountAsync();
 
@@ -502,14 +570,24 @@ namespace DataAccess.DAO
 
 
 
-        public async Task<DoctorManaDTO> GetDoctorById(string id)
+        public async Task<DoctorManaDTO> GetDoctorById(string clinicId,string id)
         {
             try
             {
+                
                 var doctor = await _context.Doctors
                     .Include(d => d.User)
                     .Include(d =>d.DoctorDegree)
                     .FirstOrDefaultAsync(d => d.DoctorId == id);
+
+                if(clinicId != null)
+                {
+                    doctor = await _context.Doctors
+                   .Where(d => d.ClinicId == clinicId)
+                   .Include(d => d.User)
+                   .Include(d => d.DoctorDegree)
+                   .FirstOrDefaultAsync(d => d.DoctorId == id);
+                }
 
                 if (doctor == null)
                 {

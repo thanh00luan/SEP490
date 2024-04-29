@@ -1,4 +1,5 @@
 ﻿using DataAccess.DAO;
+using DataAccess.DTO.Admin;
 using DataAccess.DTO.SuperAD;
 using DataAccess.IRepository;
 using System;
@@ -16,13 +17,29 @@ namespace DataAccess.Repository
         {
             _adminDAO = adminDAO;
         }
+        //statis
         public Task<AppointmentStatisticReponse> appointmentStatistics(DateTime start, DateTime end, string clinicId)
-            => _adminDAO.appointmentStatistics(start, end,clinicId);
+            => _adminDAO.appointmentStatistics(start, end, clinicId);
 
         public Task<int> countCustomer(string clinicId)
             => _adminDAO.countCustomer(clinicId);
-
         public Task<double> moneyStatisticByClinic(DateTime start, DateTime end, string clinicId)
-            => _adminDAO.moneyStatistic(start, end,clinicId);
+            => _adminDAO.moneyStatistic(start, end, clinicId);
+
+
+
+        //clinic
+        public Task AddClinic(ClinicManaDTO dto)
+            => _adminDAO.CreateClinic(dto);
+        public Task DeleteClinic(string id)
+            =>_adminDAO.DeleteClinic(id);
+        public Task<ClinicListDTO> GetAllClinic(int limit, int offset)
+            =>_adminDAO.GetAllClinic(limit, offset);
+        public Task<ClinicManaDTO> GetClinicById(string id)
+            =>_adminDAO.GetClinicByID(id);
+        public Task<IEnumerable<ClinicManaDTO>> SortClinicByName()
+            =>_adminDAO.SortClinicByName();
+        public Task UpdateClinic(ClinicManaDTO updateDTO)
+            =>_adminDAO.UpdateClinic(updateDTO);    
     }
 }

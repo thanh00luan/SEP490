@@ -1,10 +1,16 @@
-﻿using BussinessObject.Data;
+﻿using AutoMapper;
+using BussinessObject.Data;
 using BussinessObject.Models;
+using DataAccess.DTO.Admin;
+using DataAccess.DTO.DDoctor;
+using DataAccess.DTO.Employee;
 using DataAccess.DTO.SuperAD;
+using DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,10 +19,29 @@ namespace DataAccess.DAO
     public class AdminDAO
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
+        private readonly SendMailService _sendMailService;
 
-        public AdminDAO(ApplicationDbContext context) 
+
+        public AdminDAO(ApplicationDbContext context, IMapper mapper, SendMailService sendMail) 
         {
             _context = context;
+            _mapper = mapper;   
+            _sendMailService = sendMail;
+        }
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
 
         public async Task<int> AppointmentStatisticAsync(int? day, int? month, string appointmentId, string status, string clinicId)
@@ -116,6 +141,281 @@ namespace DataAccess.DAO
                 .CountAsync();  
 
             return customerCount;
+        }
+
+        //Clinic Manager
+        public async Task CreateClinic( ClinicManaDTO dto)
+        {
+            var clinic = new Clinic
+            {
+                ClinicId = Guid.NewGuid().ToString(),
+                ClinicName = dto.ClinicName,
+                Address = dto.Address,
+                ClinicPhoneNumber = dto.ClinicPhoneNumber,  
+                Email = dto.Staff.Email,
+                Latitude = dto.Latitude,    
+                Longitude = dto.Longitude,
+            };
+            try
+            {
+
+                if (!string.IsNullOrEmpty(dto.Staff.UserId))
+                {
+                    var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == dto.Staff.UserId);
+
+                    if (existingUser != null)
+                    {
+                        existingUser.UserRole = 2;
+                        var Employee = new Employee
+                        {
+                            EmployeeId = existingUser.UserId,
+                            UserId = existingUser.UserId,
+                        };
+
+                        await _context.Employees.AddAsync(Employee);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+                    var user = new User
+                    {
+                        UserId = Guid.NewGuid().ToString(),
+                        FullName = dto.Staff.EmployeeName,
+                        Email = dto.Staff.Email,
+                        PhoneNumber = dto.Staff.PhoneNumber,
+                        Address = dto.Staff.Address,
+                        Birthday = dto.Staff.Birthday,
+                        UserRole = 2,
+                    };
+
+                    var password = "12345678";
+
+                    var hashedPassword = HashPassword(password);
+
+                    user.Password = hashedPassword;
+                    user.UserName = user.Email;
+                    await _context.Users.AddAsync(user);
+                    await _context.SaveChangesAsync();
+                    var newEmployee = new Employee
+                    {
+                        EmployeeId = user.UserId,
+                        UserId = user.UserId,
+                        EmployeeStatus = dto.Staff.EmployeeStatus,
+                    };
+
+                    var email = user.Email;
+                    var subject = "Thông tin tài khoản của bạn";
+                    var body = $"Xin chào {user.FullName},\n\nTài khoản của bạn đã được tạo thành công.\n\nTên đăng nhập: {user.UserName}\nMật khẩu: {password}\n\nXin cảm ơn.";
+
+                    await _sendMailService.SendEmailAsync(email, subject, body);
+
+                    clinic.EmployeeId = user.UserId;
+                    clinic.Employee = newEmployee;
+
+                    await _context.Employees.AddAsync(newEmployee);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                throw;
+            }
+
+
+
+            _context.Clinics.Add(clinic);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<ClinicListDTO> GetAllClinic(int limit, int offset)
+        {
+            try
+            {
+                var clinicQuery = _context.Clinics.Include(c=>c.Employee).Include(c => c.Employee.User).OrderBy(d => d.ClinicName);
+
+                var totals = await clinicQuery.CountAsync();
+
+                var clinics = await clinicQuery.Skip(offset).Take(limit).ToListAsync();
+
+                
+
+                var clinicDTOs = clinics.Select(e => new ClinicManaDTO
+                {
+                    ClinicId = e.ClinicId,
+                    ClinicName = e.ClinicName,
+                    Address = e.Address,
+                    ClinicPhoneNumber = e.ClinicPhoneNumber,
+
+                    Latitude = e.Latitude,
+                    Longitude = e.Longitude,
+                    Staff = new StaffManaDTO
+                    {
+                        EmployeeName = e.Employee.User.FullName,
+                        EmployeeId = e.EmployeeId,
+                        Email = e.Email,
+                        PhoneNumber = e.Employee.User?.PhoneNumber, 
+                        Address = e.Employee.User?.Address,
+                        Birthday = e.Employee.User.Birthday,
+                        EmployeeStatus = e.Employee.EmployeeStatus
+                    }
+
+            }) ;
+                return new ClinicListDTO
+                {
+                    TotalClinic = totals,
+                    Clinics = clinicDTOs
+                };
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in GetAllClinic: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAllClinic: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task DeleteClinic(string id)
+        {
+            try
+            {
+                var clinic = await _context.Clinics.FindAsync(id);
+                if (clinic != null)
+                {
+                    _context.Clinics.Remove(clinic);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in DeleteDoctor: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in DeleteDoctor: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<ClinicManaDTO> GetClinicByID(string id)
+        {
+            try
+            {
+                var e = await _context.Clinics
+                    .Include(c=>c.Employee)
+                    .Include(c=>c.Employee.User)
+                    .FirstOrDefaultAsync(d => d.ClinicId == id);
+
+                if (e == null)
+                {
+
+                    return null;
+                }
+
+                var dto = new ClinicManaDTO
+                {
+                    ClinicId = e.ClinicId,
+                    ClinicName = e.ClinicName,
+                    Address = e.Address,
+                    ClinicPhoneNumber = e.ClinicPhoneNumber,
+                    Latitude = e.Latitude,
+                    Longitude = e.Longitude,
+                    Staff = new StaffManaDTO
+                    {
+                        EmployeeName = e.Employee.User.FullName,
+                        EmployeeId = e.EmployeeId,
+                        Email = e.Email,
+                        PhoneNumber = e.Employee.User?.PhoneNumber,
+                        Address = e.Employee.User?.Address,
+                        Birthday = e.Employee.User.Birthday,
+                        EmployeeStatus = e.Employee.EmployeeStatus
+                    }
+                };
+
+                return dto;
+            }
+            catch (Exception ex)
+            {
+                // Log the error
+                Console.WriteLine($"Error in get clinic by id: {ex.Message}");
+                throw;
+            }
+        }
+
+       
+
+
+        public async Task<IEnumerable<ClinicManaDTO>> SortClinicByName()
+        {
+            try
+            {
+                var sortedClinic = await _context.Clinics
+                    .Include(c => c.Employee)
+                    .Include(c => c.Employee.User)
+                    .OrderBy(c => c.ClinicName).ToListAsync();
+                var sortedDTO = _mapper.Map<IEnumerable<ClinicManaDTO>>(sortedClinic);
+                return sortedDTO;
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in SortClinicByName: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SortClinicByName: {ex.Message}");
+                throw;
+            }
+        }
+
+
+
+        public async Task UpdateClinic(ClinicManaDTO updateDTO)
+        {
+
+            try
+            {
+
+                var exClinic = await _context.Clinics.Include(c => c.Employee).Include(c => c.Employee.User)
+                    .FirstOrDefaultAsync(d => d.ClinicId == updateDTO.ClinicId);
+                if (exClinic == null)
+                {
+                    throw new Exception("Error in get clinic.");
+                }
+                exClinic.ClinicId = updateDTO.ClinicId;
+                exClinic.ClinicName = updateDTO.ClinicName;
+                exClinic.ClinicPhoneNumber = updateDTO.ClinicPhoneNumber;   
+                exClinic.Address = updateDTO.Address;
+                exClinic.Latitude = updateDTO.Latitude;
+                exClinic.Longitude = updateDTO.Longitude;
+                _context.Clinics.Update(exClinic);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in UpdateClinic: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in UpdateClinic: {ex.Message}");
+                throw;
+            }
         }
     }
 }

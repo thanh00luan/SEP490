@@ -104,11 +104,11 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetAllStaff")]
-        public async Task<IActionResult> GetAllStaff(int limit, int offset)
+        public async Task<IActionResult> GetAllStaff(string clinicId,int limit, int offset)
         {
             try
             {
-                var staff = await _repository.GetAllStaff(limit,offset);
+                var staff = await _repository.GetAllStaff(clinicId,limit,offset);
                 return Ok(staff);
             }
             catch (Exception ex)
@@ -118,11 +118,11 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetStaffById/{id}")]
-        public async Task<IActionResult> GetStaffById(string id)
+        public async Task<IActionResult> GetStaffById(string clinicId, string id)
         {
             try
             {
-                var staff = await _repository.GetStaffById(id);
+                var staff = await _repository.GetStaffById(clinicId, id);
                 if (staff != null)
                     return Ok(staff);
                 else
@@ -250,11 +250,11 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetAllDoctors")]
-        public async Task<IActionResult> GetAllDoctor(int limit, int offset)
+        public async Task<IActionResult> GetAllDoctor(string clinicId,int limit, int offset)
         {
             try
             {
-                var doctors = await _repository.GetAllDoctors(limit, offset);
+                var doctors = await _repository.GetAllDoctors(clinicId, limit, offset);
                 return Ok(doctors);
             }
             catch (Exception ex)
@@ -263,12 +263,12 @@ namespace DoctorPetAPI.Controllers
             }
         }
 
-        [HttpGet("GetDoctorById/{doctorId}")]
-        public async Task<IActionResult> GetDoctorById(string doctorId)
+        [HttpGet("GetDoctorById/{clinicId}/{doctorId}")]
+        public async Task<IActionResult> GetDoctorById(string clinicId,string doctorId)
         {
             try
             {
-                var doctor = await _repository.GetDoctorById(doctorId);
+                var doctor = await _repository.GetDoctorById(clinicId, doctorId);
                 if (doctor != null)
                     return Ok(doctor);
                 else

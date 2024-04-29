@@ -17,6 +17,9 @@ namespace BussinessObject.Models
     [ForeignKey("User")]
     public string UserId { get; set; }
     public User User { get; set; }
+    [ForeignKey("Clinic")]
+    public string ClinicId { get; set; }
+    public Clinic Clinic { get; set; }
 
-}
+    }
 }

@@ -9,6 +9,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System;
+using DataAccess.DTO.Admin;
+using DataAccess.DTO.DPet;
 
 namespace DoctorPetAPI.Controllers
 {
@@ -17,9 +19,11 @@ namespace DoctorPetAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
-        public UserController(IUserRepository userRepository)
+        private readonly IPetRepository _petRepository;
+        public UserController(IUserRepository userRepository, IPetRepository petRepository)
         {
             _userRepository = userRepository;
+            _petRepository = petRepository;
         }
 
         [HttpGet]
@@ -146,6 +150,71 @@ namespace DoctorPetAPI.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Internal server error: {ex.Message}");
             }
+        }
+
+        [HttpPost("AddPet")]
+        public async Task<IActionResult> AddPet(PetManaDTO dto)
+        {
+            try
+            {
+                await _petRepository.AddPet(dto);
+                return Ok("Pet added successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("GetAllPet")]
+        public async Task<IActionResult> GetAllPet(string userId)
+        {
+            try
+            {
+                var Pets = await _petRepository.GetAllPet(userId);
+                return Ok(Pets);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("GetPetById/{id}")]
+        public async Task<IActionResult> GetPetById( string id)
+        {
+            try
+            {
+                var Pet = await _petRepository.GetPetById(id);
+                if (Pet != null)
+                    return Ok(Pet);
+                else
+                    return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPut("UpdatePet")]
+        public async Task<IActionResult> UpdatePet(PetManaDTO dto)
+        {
+            try
+            {
+                await _petRepository.UpdatePet(dto);
+                return Ok("Pet updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+        [HttpDelete("{petId}")]
+        public async Task<IActionResult> DeletePetAsync(string petId)
+        {
+            await _petRepository.DeletePet(petId);
+            return Ok("Pet deleted successfully.");
         }
 
 

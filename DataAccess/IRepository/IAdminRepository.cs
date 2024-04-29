@@ -32,8 +32,8 @@ namespace DataAccess.IRepository
 
         //Staff interface
         Task AddStaff(StaffManaDTO staffDTO);
-        Task<StaffListDTO> GetAllStaff(int limit, int offset);
-        Task<StaffManaDTO> GetStaffById(string id);
+        Task<StaffListDTO> GetAllStaff(string clinicId, int limit, int offset);
+        Task<StaffManaDTO> GetStaffById(string clinicId,string id);
         Task UpdateStaff(StaffManaDTO staffDTO);
 
         Task DeleteStaffAsync(string id);
@@ -41,8 +41,8 @@ namespace DataAccess.IRepository
         //Doctor
         Task AddDoctor(DoctorManaDTO doctorDTO);
         Task DeleteDoctor(string id);
-        Task<DoctorListDTO> GetAllDoctors(int limit, int offset);
-        Task<DoctorManaDTO> GetDoctorById(string id);
+        Task<DoctorListDTO> GetAllDoctors(string clinicId,int limit, int offset);
+        Task<DoctorManaDTO> GetDoctorById(string clinicId, string id);
         Task<IEnumerable<DoctorManaDTO>> SortDoctorByName();
         Task UpdateDoctor(DoctorManaDTO updateDTO);
         Task<PresDTO> GetPrescription(string appointmentId);

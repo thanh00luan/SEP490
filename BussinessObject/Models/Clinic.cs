@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,9 @@ namespace BussinessObject.Models
             get { return Lng; }
             set { Lng = Math.Round(value, 4); }
         }
+        [ForeignKey("Employee")]
+        public string EmployeeId { get; set; }
+        public Employee Employee { get; set; }
 
         public List<Appointment> Appointments { get; set; }
 
