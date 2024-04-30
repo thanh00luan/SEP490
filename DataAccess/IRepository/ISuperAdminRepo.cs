@@ -26,5 +26,12 @@ namespace DataAccess.IRepository
         Task<IEnumerable<ClinicManaDTO>> SortClinicByName();
         Task UpdateClinic(ClinicManaDTO updateDTO);
 
+        //Pet Category
+        Task AddPetCategory(PetCateManaDTO dto);
+        Task DeletePetCategory(string id);
+        Task<IEnumerable<PetCateManaDTO>> GetAllPetCategories();
+        Task<PetCateManaDTO> GetPetCateById(string id);
+        Task UpdatePetCate(PetCateManaDTO updateDTO);
+
     }
 }

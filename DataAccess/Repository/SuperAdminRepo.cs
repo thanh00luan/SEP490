@@ -40,6 +40,24 @@ namespace DataAccess.Repository
         public Task<IEnumerable<ClinicManaDTO>> SortClinicByName()
             =>_adminDAO.SortClinicByName();
         public Task UpdateClinic(ClinicManaDTO updateDTO)
-            =>_adminDAO.UpdateClinic(updateDTO);    
+            =>_adminDAO.UpdateClinic(updateDTO);
+        //PetCategory
+        public Task AddPetCategory(PetCateManaDTO dto)
+            =>_adminDAO.CreateCategoryAsync(dto);
+
+        public Task DeletePetCategory(string id)
+            =>_adminDAO.DeleteCateAsync(id);
+
+        public Task<IEnumerable<PetCateManaDTO>> GetAllPetCategories()
+            =>_adminDAO.GetAllCateAsync();
+
+        public Task<PetCateManaDTO> GetPetCateById(string id)
+            =>_adminDAO.GetCateByIdAsync(id);
+
+        public Task UpdatePetCate(PetCateManaDTO updateDTO)
+            =>_adminDAO.UpdateCateAsync(updateDTO); 
+
+        
+
     }
 }

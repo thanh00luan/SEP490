@@ -134,5 +134,43 @@ namespace DoctorPetAPI.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        //Pet Category
+        [HttpPost("AddCategory")]
+        public async Task<IActionResult> AddCategory([FromBody] PetCateManaDTO dto)
+        {
+            await _superAdminRepo.AddPetCategory(dto);
+            return Ok("Category added successfully");
+        }
+
+        [HttpDelete("DeleteCategory/{id}")]
+        public async Task<IActionResult> DeleteCategory(string id)
+        {
+            await _superAdminRepo.DeletePetCategory(id);
+            return Ok("Category deleted successfully");
+        }
+
+        [HttpGet("GetAllCategories")]
+        public async Task<IActionResult> GetAllCategories()
+        {
+            var categories = await _superAdminRepo.GetAllPetCategories();
+            return Ok(categories);
+        }
+
+        [HttpGet("GetCategoryById/{id}")]
+        public async Task<IActionResult> GetCategoryById(string id)
+        {
+            var category = await _superAdminRepo.GetPetCateById(id);
+            if (category == null)
+                return NotFound("Category not found");
+
+            return Ok(category);
+        }
+        [HttpPut("UpdateCategory")]
+        public async Task<IActionResult> UpdateCategory([FromBody] PetCateManaDTO updateDTO)
+        {
+            await _superAdminRepo.UpdatePetCate(updateDTO);
+            return Ok("Category updated successfully");
+        }
     }
 }

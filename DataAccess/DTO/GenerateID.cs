@@ -41,6 +41,31 @@ namespace DataAccess.DTO
             return newId;
         }
 
+        public string GenerateNewPetId(string prefix)
+        {
+            var allCategories = _context.PetTypes.ToList();
+
+            var existingIds = new List<string>();
+
+            foreach (var category in allCategories)
+            {
+                existingIds.Add(category.PetTypeId);
+            }
+
+            if (existingIds.Count == 0)
+            {
+                return prefix + "01";
+            }
+
+            existingIds.Sort();
+
+            var lastId = existingIds.Last();
+            var newIdNumber = int.Parse(lastId.Substring(2)) + 1;
+            var newId = prefix + newIdNumber.ToString("D2");
+
+            return newId;
+        }
+
         public string GenerateNewDoctorId(string prefix)
         {
             var doctorDegrees = _context.DoctorDegrees.ToList();

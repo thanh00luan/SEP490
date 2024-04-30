@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BussinessObject.Data;
 using BussinessObject.Models;
+using DataAccess.DTO;
 using DataAccess.DTO.Admin;
 using DataAccess.DTO.DDoctor;
 using DataAccess.DTO.Employee;
@@ -417,5 +418,121 @@ namespace DataAccess.DAO
                 throw;
             }
         }
+
+        //PetCategory
+        public async Task CreateCategoryAsync(PetCateManaDTO dto)
+        {
+            var generateID = new GenerateID(_context);
+
+            var cate = new PetType
+            {
+                PetTypeId = generateID.GenerateNewPetId("PT"),
+                PetTypeName = dto.PetTypeName
+            };
+
+            _context.PetTypes.Add(cate);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<PetCateManaDTO>> GetAllCateAsync()
+        {
+            try
+            {
+                var cateQuery = _context.PetTypes.OrderBy(m => m.PetTypeId);
+
+                var totalCates = await cateQuery.CountAsync();
+
+                var cate = await cateQuery.ToListAsync();
+
+                var cateDTOs = cate.Select(cate => new PetCateManaDTO
+                {
+                    PetTypeId = cate.PetTypeId,
+                    PetTypeName = cate.PetTypeName,
+                });
+
+                return cateDTOs;
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in GetAllCateAsync: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAllCateAsync: {ex.Message}");
+                throw;
+            }
+        }
+
+
+
+        public async Task<PetCateManaDTO> GetCateByIdAsync(string id)
+        {
+            var cate = await _context.PetTypes.FindAsync(id);
+
+            if (cate == null)
+            {
+                return null;
+            }
+
+            return new PetCateManaDTO
+            {
+                PetTypeId = cate.PetTypeId,
+                PetTypeName = cate.PetTypeName,
+            };
+        }
+
+        public async Task UpdateCateAsync(PetCateManaDTO dto)
+        {
+            var cate = await _context.PetTypes.FindAsync(dto.PetTypeId);
+
+            if (cate == null)
+            {
+                return;
+            }
+
+            cate.PetTypeName = dto.PetTypeName;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteCateAsync(string id)
+        {
+            var cate = await _context.PetTypes.FindAsync(id);
+
+            if (cate == null)
+            {
+                return;
+            }
+
+            _context.PetTypes.Remove(cate);
+            await _context.SaveChangesAsync();
+        }
+
+        //public async Task<IEnumerable<CateManaDTO>> SearchByName(string name)
+        //{
+        //    try
+        //    {
+        //        var cateQuery = _context.MedicineCategories
+        //                            .Where(c => c.CategoryName.Contains(name))
+        //                            .OrderBy(c => c.MedicineCateId);
+
+        //        var totalCates = await cateQuery.CountAsync();
+
+        //        var cateList = await cateQuery.ToListAsync();
+
+        //        var cateDTOs = cateList.Select(cate => new CateManaDTO
+        //        {
+        //            MedicineCateId = cate.MedicineCateId,
+        //            CategoryName = cate.CategoryName,
+        //        });
+
+        //        return cateDTOs;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error in SearchByName: {ex.Message}");
+        //        throw;
+        //    }
+        //}
     }
 }
