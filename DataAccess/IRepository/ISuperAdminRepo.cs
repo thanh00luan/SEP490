@@ -12,7 +12,7 @@ namespace DataAccess.IRepository
     public interface ISuperAdminRepo
     {
         //Statistic
-        Task<AppointmentStatisticReponse> appointmentStatistics(DateTime start, DateTime end, string clinicId);
+        Task<List<AppointmentStatisticReponse>> appointmentStatistics(DateTime start, DateTime end, string clinicId);
 
         Task<double> moneyStatisticByClinic(DateTime start, DateTime end, string clinicId);
 

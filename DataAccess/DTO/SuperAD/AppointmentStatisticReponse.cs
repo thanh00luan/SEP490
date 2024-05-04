@@ -8,6 +8,7 @@ namespace DataAccess.DTO.SuperAD
 {
     public class AppointmentStatisticReponse
     {
+        public DateTime Date { get; set; }
         public int total { get; set; }
         public int doneQuantity { get; set; }
         public int inProgressQuantity { get; set; }

@@ -81,7 +81,7 @@ namespace DataAccess.DAO
             return await query.CountAsync();
         }
 
-        public async Task<AppointmentStatisticReponse> appointmentStatistics(DateTime start, DateTime end, string clinicId)
+        public async Task<List<AppointmentStatisticReponse>> appointmentStatistics(DateTime start, DateTime end, string clinicId)
         {
             IQueryable<Appointment> query = _context.Appointments;
 
@@ -92,23 +92,47 @@ namespace DataAccess.DAO
                 query = query.Where(a => a.ClinicId == clinicId);
             }
 
-            int totalAppointments = await query.CountAsync();
-            int doneQuantity = await query.CountAsync(a => a.Status == "done");
-            int inProgressQuantity = await query.CountAsync(a => a.Status == "inProgress");
-            int waitingQuantity = await query.CountAsync(a => a.Status == "waiting");
-            int pendingQuantity = await query.CountAsync(a => a.Status == "pending");
+            List<AppointmentStatisticReponse> dailyStatistics = new List<AppointmentStatisticReponse>();
 
-            AppointmentStatisticReponse response = new AppointmentStatisticReponse
+            for (DateTime date = start.Date; date <= end.Date; date = date.AddDays(1))
             {
-                total = totalAppointments,
-                doneQuantity = doneQuantity,
-                inProgressQuantity = inProgressQuantity,
-                watingQuantity = waitingQuantity,
-                pendingQuantity = pendingQuantity
-            };
+                int totalAppointments = await query.CountAsync(a => a.AppointmentDate.Date == date);
+                int doneQuantity = await query.CountAsync(a => a.AppointmentDate.Date == date && a.Status == "done");
+                int inProgressQuantity = await query.CountAsync(a => a.AppointmentDate.Date == date && a.Status == "inProgress");
+                int waitingQuantity = await query.CountAsync(a => a.AppointmentDate.Date == date && a.Status == "waiting");
+                int pendingQuantity = await query.CountAsync(a => a.AppointmentDate.Date == date && a.Status == "pending");
 
-            return response;
+                if (totalAppointments == 0)
+                {
+                    dailyStatistics.Add(new AppointmentStatisticReponse
+                    {
+                        Date = date,
+                        total = 0,
+                        doneQuantity = 0,
+                        inProgressQuantity = 0,
+                        watingQuantity = 0,
+                        pendingQuantity = 0
+                    });
+                }
+                else
+                {
+                    AppointmentStatisticReponse dailyStatistic = new AppointmentStatisticReponse
+                    {
+                        Date = date,
+                        total = totalAppointments,
+                        doneQuantity = doneQuantity,
+                        inProgressQuantity = inProgressQuantity,
+                        watingQuantity = waitingQuantity,
+                        pendingQuantity = pendingQuantity
+                    };
+
+                    dailyStatistics.Add(dailyStatistic);
+                }
+            }
+
+            return dailyStatistics;
         }
+
 
         public async Task<double> moneyStatistic(DateTime start, DateTime end, string clinicId)
         {
