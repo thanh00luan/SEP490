@@ -145,3 +145,9 @@ C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI\obj\Debug\net5.0\UserAPI.genruntimeconfig.cache
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI\obj\Debug\net5.0\ref\UserAPI.dll
 C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI\obj\Debug\net5.0\UserAPI.sourcelink.json
+C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI\bin\Debug\net5.0\BouncyCastle.Cryptography.dll
+C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI\bin\Debug\net5.0\MailKit.dll
+C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI\bin\Debug\net5.0\MimeKit.dll
+C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI\bin\Debug\net5.0\System.Formats.Asn1.dll
+C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI\bin\Debug\net5.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Thanh Luan\Desktop\SEP_490_DoctorPET\SEP_490_DoctorPET\Services\UserAPI\bin\Debug\net5.0\System.Text.Encoding.CodePages.dll

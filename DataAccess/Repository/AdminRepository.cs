@@ -4,6 +4,7 @@ using DataAccess.DTO.Admin;
 using DataAccess.DTO.Employee;
 using DataAccess.DTO.Precscription;
 using DataAccess.IRepository;
+using DataAccess.RequestDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,19 @@ namespace DataAccess.Repository
         {
             _adminDAO = adminDAO;
         }
+
+        //Pet type Category per clinic
+        public Task<string> CreatePetType(string clinicId, string petTypeId)
+            =>_adminDAO.CreatePetType(clinicId, petTypeId);
+
+        public Task<IEnumerable<PetTypeManaDTO>> GetAllPetCateAsync(string clinicId)
+            => _adminDAO.GetAllPetCateAsync(clinicId);
+        public Task<PetTypeManaDTO> GetCateByIdAsync(string clinicId, string id)
+            =>_adminDAO.GetCateByIdAsync(clinicId, id);
+        public Task UpdatePetCateAsync(PetTypeManaDTO dto)
+            => _adminDAO.UpdatePetCateAsync(dto);
+        public Task DeletePetCateAsync(string clinicId, string id)
+            => _adminDAO.DeletePetCateAsync(clinicId, id);
 
         //Medicine
         public Task<MedicineListDTO> getAllMedicineAsync(string clinicId, int limit, int offset)
@@ -94,6 +108,7 @@ namespace DataAccess.Repository
         //Pet
 
         //Pet Category
+
 
         //Degree
         public Task AddDegree(DoctorDegree dto)

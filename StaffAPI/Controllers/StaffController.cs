@@ -80,33 +80,33 @@ namespace StaffAPI.Controllers
             }
         }
 
-        [HttpGet("getLists")]
-        public async Task<IActionResult> GetPendingList(DateTime startDate, DateTime endDate,int limit, int offset)
-        {
-            try
-            {
-                var appointments = await _StaffRepository.GetPendingAppointment(startDate,endDate, limit, offset);
-                return Ok(appointments);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error getting doctor appointments: {ex.Message}");
-            }
-        }
+        //[HttpGet("getLists")]
+        //public async Task<IActionResult> GetPendingList(DateTime startDate, DateTime endDate,int limit, int offset)
+        //{
+        //    try
+        //    {
+        //        var appointments = await _StaffRepository.GetPendingAppointment(startDate,endDate, limit, offset);
+        //        return Ok(appointments);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, $"Error getting doctor appointments: {ex.Message}");
+        //    }
+        //}
 
-        [HttpGet("availableDoctors/{customerSlot}/{clinicId}/{start}/{end}")]
-        public async Task<IActionResult> GetAvailableDoctors(int customerSlot, string clinicId, DateTime start, DateTime end)
-        {
-            try
-            {
-                var availableDoctors = await _StaffRepository.GetAvailableDoctors(customerSlot, clinicId, start, end);
-                return Ok(availableDoctors);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error getting available doctors: {ex.Message}");
-            }
-        }
+        //[HttpGet("availableDoctors/{customerSlot}/{clinicId}/{start}/{end}")]
+        //public async Task<IActionResult> GetAvailableDoctors(int customerSlot, string clinicId, DateTime start, DateTime end)
+        //{
+        //    try
+        //    {
+        //        var availableDoctors = await _StaffRepository.GetAvailableDoctors(customerSlot, clinicId, start, end);
+        //        return Ok(availableDoctors);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, $"Error getting available doctors: {ex.Message}");
+        //    }
+        //}
 
         [HttpPost("assignDoctor")]
         public async Task<IActionResult> AssignDoctorToAppointment([FromBody] AssignDoctorRequest request)

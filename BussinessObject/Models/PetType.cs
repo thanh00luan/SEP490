@@ -14,5 +14,6 @@ namespace BussinessObject.Models
         public string PetTypeName { get; set; }
 
         public List<Pet> Pets { get; set; }
+        public List<PetTypePerClinic> PetTypeClinics { get; set; }
     }
 }

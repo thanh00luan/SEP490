@@ -3,6 +3,7 @@ using DataAccess.DTO.Admin;
 using DataAccess.DTO.Employee;
 using DataAccess.DTO.Medicine;
 using DataAccess.DTO.Precscription;
+using DataAccess.RequestDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,11 @@ namespace DataAccess.IRepository
         //Pet interface
 
         //Pet Category interface
+        Task<string> CreatePetType(string clinicId, string petTypeId);
+        Task<IEnumerable<PetTypeManaDTO>> GetAllPetCateAsync(string clinicId);
+        Task<PetTypeManaDTO> GetCateByIdAsync(string clinicId, string id);
+        Task UpdatePetCateAsync(PetTypeManaDTO dto);
+        Task DeletePetCateAsync(string clinicId, string id);
 
         //Medicine interface
         Task<MedicineListDTO> getAllMedicineAsync(string clinicId, int limit, int offset);

@@ -40,5 +40,6 @@ namespace BussinessObject.Models
         public List<Doctor> Doctors { get; set; }
 
         public List<Medicine> Medicines { get; set; }
+        public List<PetTypePerClinic> PetTypeClinics { get; set; }
     }
 }

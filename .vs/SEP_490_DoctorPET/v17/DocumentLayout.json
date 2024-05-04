@@ -3,52 +3,100 @@
   "WorkspaceRootPath": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\doctorpetapi\\controllers\\superadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|solutionrelative:doctorpetapi\\controllers\\superadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\doctorpetapi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|solutionrelative:doctorpetapi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\repository\\superadminrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\repository\\superadminrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\repository\\adminrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\repository\\adminrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dao\\admindao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dao\\admindao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\generateid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\generateid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dao\\superadmindao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dao\\superadmindao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\irepository\\isuperadminrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\irepository\\isuperadminrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\irepository\\iadminrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\irepository\\iadminrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\superad\\pettypelistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\superad\\pettypelistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\doctorpetapi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|solutionrelative:doctorpetapi\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E9A3AD8-DC6D-40AF-8DEF-652B41AEA5FF}|StaffAPI\\StaffAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\staffapi\\controllers\\staffcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E9A3AD8-DC6D-40AF-8DEF-652B41AEA5FF}|StaffAPI\\StaffAPI.csproj|solutionrelative:staffapi\\controllers\\staffcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E7061481-82BA-4A8D-92B0-1F8D40786C11}|AppointmentAPI\\AppointmentAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\appointmentapi\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E7061481-82BA-4A8D-92B0-1F8D40786C11}|AppointmentAPI\\AppointmentAPI.csproj|solutionrelative:appointmentapi\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\doctorpetapi\\controllers\\staffcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|solutionrelative:doctorpetapi\\controllers\\staffcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\irepository\\istaffrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\irepository\\istaffrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dao\\admindao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dao\\admindao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\irepository\\iappointmentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\irepository\\iappointmentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\doctorpetapi\\controllers\\superadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|solutionrelative:doctorpetapi\\controllers\\superadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\repository\\superadminrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\repository\\superadminrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\irepository\\isuperadminrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\irepository\\isuperadminrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\irepository\\ipetrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\irepository\\ipetrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\irepository\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\irepository\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\requestdto\\pettypemanadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\requestdto\\pettypemanadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\bussinessobject\\models\\pettypeperclinic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|solutionrelative:bussinessobject\\models\\pettypeperclinic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\superad\\petcatemanadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\superad\\petcatemanadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\bussinessobject\\models\\pettype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|solutionrelative:bussinessobject\\models\\pettype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\doctorpetapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|solutionrelative:doctorpetapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\repository\\sendmailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\repository\\sendmailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dao\\userdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dao\\userdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\doctorpetapi\\controllers\\doctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|solutionrelative:doctorpetapi\\controllers\\doctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\doctorpetapi\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|solutionrelative:doctorpetapi\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\bussinessobject\\models\\doctordegree.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|solutionrelative:bussinessobject\\models\\doctordegree.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\bussinessobject\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -57,6 +105,30 @@
     {
       "AbsoluteMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\doctorpetapi\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|solutionrelative:doctorpetapi\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\admin\\createpettyperequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\admin\\createpettyperequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dao\\petdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dao\\petdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dao\\appointmentdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dao\\appointmentdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\bussinessobject\\models\\pettype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|solutionrelative:bussinessobject\\models\\pettype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\bussinessobject\\models\\clinic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|solutionrelative:bussinessobject\\models\\clinic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\generateid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\generateid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\admin\\staffmanadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -87,20 +159,8 @@
       "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\admin\\doctorlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dao\\petdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dao\\petdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\repository\\petrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\repository\\petrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\doctorpetapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|solutionrelative:doctorpetapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\irepository\\ipetrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\irepository\\ipetrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\irepository\\isendmailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -113,18 +173,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\admin\\catemanadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\admin\\catemanadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dao\\appointmentdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dao\\appointmentdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\dpet\\petmanadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\dpet\\petmanadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\dpet\\petlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\dpet\\petlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\dpet\\viewpetdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -143,20 +191,8 @@
       "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\superad\\appointmentstatisticreponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\bussinessobject\\models\\clinic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|solutionrelative:bussinessobject\\models\\clinic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\superad\\clinicmanadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\superad\\clinicmanadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\irepository\\istaffrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\irepository\\istaffrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\doctorpetapi\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|solutionrelative:doctorpetapi\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dao\\staffdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -211,10 +247,6 @@
       "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\ddoctor\\generateprescriptiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\doctorpetapi\\controllers\\doctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|solutionrelative:doctorpetapi\\controllers\\doctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\bussinessobject\\models\\appointment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|solutionrelative:bussinessobject\\models\\appointment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -241,10 +273,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\admin\\medicinesearchdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\admin\\medicinesearchdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\repository\\sendmailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\repository\\sendmailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\doctorpetapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -277,10 +305,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\bussinessobject\\migrations\\20240423200157_init-12.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|solutionrelative:bussinessobject\\migrations\\20240423200157_init-12.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\bussinessobject\\models\\doctordegree.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32CAD3AE-6A4A-4460-9795-45A601EF7230}|BussinessObject\\BussinessObject.csproj|solutionrelative:bussinessobject\\models\\doctordegree.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\repository\\medicinerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -359,14 +383,6 @@
       "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\ddoctor\\avaibledoctordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\doctorpetapi\\controllers\\staffcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8B7708C-8CD5-40F5-B59B-2E2419DA7798}|DoctorPetAPI\\DoctorPetAPI.csproj|solutionrelative:doctorpetapi\\controllers\\staffcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\irepository\\iappointmentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\irepository\\iappointmentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\employee\\staffdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\employee\\staffdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -377,6 +393,18 @@
     {
       "AbsoluteMoniker": "D:0:0:{E56464C3-ACC3-4C37-958E-C0F6EB717649}|Services\\DoctorAPI\\DoctorAPI.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\services\\doctorapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{E56464C3-ACC3-4C37-958E-C0F6EB717649}|Services\\DoctorAPI\\DoctorAPI.csproj|solutionrelative:services\\doctorapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\superad\\pettypelistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\superad\\pettypelistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\dpet\\petmanadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\dpet\\petmanadto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|c:\\users\\thanh luan\\desktop\\sep_490_doctorpet\\sep_490_doctorpet\\dataaccess\\dto\\dpet\\petlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22F82F5F-2667-4252-B444-31B93856B3A0}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dto\\dpet\\petlistdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -386,284 +414,172 @@
       "DocumentGroups": [
         {
           "DockedWidth": 111,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "AdminRepository.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\AdminRepository.cs",
               "RelativeDocumentMoniker": "DataAccess\\Repository\\AdminRepository.cs",
               "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\AdminRepository.cs",
               "RelativeToolTip": "DataAccess\\Repository\\AdminRepository.cs",
-              "ViewState": "AQIAACkAAAAAAAAAAAA0wFsAAAAzAAAA",
+              "ViewState": "AQIAAEQAAAAAAAAAAAAUwEkAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-12T11:11:40.487Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "SuperAdminDAO.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\SuperAdminDAO.cs",
-              "RelativeDocumentMoniker": "DataAccess\\DAO\\SuperAdminDAO.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\SuperAdminDAO.cs",
-              "RelativeToolTip": "DataAccess\\DAO\\SuperAdminDAO.cs",
-              "ViewState": "AQIAAIIDAAAAAAAAAADwv5ADAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T15:18:13.949Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AdminDAO.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\AdminDAO.cs",
-              "RelativeDocumentMoniker": "DataAccess\\DAO\\AdminDAO.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\AdminDAO.cs",
-              "RelativeToolTip": "DataAccess\\DAO\\AdminDAO.cs",
-              "ViewState": "AQIAAL8BAAAAAAAAAAAkwNUBAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-25T12:12:16.831Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "GenerateID.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\GenerateID.cs",
-              "RelativeDocumentMoniker": "DataAccess\\DTO\\GenerateID.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\GenerateID.cs",
-              "RelativeToolTip": "DataAccess\\DTO\\GenerateID.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAwwCsAAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-19T03:23:55.496Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SuperAdminRepo.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\SuperAdminRepo.cs",
-              "RelativeDocumentMoniker": "DataAccess\\Repository\\SuperAdminRepo.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\SuperAdminRepo.cs",
-              "RelativeToolTip": "DataAccess\\Repository\\SuperAdminRepo.cs",
-              "ViewState": "AQIAACMAAAAAAAAAAAAswDkAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-25T12:13:05.446Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 10,
               "Title": "SuperAdminController.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\SuperAdminController.cs",
               "RelativeDocumentMoniker": "DoctorPetAPI\\Controllers\\SuperAdminController.cs",
               "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\SuperAdminController.cs",
               "RelativeToolTip": "DoctorPetAPI\\Controllers\\SuperAdminController.cs",
-              "ViewState": "AQIAAHsAAAAAAAAAAAAkwI0AAAAwAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAK0AAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-25T14:31:28.274Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-25T14:31:28.274Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
+              "Title": "IStaffRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\IStaffRepository.cs",
+              "RelativeDocumentMoniker": "DataAccess\\IRepository\\IStaffRepository.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\IStaffRepository.cs",
+              "RelativeToolTip": "DataAccess\\IRepository\\IStaffRepository.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAIA/wBgAAABEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-13T16:24:41.832Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "StaffController.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\StaffController.cs",
+              "RelativeDocumentMoniker": "DoctorPetAPI\\Controllers\\StaffController.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\StaffController.cs",
+              "RelativeToolTip": "DoctorPetAPI\\Controllers\\StaffController.cs",
+              "ViewState": "AQIAAGkAAAAAAAAAAAAIwGsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T11:31:57.703Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "AdminController.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\AdminController.cs",
               "RelativeDocumentMoniker": "DoctorPetAPI\\Controllers\\AdminController.cs",
               "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\AdminController.cs",
               "RelativeToolTip": "DoctorPetAPI\\Controllers\\AdminController.cs",
-              "ViewState": "AQIAAEMBAAAAAAAAAAAwwFQBAAAJAAAA",
+              "ViewState": "AQIAAF8BAAAAAAAAAAAIwHABAABBAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-12T15:15:28.938Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ISuperAdminRepo.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\ISuperAdminRepo.cs",
-              "RelativeDocumentMoniker": "DataAccess\\IRepository\\ISuperAdminRepo.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\ISuperAdminRepo.cs",
-              "RelativeToolTip": "DataAccess\\IRepository\\ISuperAdminRepo.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAzwCAAAAA3AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-25T12:12:53.872Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
               "Title": "IAdminRepository.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\IAdminRepository.cs",
               "RelativeDocumentMoniker": "DataAccess\\IRepository\\IAdminRepository.cs",
               "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\IAdminRepository.cs",
               "RelativeToolTip": "DataAccess\\IRepository\\IAdminRepository.cs",
-              "ViewState": "AQIAACwAAAAAAAAAAAAAwDIAAAAIAAAA",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAcwBQAAABOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-12T15:29:20.935Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "PetTypeListDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\SuperAD\\PetTypeListDTO.cs",
-              "RelativeDocumentMoniker": "DataAccess\\DTO\\SuperAD\\PetTypeListDTO.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\SuperAD\\PetTypeListDTO.cs",
-              "RelativeToolTip": "DataAccess\\DTO\\SuperAD\\PetTypeListDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAABBAAAA",
+              "DocumentIndex": 1,
+              "Title": "SuperAdminDAO.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\SuperAdminDAO.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DAO\\SuperAdminDAO.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\SuperAdminDAO.cs",
+              "RelativeToolTip": "DataAccess\\DAO\\SuperAdminDAO.cs",
+              "ViewState": "AQIAACYEAAAAAAAAAAAmwAkEAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T11:53:45.576Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "PetCateManaDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\SuperAD\\PetCateManaDTO.cs",
-              "RelativeDocumentMoniker": "DataAccess\\DTO\\SuperAD\\PetCateManaDTO.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\SuperAD\\PetCateManaDTO.cs",
-              "RelativeToolTip": "DataAccess\\DTO\\SuperAD\\PetCateManaDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T11:51:03.437Z",
+              "WhenOpened": "2024-04-12T15:18:13.949Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
-              "Title": "PetType.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\PetType.cs",
-              "RelativeDocumentMoniker": "BussinessObject\\Models\\PetType.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\PetType.cs",
-              "RelativeToolTip": "BussinessObject\\Models\\PetType.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAIAAAA",
+              "Title": "SuperAdminRepo.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\SuperAdminRepo.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Repository\\SuperAdminRepo.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\SuperAdminRepo.cs",
+              "RelativeToolTip": "DataAccess\\Repository\\SuperAdminRepo.cs",
+              "ViewState": "AQIAACUAAAAAAAAAAAAwwDkAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-17T15:14:20.24Z",
+              "WhenOpened": "2024-04-25T12:13:05.446Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "StaffController.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\StaffAPI\\Controllers\\StaffController.cs",
+              "RelativeDocumentMoniker": "StaffAPI\\Controllers\\StaffController.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\StaffAPI\\Controllers\\StaffController.cs",
+              "RelativeToolTip": "StaffAPI\\Controllers\\StaffController.cs",
+              "ViewState": "AQIAAFsAAAAAAAAAAAAwwGIAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-03T12:50:12.708Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AppointmentController.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\AppointmentAPI\\Controllers\\AppointmentController.cs",
+              "RelativeDocumentMoniker": "AppointmentAPI\\Controllers\\AppointmentController.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\AppointmentAPI\\Controllers\\AppointmentController.cs",
+              "RelativeToolTip": "AppointmentAPI\\Controllers\\AppointmentController.cs",
+              "ViewState": "AQIAACgAAAAAAAAAAAAewDQAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-03T12:49:18.816Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "BussinessObject\\Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "BussinessObject\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAgwA4AAAAJAAAA",
+              "Title": "ISuperAdminRepo.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\ISuperAdminRepo.cs",
+              "RelativeDocumentMoniker": "DataAccess\\IRepository\\ISuperAdminRepo.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\ISuperAdminRepo.cs",
+              "RelativeToolTip": "DataAccess\\IRepository\\ISuperAdminRepo.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAmwCEAAAA1AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-17T17:13:06.569Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-25T12:12:53.872Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IAppointmentRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\IAppointmentRepository.cs",
+              "RelativeDocumentMoniker": "DataAccess\\IRepository\\IAppointmentRepository.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\IAppointmentRepository.cs",
+              "RelativeToolTip": "DataAccess\\IRepository\\IAppointmentRepository.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAApwBMAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-12T11:10:38.899Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AdminDAO.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\AdminDAO.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DAO\\AdminDAO.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\AdminDAO.cs",
+              "RelativeToolTip": "DataAccess\\DAO\\AdminDAO.cs",
+              "ViewState": "AQIAAH8AAAAAAAAAAAAjwHAAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-25T12:12:16.831Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
-              "Title": "Startup.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Startup.cs",
-              "RelativeDocumentMoniker": "DoctorPetAPI\\Startup.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Startup.cs",
-              "RelativeToolTip": "DoctorPetAPI\\Startup.cs",
-              "ViewState": "AQIAAFYAAAAAAAAAAAAuwFoAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T15:16:28.186Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "StaffManaDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\StaffManaDTO.cs",
-              "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\StaffManaDTO.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\StaffManaDTO.cs",
-              "RelativeToolTip": "DataAccess\\DTO\\Admin\\StaffManaDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwBUAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T16:44:09.059Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Employee.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Employee.cs",
-              "RelativeDocumentMoniker": "BussinessObject\\Models\\Employee.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Employee.cs",
-              "RelativeToolTip": "BussinessObject\\Models\\Employee.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwBIAAAAiAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-14T18:12:45.642Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Doctor.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Doctor.cs",
-              "RelativeDocumentMoniker": "BussinessObject\\Models\\Doctor.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Doctor.cs",
-              "RelativeToolTip": "BussinessObject\\Models\\Doctor.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAzwBsAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T15:24:16.166Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\User.cs",
-              "RelativeDocumentMoniker": "BussinessObject\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\User.cs",
-              "RelativeToolTip": "BussinessObject\\Models\\User.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAUwBoAAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-23T20:00:56.033Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "DoctorSlot.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\DoctorSlot.cs",
-              "RelativeDocumentMoniker": "BussinessObject\\Models\\DoctorSlot.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\DoctorSlot.cs",
-              "RelativeToolTip": "BussinessObject\\Models\\DoctorSlot.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAAwA0AAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T11:21:20.588Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "DoctorManaDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\DoctorManaDTO.cs",
-              "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\DoctorManaDTO.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\DoctorManaDTO.cs",
-              "RelativeToolTip": "DataAccess\\DTO\\Admin\\DoctorManaDTO.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAkAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T15:23:07.692Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "DoctorListDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\DoctorListDTO.cs",
-              "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\DoctorListDTO.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\DoctorListDTO.cs",
-              "RelativeToolTip": "DataAccess\\DTO\\Admin\\DoctorListDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-14T15:48:27.937Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
               "Title": "IPetRepository.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\IPetRepository.cs",
               "RelativeDocumentMoniker": "DataAccess\\IRepository\\IPetRepository.cs",
@@ -671,86 +587,175 @@
               "RelativeToolTip": "DataAccess\\IRepository\\IPetRepository.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T16:27:06.74Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-29T16:27:06.74Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "ISendMailService.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\ISendMailService.cs",
-              "RelativeDocumentMoniker": "DataAccess\\IRepository\\ISendMailService.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\ISendMailService.cs",
-              "RelativeToolTip": "DataAccess\\IRepository\\ISendMailService.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAAAAAA4AAAAFAAAA",
+              "DocumentIndex": 14,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "DataAccess\\IRepository\\IUserRepository.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\IUserRepository.cs",
+              "RelativeToolTip": "DataAccess\\IRepository\\IUserRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-24T12:01:32.995Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-03T10:22:16.079Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "PetDAO.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\PetDAO.cs",
-              "RelativeDocumentMoniker": "DataAccess\\DAO\\PetDAO.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\PetDAO.cs",
-              "RelativeToolTip": "DataAccess\\DAO\\PetDAO.cs",
-              "ViewState": "AQIAACIAAAAAAAAAAAAIwH4AAAANAAAA",
+              "DocumentIndex": 15,
+              "Title": "PetTypeManaDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\RequestDTO\\PetTypeManaDTO.cs",
+              "RelativeDocumentMoniker": "DataAccess\\RequestDTO\\PetTypeManaDTO.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\RequestDTO\\PetTypeManaDTO.cs",
+              "RelativeToolTip": "DataAccess\\RequestDTO\\PetTypeManaDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwA4AAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-26T12:14:42.109Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-03T10:05:34.966Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "DoctorDAO.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\DoctorDAO.cs",
-              "RelativeDocumentMoniker": "DataAccess\\DAO\\DoctorDAO.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\DoctorDAO.cs",
-              "RelativeToolTip": "DataAccess\\DAO\\DoctorDAO.cs",
-              "ViewState": "AQIAAGsBAAAAAAAAAAAAAHkBAAAUAAAA",
+              "DocumentIndex": 16,
+              "Title": "PetTypePerClinic.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\PetTypePerClinic.cs",
+              "RelativeDocumentMoniker": "BussinessObject\\Models\\PetTypePerClinic.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\PetTypePerClinic.cs",
+              "RelativeToolTip": "BussinessObject\\Models\\PetTypePerClinic.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAuwBQAAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-11T10:35:59.413Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-01T12:44:31.601Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "PetRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\PetRepository.cs",
-              "RelativeDocumentMoniker": "DataAccess\\Repository\\PetRepository.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\PetRepository.cs",
-              "RelativeToolTip": "DataAccess\\Repository\\PetRepository.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAQwB8AAAAkAAAA",
+              "DocumentIndex": 17,
+              "Title": "PetCateManaDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\SuperAD\\PetCateManaDTO.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DTO\\SuperAD\\PetCateManaDTO.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\SuperAD\\PetCateManaDTO.cs",
+              "RelativeToolTip": "DataAccess\\DTO\\SuperAD\\PetCateManaDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAoAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T16:30:14.052Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-30T11:51:03.437Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 18,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "DoctorPetAPI\\Controllers\\UserController.cs",
               "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\UserController.cs",
               "RelativeToolTip": "DoctorPetAPI\\Controllers\\UserController.cs",
-              "ViewState": "AQIAAIUAAAAAAAAAAAAiwNcAAAAwAAAA",
+              "ViewState": "AQIAAL4AAAAAAAAAAAAQwNcAAAAwAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T16:53:27.827Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-29T16:53:27.827Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "UserDAO.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\UserDAO.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DAO\\UserDAO.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\UserDAO.cs",
+              "RelativeToolTip": "DataAccess\\DAO\\UserDAO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAALkAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T12:30:34.032Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "SendMailService.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\SendMailService.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Repository\\SendMailService.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\SendMailService.cs",
+              "RelativeToolTip": "DataAccess\\Repository\\SendMailService.cs",
+              "ViewState": "AQIAABYAAAAAAAAAAAAQwEwAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T12:05:45.286Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "DoctorController.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\DoctorController.cs",
+              "RelativeDocumentMoniker": "DoctorPetAPI\\Controllers\\DoctorController.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\DoctorController.cs",
+              "RelativeToolTip": "DoctorPetAPI\\Controllers\\DoctorController.cs",
+              "ViewState": "AQIAAHkAAAAAAAAAAADwv1QAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T11:32:13.302Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "AppointmentController.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\AppointmentController.cs",
+              "RelativeDocumentMoniker": "DoctorPetAPI\\Controllers\\AppointmentController.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\AppointmentController.cs",
+              "RelativeToolTip": "DoctorPetAPI\\Controllers\\AppointmentController.cs",
+              "ViewState": "AQIAAFMAAAAAAAAAAAAswBYAAAA4AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-12T11:07:47.654Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "DoctorDegree.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\DoctorDegree.cs",
+              "RelativeDocumentMoniker": "BussinessObject\\Models\\DoctorDegree.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\DoctorDegree.cs",
+              "RelativeToolTip": "BussinessObject\\Models\\DoctorDegree.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-21T11:15:28.3Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "BussinessObject\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "BussinessObject\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAmwA4AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-17T17:13:06.569Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Startup.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Startup.cs",
+              "RelativeDocumentMoniker": "DoctorPetAPI\\Startup.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Startup.cs",
+              "RelativeToolTip": "DoctorPetAPI\\Startup.cs",
+              "ViewState": "AQIAAE8AAAAAAAAAAAAQwFwAAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-12T15:16:28.186Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "CreatePetTypeRequest.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\CreatePetTypeRequest.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\CreatePetTypeRequest.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\CreatePetTypeRequest.cs",
+              "RelativeToolTip": "DataAccess\\DTO\\Admin\\CreatePetTypeRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-01T13:05:36.705Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 27,
-              "Title": "CateManaDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\CateManaDTO.cs",
-              "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\CateManaDTO.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\CateManaDTO.cs",
-              "RelativeToolTip": "DataAccess\\DTO\\Admin\\CateManaDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAEAAAA",
+              "Title": "PetDAO.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\PetDAO.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DAO\\PetDAO.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\PetDAO.cs",
+              "RelativeToolTip": "DataAccess\\DAO\\PetDAO.cs",
+              "ViewState": "AQIAAHwAAAAAAAAAAAAiwCYAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-19T02:40:10.877Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-26T12:14:42.109Z"
             },
             {
               "$type": "Document",
@@ -760,14 +765,193 @@
               "RelativeDocumentMoniker": "DataAccess\\DAO\\AppointmentDAO.cs",
               "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\AppointmentDAO.cs",
               "RelativeToolTip": "DataAccess\\DAO\\AppointmentDAO.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAAAAABEAAAAIAAAA",
+              "ViewState": "AQIAACYAAAAAAAAAAAAAwDoAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T11:11:06.125Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-12T11:11:06.125Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 29,
+              "Title": "PetType.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\PetType.cs",
+              "RelativeDocumentMoniker": "BussinessObject\\Models\\PetType.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\PetType.cs",
+              "RelativeToolTip": "BussinessObject\\Models\\PetType.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-17T15:14:20.24Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Clinic.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Clinic.cs",
+              "RelativeDocumentMoniker": "BussinessObject\\Models\\Clinic.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Clinic.cs",
+              "RelativeToolTip": "BussinessObject\\Models\\Clinic.cs",
+              "ViewState": "AQIAABYAAAAAAAAAAAAuwCoAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-17T15:14:32.196Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "GenerateID.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\GenerateID.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DTO\\GenerateID.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\GenerateID.cs",
+              "RelativeToolTip": "DataAccess\\DTO\\GenerateID.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAwwCsAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-19T03:23:55.496Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 98,
+              "Title": "PetTypeListDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\SuperAD\\PetTypeListDTO.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DTO\\SuperAD\\PetTypeListDTO.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\SuperAD\\PetTypeListDTO.cs",
+              "RelativeToolTip": "DataAccess\\DTO\\SuperAD\\PetTypeListDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAABBAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-30T11:53:45.576Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "StaffManaDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\StaffManaDTO.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\StaffManaDTO.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\StaffManaDTO.cs",
+              "RelativeToolTip": "DataAccess\\DTO\\Admin\\StaffManaDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwBUAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-12T16:44:09.059Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Employee.cs",
+              "RelativeDocumentMoniker": "BussinessObject\\Models\\Employee.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Employee.cs",
+              "RelativeToolTip": "BussinessObject\\Models\\Employee.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwBIAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-14T18:12:45.642Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Doctor.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Doctor.cs",
+              "RelativeDocumentMoniker": "BussinessObject\\Models\\Doctor.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Doctor.cs",
+              "RelativeToolTip": "BussinessObject\\Models\\Doctor.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAzwBsAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-12T15:24:16.166Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\User.cs",
+              "RelativeDocumentMoniker": "BussinessObject\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\User.cs",
+              "RelativeToolTip": "BussinessObject\\Models\\User.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAUwBoAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-23T20:00:56.033Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "DoctorSlot.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\DoctorSlot.cs",
+              "RelativeDocumentMoniker": "BussinessObject\\Models\\DoctorSlot.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\DoctorSlot.cs",
+              "RelativeToolTip": "BussinessObject\\Models\\DoctorSlot.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAAwA0AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-12T11:21:20.588Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "DoctorManaDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\DoctorManaDTO.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\DoctorManaDTO.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\DoctorManaDTO.cs",
+              "RelativeToolTip": "DataAccess\\DTO\\Admin\\DoctorManaDTO.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAkAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-12T15:23:07.692Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "DoctorListDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\DoctorListDTO.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\DoctorListDTO.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\DoctorListDTO.cs",
+              "RelativeToolTip": "DataAccess\\DTO\\Admin\\DoctorListDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-14T15:48:27.937Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "ISendMailService.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\ISendMailService.cs",
+              "RelativeDocumentMoniker": "DataAccess\\IRepository\\ISendMailService.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\ISendMailService.cs",
+              "RelativeToolTip": "DataAccess\\IRepository\\ISendMailService.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAAAA4AAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T12:01:32.995Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "DoctorDAO.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\DoctorDAO.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DAO\\DoctorDAO.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\DoctorDAO.cs",
+              "RelativeToolTip": "DataAccess\\DAO\\DoctorDAO.cs",
+              "ViewState": "AQIAAGsBAAAAAAAAAAAAAHkBAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-11T10:35:59.413Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "PetRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\PetRepository.cs",
+              "RelativeDocumentMoniker": "DataAccess\\Repository\\PetRepository.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\PetRepository.cs",
+              "RelativeToolTip": "DataAccess\\Repository\\PetRepository.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAQwB8AAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T16:30:14.052Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "CateManaDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\CateManaDTO.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\CateManaDTO.cs",
+              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\CateManaDTO.cs",
+              "RelativeToolTip": "DataAccess\\DTO\\Admin\\CateManaDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-19T02:40:10.877Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 99,
               "Title": "PetManaDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\DPet\\PetManaDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\DPet\\PetManaDTO.cs",
@@ -775,12 +959,11 @@
               "RelativeToolTip": "DataAccess\\DTO\\DPet\\PetManaDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAuwAgAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T16:25:56.626Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-29T16:25:56.626Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 100,
               "Title": "PetListDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\DPet\\PetListDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\DPet\\PetListDTO.cs",
@@ -788,12 +971,11 @@
               "RelativeToolTip": "DataAccess\\DTO\\DPet\\PetListDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA9AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T16:26:13.636Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-29T16:26:13.636Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 43,
               "Title": "ViewPetDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\DPet\\ViewPetDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\DPet\\ViewPetDTO.cs",
@@ -801,12 +983,11 @@
               "RelativeToolTip": "DataAccess\\DTO\\DPet\\ViewPetDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T16:29:31.349Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-29T16:29:31.349Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 44,
               "Title": "PetDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\DPet\\PetDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\DPet\\PetDTO.cs",
@@ -814,12 +995,11 @@
               "RelativeToolTip": "DataAccess\\DTO\\DPet\\PetDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-29T16:28:36.348Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-29T16:28:36.348Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 46,
               "Title": "AppointmentStatisticReponse.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\SuperAD\\AppointmentStatisticReponse.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\SuperAD\\AppointmentStatisticReponse.cs",
@@ -827,12 +1007,11 @@
               "RelativeToolTip": "DataAccess\\DTO\\SuperAD\\AppointmentStatisticReponse.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAuwA4AAAAwAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-25T12:59:39.331Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-25T12:59:39.331Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 45,
               "Title": "ClinicListDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\SuperAD\\ClinicListDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\SuperAD\\ClinicListDTO.cs",
@@ -840,25 +1019,11 @@
               "RelativeToolTip": "DataAccess\\DTO\\SuperAD\\ClinicListDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-26T12:10:10.058Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-26T12:10:10.058Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "Clinic.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Clinic.cs",
-              "RelativeDocumentMoniker": "BussinessObject\\Models\\Clinic.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Clinic.cs",
-              "RelativeToolTip": "BussinessObject\\Models\\Clinic.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAAAACMAAAAuAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-17T15:14:32.196Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 47,
               "Title": "ClinicManaDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\SuperAD\\ClinicManaDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\SuperAD\\ClinicManaDTO.cs",
@@ -866,36 +1031,11 @@
               "RelativeToolTip": "DataAccess\\DTO\\SuperAD\\ClinicManaDTO.cs",
               "ViewState": "AQIAAAkAAAAAAAAAAAAAAB0AAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-26T12:08:34.002Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-26T12:08:34.002Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "IStaffRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\IStaffRepository.cs",
-              "RelativeDocumentMoniker": "DataAccess\\IRepository\\IStaffRepository.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\IStaffRepository.cs",
-              "RelativeToolTip": "DataAccess\\IRepository\\IStaffRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAiAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-13T16:24:41.832Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "AppointmentController.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\AppointmentController.cs",
-              "RelativeDocumentMoniker": "DoctorPetAPI\\Controllers\\AppointmentController.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\AppointmentController.cs",
-              "RelativeToolTip": "DoctorPetAPI\\Controllers\\AppointmentController.cs",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAYwCQAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T11:07:47.654Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 48,
               "Title": "StaffDAO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DAO\\StaffDAO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DAO\\StaffDAO.cs",
@@ -907,7 +1047,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 49,
               "Title": "StaffRepository.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\StaffRepository.cs",
               "RelativeDocumentMoniker": "DataAccess\\Repository\\StaffRepository.cs",
@@ -919,7 +1059,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 50,
               "Title": "f0fe51b2-1689-4170-b8d8-c0e272e53727.eml",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\mailssave\\f0fe51b2-1689-4170-b8d8-c0e272e53727.eml",
               "RelativeDocumentMoniker": "DoctorPetAPI\\mailssave\\f0fe51b2-1689-4170-b8d8-c0e272e53727.eml",
@@ -931,7 +1071,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 51,
               "Title": "d31016cc-e65e-45fc-9d6a-731c667af43b.eml",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\mailssave\\d31016cc-e65e-45fc-9d6a-731c667af43b.eml",
               "RelativeDocumentMoniker": "DoctorPetAPI\\mailssave\\d31016cc-e65e-45fc-9d6a-731c667af43b.eml",
@@ -943,7 +1083,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 52,
               "Title": "b8cfb1dc-4603-430f-acd9-b54f9b5cee15.eml",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\mailssave\\b8cfb1dc-4603-430f-acd9-b54f9b5cee15.eml",
               "RelativeDocumentMoniker": "DoctorPetAPI\\mailssave\\b8cfb1dc-4603-430f-acd9-b54f9b5cee15.eml",
@@ -955,7 +1095,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 53,
               "Title": "b8ca0e85-1a24-4e2c-bf5e-4d45a65a9d09.eml",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\mailssave\\b8ca0e85-1a24-4e2c-bf5e-4d45a65a9d09.eml",
               "RelativeDocumentMoniker": "DoctorPetAPI\\mailssave\\b8ca0e85-1a24-4e2c-bf5e-4d45a65a9d09.eml",
@@ -967,7 +1107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 54,
               "Title": "Medicine.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Medicine.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Models\\Medicine.cs",
@@ -979,7 +1119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 55,
               "Title": "PrescriptionMedicine.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\PrescriptionMedicine.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Models\\PrescriptionMedicine.cs",
@@ -991,7 +1131,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 56,
               "Title": "Prescription.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Prescription.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Models\\Prescription.cs",
@@ -1003,7 +1143,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 57,
               "Title": "UserRepository.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\UserRepository.cs",
               "RelativeDocumentMoniker": "DataAccess\\Repository\\UserRepository.cs",
@@ -1015,7 +1155,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 60,
               "Title": "GeneratePrescriptionDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\DDoctor\\GeneratePrescriptionDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\DDoctor\\GeneratePrescriptionDTO.cs",
@@ -1027,19 +1167,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
-              "Title": "DoctorController.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\DoctorController.cs",
-              "RelativeDocumentMoniker": "DoctorPetAPI\\Controllers\\DoctorController.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\DoctorController.cs",
-              "RelativeToolTip": "DoctorPetAPI\\Controllers\\DoctorController.cs",
-              "ViewState": "AQIAAEkAAAAAAAAAAAAlwFQAAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-11T11:32:13.302Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 58,
               "Title": "CreateDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Precscription\\CreateDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\Precscription\\CreateDTO.cs",
@@ -1051,7 +1179,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 59,
               "Title": "PrescriptionMedicineInfoDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\DDoctor\\PrescriptionMedicineInfoDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\DDoctor\\PrescriptionMedicineInfoDTO.cs",
@@ -1063,7 +1191,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 61,
               "Title": "Appointment.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Appointment.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Models\\Appointment.cs",
@@ -1075,7 +1203,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 62,
               "Title": "DoctorController.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\Services\\DoctorAPI\\Controllers\\DoctorController.cs",
               "RelativeDocumentMoniker": "Services\\DoctorAPI\\Controllers\\DoctorController.cs",
@@ -1087,7 +1215,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 63,
               "Title": "IDoctorRepository.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\IDoctorRepository.cs",
               "RelativeDocumentMoniker": "DataAccess\\IRepository\\IDoctorRepository.cs",
@@ -1099,7 +1227,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 65,
               "Title": "MedicineListDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\MedicineListDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\MedicineListDTO.cs",
@@ -1111,7 +1239,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 66,
               "Title": "MedicineManaDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\MedicineManaDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\MedicineManaDTO.cs",
@@ -1123,7 +1251,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 64,
               "Title": "DoctorRepository.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\DoctorRepository.cs",
               "RelativeDocumentMoniker": "DataAccess\\Repository\\DoctorRepository.cs",
@@ -1135,7 +1263,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 67,
               "Title": "MedicineSearchDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\MedicineSearchDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\MedicineSearchDTO.cs",
@@ -1147,7 +1275,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 69,
               "Title": "MailSettings.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\MailDTO\\MailSettings.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\MailDTO\\MailSettings.cs",
@@ -1159,19 +1287,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
-              "Title": "SendMailService.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\SendMailService.cs",
-              "RelativeDocumentMoniker": "DataAccess\\Repository\\SendMailService.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\SendMailService.cs",
-              "RelativeToolTip": "DataAccess\\Repository\\SendMailService.cs",
-              "ViewState": "AQIAABgAAAAAAAAAAAAlwB0AAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-24T12:05:45.286Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 68,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\appsettings.json",
               "RelativeDocumentMoniker": "DoctorPetAPI\\appsettings.json",
@@ -1183,7 +1299,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 70,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\Services\\DoctorAPI\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Services\\DoctorAPI\\Properties\\launchSettings.json",
@@ -1195,7 +1311,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 71,
               "Title": "MailContent.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\MailDTO\\MailContent.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\MailDTO\\MailContent.cs",
@@ -1207,7 +1323,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 73,
               "Title": "DoctorDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\DDoctor\\DoctorDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\DDoctor\\DoctorDTO.cs",
@@ -1219,7 +1335,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 72,
               "Title": "PresDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Precscription\\PresDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\Precscription\\PresDTO.cs",
@@ -1231,7 +1347,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 74,
               "Title": "MappingProfile.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Mapper\\MappingProfile.cs",
               "RelativeDocumentMoniker": "DataAccess\\Mapper\\MappingProfile.cs",
@@ -1243,7 +1359,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 75,
               "Title": "20240423200157_init-12.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Migrations\\20240423200157_init-12.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Migrations\\20240423200157_init-12.cs",
@@ -1255,19 +1371,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
-              "Title": "DoctorDegree.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\DoctorDegree.cs",
-              "RelativeDocumentMoniker": "BussinessObject\\Models\\DoctorDegree.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\DoctorDegree.cs",
-              "RelativeToolTip": "BussinessObject\\Models\\DoctorDegree.cs",
-              "ViewState": "AQIAAAUAAAAAAAAAAAAuwA0AAAAuAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-21T11:15:28.3Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 70,
+              "DocumentIndex": 76,
               "Title": "MedicineRepository.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\MedicineRepository.cs",
               "RelativeDocumentMoniker": "DataAccess\\Repository\\MedicineRepository.cs",
@@ -1279,7 +1383,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 71,
+              "DocumentIndex": 77,
               "Title": "AppointmentRepository.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\Repository\\AppointmentRepository.cs",
               "RelativeDocumentMoniker": "DataAccess\\Repository\\AppointmentRepository.cs",
@@ -1291,7 +1395,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 72,
+              "DocumentIndex": 78,
               "Title": "MedicineCategory.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\MedicineCategory.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Models\\MedicineCategory.cs",
@@ -1303,7 +1407,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 73,
+              "DocumentIndex": 79,
               "Title": "MCateListDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\MCateListDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\MCateListDTO.cs",
@@ -1315,7 +1419,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 74,
+              "DocumentIndex": 80,
               "Title": "20240405113011_init.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Migrations\\20240405113011_init.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Migrations\\20240405113011_init.cs",
@@ -1327,7 +1431,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 75,
+              "DocumentIndex": 81,
               "Title": "20240408140707_init-7.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Migrations\\20240408140707_init-7.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Migrations\\20240408140707_init-7.cs",
@@ -1339,7 +1443,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 76,
+              "DocumentIndex": 82,
               "Title": "20240417171348_init-8.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Migrations\\20240417171348_init-8.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Migrations\\20240417171348_init-8.cs",
@@ -1351,7 +1455,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 78,
+              "DocumentIndex": 84,
               "Title": "GenerateInvoiceDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Precscription\\GenerateInvoiceDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\Precscription\\GenerateInvoiceDTO.cs",
@@ -1363,7 +1467,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 79,
+              "DocumentIndex": 85,
               "Title": "BillMedicine.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\BillMedicine.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Models\\BillMedicine.cs",
@@ -1375,7 +1479,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 77,
+              "DocumentIndex": 83,
               "Title": "Bill.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Bill.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Models\\Bill.cs",
@@ -1387,7 +1491,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 80,
+              "DocumentIndex": 86,
               "Title": "Pet.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Pet.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Models\\Pet.cs",
@@ -1399,7 +1503,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 81,
+              "DocumentIndex": 87,
               "Title": "EnterStorage.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\EnterStorage.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Models\\EnterStorage.cs",
@@ -1411,7 +1515,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 83,
+              "DocumentIndex": 89,
               "Title": "Storage.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\Storage.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Models\\Storage.cs",
@@ -1423,7 +1527,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 82,
+              "DocumentIndex": 88,
               "Title": "StorageStatus.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\BussinessObject\\Models\\StorageStatus.cs",
               "RelativeDocumentMoniker": "BussinessObject\\Models\\StorageStatus.cs",
@@ -1435,7 +1539,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 86,
+              "DocumentIndex": 92,
               "Title": "StaffListDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\StaffListDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\StaffListDTO.cs",
@@ -1447,7 +1551,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 84,
+              "DocumentIndex": 90,
               "Title": "StorageManaDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\StorageManaDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\StorageManaDTO.cs",
@@ -1459,7 +1563,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 85,
+              "DocumentIndex": 91,
               "Title": "StorageListDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\StorageListDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\StorageListDTO.cs",
@@ -1471,7 +1575,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 87,
+              "DocumentIndex": 93,
               "Title": "UserListDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Admin\\UserListDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\Admin\\UserListDTO.cs",
@@ -1483,7 +1587,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 91,
+              "DocumentIndex": 95,
               "Title": "StaffDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\Employee\\StaffDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\Employee\\StaffDTO.cs",
@@ -1495,7 +1599,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 88,
+              "DocumentIndex": 94,
               "Title": "AvaibleDoctorDTO.cs",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\DTO\\DDoctor\\AvaibleDoctorDTO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DTO\\DDoctor\\AvaibleDoctorDTO.cs",
@@ -1507,31 +1611,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 90,
-              "Title": "IAppointmentRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\IAppointmentRepository.cs",
-              "RelativeDocumentMoniker": "DataAccess\\IRepository\\IAppointmentRepository.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DataAccess\\IRepository\\IAppointmentRepository.cs",
-              "RelativeToolTip": "DataAccess\\IRepository\\IAppointmentRepository.cs",
-              "ViewState": "AQIAAAUAAAAAAAAAAAAiwA8AAABAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-12T11:10:38.899Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 89,
-              "Title": "StaffController.cs",
-              "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\StaffController.cs",
-              "RelativeDocumentMoniker": "DoctorPetAPI\\Controllers\\StaffController.cs",
-              "ToolTip": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Controllers\\StaffController.cs",
-              "RelativeToolTip": "DoctorPetAPI\\Controllers\\StaffController.cs",
-              "ViewState": "AQIAAFgAAAAAAAAAAADwv2MAAABRAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-11T11:31:57.703Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 92,
+              "DocumentIndex": 96,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\DoctorPetAPI\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "DoctorPetAPI\\Properties\\launchSettings.json",
@@ -1543,7 +1623,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 93,
+              "DocumentIndex": 97,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Thanh Luan\\Desktop\\SEP_490_DoctorPET\\SEP_490_DoctorPET\\Services\\DoctorAPI\\appsettings.json",
               "RelativeDocumentMoniker": "Services\\DoctorAPI\\appsettings.json",

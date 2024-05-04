@@ -5,7 +5,9 @@ using DataAccess.DTO;
 using DataAccess.DTO.Admin;
 using DataAccess.DTO.DDoctor;
 using DataAccess.DTO.Employee;
+using DataAccess.DTO.SuperAD;
 using DataAccess.Repository;
+using DataAccess.RequestDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -956,6 +958,154 @@ namespace DataAccess.DAO
             _context.DoctorDegrees.Add(degree);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<string> CreatePetType(string clinicId, string petTypeId)
+        {
+            try
+            {
+                var clinic = await _context.Clinics.FindAsync(clinicId);
+                if (clinic == null)
+                {
+                    return "Error: Clinic with the provided ID was not found.";
+                }
+
+                var petType = await _context.PetTypes.FindAsync(petTypeId);
+                if (petType == null)
+                {
+                    return "Error: PetType with the provided ID was not found.";
+                }
+
+                var existingPetType = await _context.PetTypePerClinics
+                    .FirstOrDefaultAsync(cpt => cpt.ClinicId == clinicId && cpt.PetTypeId == petTypeId);
+
+                if (existingPetType != null)
+                {
+                    return "Error: ClinicPetType already exists.";
+                }
+
+                // Create new ClinicPetType
+                var newClinicPetType = new PetTypePerClinic
+                {
+                    ClinicPetTypeId = Guid.NewGuid().ToString(),
+                    ClinicId = clinicId,
+                    PetTypeId = petTypeId
+                };
+
+                _context.PetTypePerClinics.Add(newClinicPetType);
+                await _context.SaveChangesAsync();
+
+                return "ClinicPetType has been created successfully.";
+            }
+            catch (Exception ex)
+            {
+                return "Error occurred while processing the request.";
+            }
+        }
+
+        public async Task<IEnumerable<PetTypeManaDTO>> GetAllPetCateAsync(string clinicId)
+        {
+            try
+            {
+                var cateQuery = _context.PetTypePerClinics
+                    .Where(d=>d.ClinicId == clinicId)
+                    .Include(d=>d.PetType)
+                    .Include(d=>d.Clinic)
+                    .OrderBy(m => m.ClinicPetTypeId);
+
+                var totalCates = await cateQuery.CountAsync();
+
+                var cate = await cateQuery.ToListAsync();
+
+                var cateDTOs = cate.Select(cate => new PetTypeManaDTO
+                {
+                    ClinicId = cate.ClinicId,
+                    PetTypeId = cate.PetTypeId,
+                    PetTypeName = cate.PetType.PetTypeName,
+                    ClinicName = cate.Clinic.ClinicName
+                });
+
+                return cateDTOs;
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in GetAllCateAsync: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAllCateAsync: {ex.Message}");
+                throw;
+            }
+        }
+
+
+
+        public async Task<PetTypeManaDTO> GetCateByIdAsync(string clinicId, string id)
+        {
+            if (string.IsNullOrEmpty(clinicId) || string.IsNullOrEmpty(id))
+            {
+                return null;
+            }
+
+            var cate = await _context.PetTypePerClinics
+                .Include(d => d.PetType)
+                .Include(d => d.Clinic)
+                .FirstOrDefaultAsync(d => d.ClinicId == clinicId && d.PetTypeId == id);
+
+            if (cate == null)
+            {
+                return null;
+            }
+
+            return new PetTypeManaDTO
+            {
+                ClinicId = cate.ClinicId,
+                PetTypeId = cate.PetTypeId,
+                PetTypeName = cate.PetType.PetTypeName,
+                ClinicName = cate.Clinic.ClinicName
+            };
+        }
+
+
+        public async Task UpdatePetCateAsync(PetTypeManaDTO dto)
+        {
+            var cate = await _context.PetTypePerClinics
+                .Include(c => c.PetType)
+                .Include(c => c.Clinic)
+                .FirstOrDefaultAsync(c => c.PetTypeId == dto.PetTypeId && c.ClinicId == dto.ClinicId);
+
+            if (cate == null)
+            {
+                return;
+            }
+
+            cate.PetType.PetTypeName = dto.PetTypeName;
+
+            cate.Clinic.ClinicName = dto.ClinicName;
+
+            await _context.SaveChangesAsync();
+        }
+
+
+        public async Task DeletePetCateAsync(string clinicId, string id)
+        {
+            var cate = await _context.PetTypePerClinics
+                .FirstOrDefaultAsync(c => c.ClinicId == clinicId && c.PetTypeId == id);
+
+            if (cate == null)
+            {
+                return;
+            }
+
+            _context.PetTypePerClinics.Remove(cate);
+
+            await _context.SaveChangesAsync();
+        }
+
+
+
+
+
 
     }
 }

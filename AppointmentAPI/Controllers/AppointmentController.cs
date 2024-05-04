@@ -35,19 +35,19 @@ namespace AppointmentAPI.Controllers
 
 
         [HttpGet("getList")]
-        public async Task<IActionResult> GetAllAppointments(DateTime date, int limit, int offset)
-        {
-            try
-            {
-                var appointments = await _repository.GetAll(date, limit, offset);
-                return Ok(appointments);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in GetAllAppointments: {ex.Message}");
-                return StatusCode(500, "Internal server error");
-            }
-        }
+        //public async Task<IActionResult> GetAllAppointments(DateTime date, int limit, int offset)
+        //{
+        //    try
+        //    {
+        //        var appointments = await _repository.GetAll(date, limit, offset);
+        //        return Ok(appointments);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error in GetAllAppointments: {ex.Message}");
+        //        return StatusCode(500, "Internal server error");
+        //    }
+        //}
 
         [HttpPost("book")]
         public IActionResult BookAppointment([FromBody] DoctorClinicDTO appointment)

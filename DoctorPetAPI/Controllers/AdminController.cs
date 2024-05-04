@@ -8,6 +8,7 @@ using DataAccess.DTO.Employee;
 using DataAccess.DAO;
 using DataAccess.DTO.Clinic;
 using BussinessObject.Models;
+using DataAccess.RequestDTO;
 
 namespace DoctorPetAPI.Controllers
 {
@@ -340,7 +341,52 @@ namespace DoctorPetAPI.Controllers
             return Ok("Category updated successfully");
         }
 
-        //Pet
+        //Pet Category
+        [HttpPost("AddPetCategory")]
+        public async Task<IActionResult> CreatePetType([FromBody] CreatePetTypeRequest request)
+        {
+            var result = await _repository.CreatePetType(request.ClinicId, request.PetTypeId);
+
+            if (result.StartsWith("Error"))
+            {
+                return BadRequest(new { errorMessage = result });
+            }
+
+            return Ok(new { message = result });
+        }
+
+
+        [HttpDelete("DeletePetCategory/{clinicId}/{id}")]
+        public async Task<IActionResult> DeletePetCategory(string clinicId, string id)
+        {
+            await _repository.DeletePetCateAsync(clinicId, id);
+            return Ok("Category deleted successfully");
+        }
+
+        [HttpGet("GetAllPetCategories")]
+        public async Task<IActionResult> GetAllPetCategories(string clinicId)
+        {
+            var categories = await _repository.GetAllPetCateAsync(clinicId);
+            return Ok(categories);
+        }
+
+        [HttpGet("GetPetCategoryById/{clinicId}/{id}")]
+        public async Task<IActionResult> GetPetCategoryById(string clinicId, string id)
+        {
+            var category = await _repository.GetCateByIdAsync(clinicId, id);
+            if (category == null)
+                return NotFound("Category not found");
+
+            return Ok(category);
+        }
+
+
+        [HttpPut("UpdatePetCategory")]
+        public async Task<IActionResult> UpdatePetCategory([FromBody] PetTypeManaDTO updateDTO)
+        {
+            await _repository.UpdatePetCateAsync(updateDTO);
+            return Ok("Category updated successfully");
+        }
 
         //Degree
         [HttpPost("AddDegree")]
