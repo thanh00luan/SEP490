@@ -9,6 +9,7 @@ using DataAccess.DAO;
 using DataAccess.DTO.Clinic;
 using BussinessObject.Models;
 using DataAccess.RequestDTO;
+using DataAccess.DTO.SuperAD;
 
 namespace DoctorPetAPI.Controllers
 {
@@ -343,16 +344,10 @@ namespace DoctorPetAPI.Controllers
 
         //Pet Category
         [HttpPost("AddPetCategory")]
-        public async Task<IActionResult> CreatePetType([FromBody] CreatePetTypeRequest request)
+        public async Task<IActionResult> CreatePetType([FromBody] PetTypeManaDTO dto)
         {
-            var result = await _repository.CreatePetType(request.ClinicId, request.PetTypeId);
-
-            if (result.StartsWith("Error"))
-            {
-                return BadRequest(new { errorMessage = result });
-            }
-
-            return Ok(new { message = result });
+            await _repository.CreatePetType(dto);
+            return Ok("Category added successfully");
         }
 
 
