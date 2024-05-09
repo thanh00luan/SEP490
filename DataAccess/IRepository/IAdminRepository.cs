@@ -22,14 +22,13 @@ namespace DataAccess.IRepository
         Task<PetTypeManaDTO> GetAllPetCateAsync(string clinicId);
         Task<PetCateManaDTO> GetCateByIdAsync(string clinicId, string id);
         Task UpdatePetCateAsync(PetTypeManaDTO dto);
-        Task DeletePetCateAsync(string clinicId, string id);
 
         //Medicine interface
         Task<MedicineListDTO> getAllMedicineAsync(string clinicId, int limit, int offset);
         Task CreateMedicineAsync(string clinicId, MedicineManaDTO medicineDTO);
         Task<MedicineManaDTO> GetMedicineByIdAsync(string clinicId, string medicineId);
-        Task UpdateMedicineAsync(string clinicId, MedicineManaDTO medicineDTO);
-        Task DeleteMedicineAsync(string clinicId, string medicineId);
+        Task UpdateMedicineAsync(MedicineManaDTO medicineDTO);
+        Task DeleteMedicineAsync(string medicineId);
 
         // User interface
         Task<UserListDTO> GetAllUsersAsync(int limit, int offset);
@@ -66,18 +65,5 @@ namespace DataAccess.IRepository
         Task AddDegree(DoctorDegree dto);
 
         Task<IEnumerable<DoctorDegree>> GetDoctorDegrees();
-
-        // Statistic
-        //Task<int> GetTotalNumberOfMedicinesAsync();
-        //Task<int> GetTotalNumberOfBookingAsync();
-        //Task<decimal> GetTotalSalesAsync();
-
-        //Inventory
-        //Task ImportToStorage(StorageDTO storageDTO);
-        //Task ExportFromStorage(string importCode, int exportQuantity);
-        //Task<IEnumerable<StorageDTO>> GetAllStorageItems(int limit, int offset);
-        //Task<StorageDTO> GetStorageItemByImportCode(string importCode);
-        //Task<IEnumerable<StorageDTO>> GetExpiredItems(DateTime currentDate);
-
     }
 }

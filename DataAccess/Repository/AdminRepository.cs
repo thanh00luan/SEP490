@@ -32,8 +32,7 @@ namespace DataAccess.Repository
             =>_adminDAO.GetCateByIdAsync(clinicId, id);
         public Task UpdatePetCateAsync(PetTypeManaDTO dto)
             => _adminDAO.UpdatePetCateAsync(dto);
-        public Task DeletePetCateAsync(string clinicId, string id)
-            => _adminDAO.DeletePetCateAsync(clinicId, id);
+        
 
         //Medicine
         public Task<MedicineListDTO> getAllMedicineAsync(string clinicId, int limit, int offset)
@@ -42,10 +41,10 @@ namespace DataAccess.Repository
             => _adminDAO.CreateMedicineAsync(clinicId, medicineDTO);
         public Task<MedicineManaDTO> GetMedicineByIdAsync(string clinicId, string medicineId)
             =>_adminDAO.GetMedicineByIdAsync(clinicId, medicineId);
-        public Task UpdateMedicineAsync(string clinicId, MedicineManaDTO medicineDTO)
-            =>_adminDAO.UpdateMedicineAsync(clinicId, medicineDTO);
-        public Task DeleteMedicineAsync(string clinicId, string medicineId)
-            =>_adminDAO.DeleteMedicineAsync(clinicId, medicineId);
+        public Task UpdateMedicineAsync(MedicineManaDTO medicineDTO)
+            =>_adminDAO.UpdateMedicineAsync(medicineDTO);
+        public Task DeleteMedicineAsync(string medicineId)
+            =>_adminDAO.DeleteMedicineAsync(medicineId);
 
         //Staff
         public Task UpdateStaff(StaffManaDTO staffDTO)

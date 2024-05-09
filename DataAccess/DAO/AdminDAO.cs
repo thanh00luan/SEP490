@@ -138,13 +138,11 @@ namespace DataAccess.DAO
         {
             double totalRevenue = 0;
 
-            // Lọc đơn thuốc trong phạm vi thời gian và chi nhánh cụ thể
             var prescriptions = _context.Prescriptions
                 .Where(p => p.ExaminationDay >= start && p.ExaminationDay <= end && p.Appointment.ClinicId == clinicId && p.Appointment.Status == "done")
                 .Include(p => p.PrescriptionMedicines)
                 .ThenInclude(pm => pm.Medicine);
 
-            // Tính tổng doanh thu từ các đơn thuốc
             foreach (var prescription in prescriptions)
             {
                 foreach (var prescriptionMedicine in prescription.PrescriptionMedicines)

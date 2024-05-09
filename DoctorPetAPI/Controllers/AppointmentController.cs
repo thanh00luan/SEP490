@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using DataAccess.DTO.DPet;
 
 namespace DoctorPetAPI.Controllers
 {
@@ -35,11 +39,16 @@ namespace DoctorPetAPI.Controllers
 
 
         [HttpGet("getList")]
-        public async Task<IActionResult> GetAllAppointments(int limit, int offset)
+        public async Task<IActionResult> GetAllAppointments([FromHeader(Name = "Authorization")] string authorizationHeader, int limit, int offset)
         {
             try
             {
-                var appointments = await _repository.GetAll(limit, offset);
+                // Xác thực và lấy thông tin từ token
+                var userId = GetUserIdFromToken(authorizationHeader);
+
+                // Sử dụng userId để lấy danh sách cuộc hẹn từ repository
+                var appointments = await _repository.GetAll(userId, limit, offset);
+
                 return Ok(appointments);
             }
             catch (Exception ex)
@@ -49,7 +58,40 @@ namespace DoctorPetAPI.Controllers
             }
         }
 
-        [HttpPost("book")]
+        private string GetUserIdFromToken(string token)
+        {
+            if (!string.IsNullOrEmpty(token))
+            {
+                if (token.StartsWith("Bearer "))
+                {
+                    token = token.Replace("Bearer ", "");
+
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var decodedToken = tokenHandler.ReadJwtToken(token);
+
+                    var userIdClaim = decodedToken.Claims.FirstOrDefault(claim => claim.Type == "UserID");
+
+                    if (userIdClaim != null)
+                    {
+                        return userIdClaim.Value;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+            [HttpPost("book")]
         public IActionResult BookAppointment([FromBody] DoctorClinicDTO appointment)
         {
             try
@@ -97,6 +139,20 @@ namespace DoctorPetAPI.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("pet/{userId}/{clinicId}")]
+        public async Task<ActionResult<List<PetManaDTO>>> GetPetCategoryByUserId(string userId, string clinicId)
+        {
+            try
+            {
+                var pets = await _repository.GetPetCategoryByUserId(userId, clinicId);
+                return Ok(pets);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
             }
         }
 

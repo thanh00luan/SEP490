@@ -1,6 +1,7 @@
 ﻿using DataAccess.DAO;
 using DataAccess.DTO.Appointment;
 using DataAccess.DTO.Clinic;
+using DataAccess.DTO.DPet;
 using DataAccess.IRepository;
 using System;
 using System.Collections.Generic;
@@ -31,10 +32,13 @@ namespace DataAccess.Repository
         public Task<bool> SetDoctorAvailableSlots(string doctorId, string clinicId, DateTime date, List<int> availableSlots)
         => _appointmentDAO.SetDoctorAvailableSlots(doctorId, clinicId, date, availableSlots);
 
-        public Task<GetALLDTOCount> GetAll(int limit, int offset)
-        => _appointmentDAO.GetAll(limit, offset);
+        public Task<GetALLDTOCount> GetAll(string userId, int limit, int offset)
+        => _appointmentDAO.GetAll(userId, limit, offset);
 
         public Task<List<ClinicSlotsResponse>> GetAvailableSlotsInRange(string clinicId, DateTime startDate, DateTime endDate)
-            =>_appointmentDAO.GetAvailableSlotsInRange(clinicId, startDate, endDate);   
+            =>_appointmentDAO.GetAvailableSlotsInRange(clinicId, startDate, endDate);
+
+        public Task<List<PetManaDTO>> GetPetCategoryByUserId(string userId, string clinicId)
+            => _appointmentDAO.GetPetCategoryByUserId(userId, clinicId);
     }
 }

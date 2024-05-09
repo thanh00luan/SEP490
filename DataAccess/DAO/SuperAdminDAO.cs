@@ -380,7 +380,8 @@ namespace DataAccess.DAO
                             UserId = existingUser.UserId,
                             DegreeId = doctorDTO.DegreeId,
                             Specialized = doctorDTO.Specialized,
-                            Status = doctorDTO.DoctorStatus
+                            Status = doctorDTO.DoctorStatus,
+                            ClinicId = doctorDTO.ClinicId
                         };
 
                         await _context.Doctors.AddAsync(doctor);
@@ -388,7 +389,6 @@ namespace DataAccess.DAO
                     }
                     else
                     {
-                        // Xử lý nếu không tìm thấy người dùng
                     }
                 }
                 else
@@ -405,7 +405,7 @@ namespace DataAccess.DAO
                         Address = doctorDTO.Address,
                         Birthday = doctorDTO.BirthDate,
                         UserRole = 3,
-
+                        
                     };
                     var password = "12345678";
 
@@ -422,7 +422,8 @@ namespace DataAccess.DAO
                         UserId = user.UserId,
                         DegreeId = doctorDTO.DegreeId,
                         Specialized = doctorDTO.Specialized,
-                        Status = doctorDTO.DoctorStatus
+                        Status = doctorDTO.DoctorStatus,
+                        ClinicId = doctorDTO.ClinicId
                     };
 
                     await _context.Doctors.AddAsync(newDoctor);
@@ -766,11 +767,11 @@ namespace DataAccess.DAO
             };
         }
 
-        public async Task UpdateMedicineAsync(string clinicId, MedicineManaDTO medicineDTO)
+        public async Task UpdateMedicineAsync(MedicineManaDTO medicineDTO)
         {
             var medicine = await _context.Medicines.FindAsync(medicineDTO.MedicineId);
 
-            if (medicine == null || medicine.ClinicId != clinicId)
+            if (medicine == null )
             {
                 return;
             }
@@ -785,11 +786,11 @@ namespace DataAccess.DAO
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteMedicineAsync(string clinicId, string medicineId)
+        public async Task DeleteMedicineAsync(string medicineId)
         {
             var medicine = await _context.Medicines.FindAsync(medicineId);
 
-            if (medicine == null || medicine.ClinicId != clinicId)
+            if (medicine == null)
             {
                 return;
             }
@@ -1066,20 +1067,44 @@ namespace DataAccess.DAO
         {
             try
             {
+                
                 foreach (var petCate in dto.PetTypeList)
                 {
-                    var update = await _context.PetTypePerClinics
+                    var existingPetType = await _context.PetTypePerClinics
                         .Include(d => d.PetType)
                         .Include(d => d.Clinic)
                         .FirstOrDefaultAsync(d => d.ClinicId == dto.ClinicId && d.PetTypeId == petCate.PetTypeId);
-                        
 
-                    if (update != null)
+                    if (existingPetType == null)
                     {
+                        var newPetType = new PetTypePerClinic
+                        {
+                            ClinicPetTypeId = Guid.NewGuid().ToString(),
+                            ClinicId = dto.ClinicId,
+                            PetTypeId = petCate.PetTypeId
+                        };
+                        _context.PetTypePerClinics.Add(newPetType);
+                    }
+                    else
+                    {
+                        existingPetType.PetType.PetTypeName = petCate.PetTypeName;
+                        _context.Entry(existingPetType).State = EntityState.Modified;
+                    }
+                }
 
-                        update.PetType.PetTypeName = petCate.PetTypeName;
+                var existingPetTypes = await _context.PetTypePerClinics
+                    .Where(d => d.ClinicId == dto.ClinicId)
+                    .Select(d => d.PetTypeId)
+                    .ToListAsync();
 
-                        _context.Entry(update).State = EntityState.Modified;
+                foreach (var existingPetTypeId in existingPetTypes)
+                {
+                    if (!dto.PetTypeList.Any(p => p.PetTypeId == existingPetTypeId))
+                    {
+                        var petTypeToDelete = await _context.PetTypePerClinics
+                            .FirstOrDefaultAsync(d => d.ClinicId == dto.ClinicId && d.PetTypeId == existingPetTypeId);
+
+                        _context.PetTypePerClinics.Remove(petTypeToDelete);
                     }
                 }
 
@@ -1087,36 +1112,18 @@ namespace DataAccess.DAO
             }
             catch (DbUpdateException ex)
             {
-                Console.WriteLine($"Error:  UpdatePetTypePerClinicsAsync: {ex.Message}");
+                Console.WriteLine($"Error: UpdatePetTypePerClinicsAsync: {ex.Message}");
                 throw;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error:  UpdatePetTypePerClinicsAsync: {ex.Message}");
+                Console.WriteLine($"Error: UpdatePetTypePerClinicsAsync: {ex.Message}");
                 throw;
             }
         }
 
-
-        public async Task DeletePetCateAsync(string clinicId, string id)
-        {
-            var cate = await _context.PetTypePerClinics
-                .FirstOrDefaultAsync(c => c.ClinicId == clinicId && c.PetTypeId == id);
-
-            if (cate == null)
-            {
-                return;
-            }
-
-            _context.PetTypePerClinics.Remove(cate);
-
-            await _context.SaveChangesAsync();
-        }
-
-
-
-
-
+        // 
+        
 
     }
 }

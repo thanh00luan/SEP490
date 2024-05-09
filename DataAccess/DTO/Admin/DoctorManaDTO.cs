@@ -21,5 +21,6 @@ namespace DataAccess.DTO.Admin
 
         public DateTime BirthDate { get; set; }
         public string UserId { get; set; }
+        public string ClinicId { get; set; }
     }
 }

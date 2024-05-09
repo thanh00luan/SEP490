@@ -3,6 +3,7 @@ using BussinessObject.Data;
 using BussinessObject.Models;
 using DataAccess.DTO.Appointment;
 using DataAccess.DTO.Clinic;
+using DataAccess.DTO.DPet;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -57,11 +58,11 @@ namespace DataAccess.DAO
                 throw;
             }
         }
-        public async Task<GetALLDTOCount> GetAll(int limit, int offset)
+        public async Task<GetALLDTOCount> GetAll(string userId, int limit, int offset)
         {
             try
             {
-                var currentTime = DateTime.UtcNow;
+                var currentTime = DateTime.Now;
                 var slots = new List<SlotDTO>();
 
                 TimeSpan slotDuration = TimeSpan.FromHours(1);
@@ -87,17 +88,16 @@ namespace DataAccess.DAO
                     .Include(a => a.Pet)
                     .Include(a => a.Clinic)
                     .Include(a => a.User)
+                    .Where(a => a.UserId == userId)
                     .OrderBy(a =>
                         a.Status == "inProgress" ? (a.AppointmentDate <= currentTime ? 0 : 1) :
                         a.Status == "waiting" ? (a.AppointmentDate <= currentTime ? 2 : 3) :
                         a.Status == "pending" ? (a.AppointmentDate <= currentTime ? 4 : 5) : 6)
-                    .ThenBy(a => a.Status == "done" ? DateTime.MaxValue : a.AppointmentDate)
-                    .ThenBy(a => a.SlotNumber)
                     .Skip(offset)
                     .Take(limit)
                     .ToListAsync();
 
-                foreach (var appointment in appointments)
+              foreach (var appointment in appointments)
                 {
                     if (appointment.Status != "pending")
                     {
@@ -115,7 +115,7 @@ namespace DataAccess.DAO
 
                 var appointmentDTOWithCount = new GetALLDTOCount();
                 appointmentDTOWithCount.AppointmentDTOs = appointmentDTOs;
-                appointmentDTOWithCount.Total = await _context.Appointments.CountAsync();
+                appointmentDTOWithCount.Total = await _context.Appointments.Where(a => a.UserId == userId).CountAsync();
                 return appointmentDTOWithCount;
             }
             catch (Exception ex)
@@ -124,10 +124,6 @@ namespace DataAccess.DAO
                 throw;
             }
         }
-
-
-
-
 
         public void BookAppointment(DoctorClinicDTO appointment)
         {
@@ -143,11 +139,15 @@ namespace DataAccess.DAO
                 newPet.PetId = Guid.NewGuid().ToString();
                 newAppointment.PetId = newPet.PetId;
                 newAppointment.Pet = newPet;
+                newAppointment.Pet.UserId = appointment.UserId;
                 _context.Pets.Add(newPet);
             }
             else
             {
+                Pet existingPet = _context.Pets.Find(appointment.PetId);
                 newAppointment.PetId = appointment.PetId;
+                newAppointment.Pet = existingPet;
+                newAppointment.Pet.UserId = appointment.UserId;
             }
 
             _context.Appointments.Add(newAppointment);
@@ -287,6 +287,39 @@ namespace DataAccess.DAO
                 throw;
             }
         }
+
+        public async Task<List<PetManaDTO>> GetPetCategoryByUserId(string userId, string clinicId)
+        {
+            var pets = await _context.Pets
+                .Include(p => p.PetType)
+                .Where(p => p.UserId == userId)
+                .ToListAsync();
+
+            var clinicPetTypes = await _context.Clinics
+                .Include(c => c.PetTypeClinics)
+                .Where(c => c.ClinicId == clinicId)
+                .SelectMany(c => c.PetTypeClinics)
+                .Select(pc => pc.PetTypeId)
+                .ToListAsync();
+
+            var petsAvailableForClinic = pets
+                .Where(p => clinicPetTypes.Contains(p.PetType.PetTypeId))
+                .Select(p => new PetManaDTO
+                {
+                    PetId = p.PetId,
+                    PetName = p.PetName,
+                    PetTypeId = p.PetType.PetTypeId,
+                    PetAge = p.PetAge,
+                    PetColor = p.PetColor,
+                    PetGender = p.PetGender,
+                    PetSpecies = p.PetSpecies,
+                    UserId = p.UserId,
+                })
+                .ToList();
+
+            return petsAvailableForClinic;
+        }
+
 
 
 

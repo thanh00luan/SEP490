@@ -1,5 +1,6 @@
 ﻿using DataAccess.DTO.Appointment;
 using DataAccess.DTO.Clinic;
+using DataAccess.DTO.DPet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,8 @@ namespace DataAccess.IRepository
         void BookAppointment(DoctorClinicDTO appointment);
         Task<bool> SetDoctorAvailableSlots(string doctorId, string clinicId, DateTime date, List<int> availableSlots);
 
-        Task<GetALLDTOCount> GetAll( int limit, int offset);
+        Task<GetALLDTOCount> GetAll(string userId, int limit, int offset);
+        Task<List<PetManaDTO>> GetPetCategoryByUserId(string userId, string clinicId);
 
     }
 }

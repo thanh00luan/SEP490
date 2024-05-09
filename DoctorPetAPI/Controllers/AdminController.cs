@@ -70,11 +70,11 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpPut("UpdateMedicine")]
-        public async Task<IActionResult> UpdateMedicine(string clinicId, MedicineManaDTO dto)           
+        public async Task<IActionResult> UpdateMedicine( MedicineManaDTO dto)           
         {
             try
             {
-                await _repository.UpdateMedicineAsync(clinicId, dto);
+                await _repository.UpdateMedicineAsync(dto);
                 return Ok("Medicine updated successfully");
             }
             catch (Exception ex)
@@ -83,9 +83,9 @@ namespace DoctorPetAPI.Controllers
             }
         }
         [HttpDelete("{medicineId}")]
-        public async Task<IActionResult> DeleteMedicineAsync(string clinicId, string medicineId)
+        public async Task<IActionResult> DeleteMedicineAsync(string medicineId)
         {
-            await _repository.DeleteMedicineAsync(clinicId, medicineId);
+            await _repository.DeleteMedicineAsync(medicineId);
             return Ok("Medicine deleted successfully.");
         }
 
@@ -348,14 +348,6 @@ namespace DoctorPetAPI.Controllers
         {
             await _repository.CreatePetType(dto);
             return Ok("Category added successfully");
-        }
-
-
-        [HttpDelete("DeletePetCategory/{clinicId}/{id}")]
-        public async Task<IActionResult> DeletePetCategory(string clinicId, string id)
-        {
-            await _repository.DeletePetCateAsync(clinicId, id);
-            return Ok("Category deleted successfully");
         }
 
         [HttpGet("GetAllPetCategories")]

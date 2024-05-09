@@ -104,7 +104,7 @@ namespace DoctorPetAPI.Controllers
             {
                 new Claim ("UserName", acc.UserName),
                 new Claim ("UserID", acc.UserId),
-                new Claim ("Admin", acc.UserRole.ToString())
+                new Claim ("UserRole", acc.UserRole.ToString())
             };
             var token = new JwtSecurityToken
                 (
