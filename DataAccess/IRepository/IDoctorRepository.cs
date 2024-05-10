@@ -15,10 +15,10 @@ namespace DataAccess.IRepository
     public interface IDoctorRepository
     {
         void SetDoctorAvailability(List<SetDoctorRequest> requests);
-        List<SetDoctorRequest> GetDoctorAvailability(string doctorId, DateTime startDate, DateTime endDate);
-        void ConfirmAppointment(string doctorId, string appointmentId);
+        List<SetDoctorRequest> GetDoctorAvailability(string userId, DateTime startDate, DateTime endDate);
+        void ConfirmAppointment(string userId, string appointmentId);
 
-        Task<GetALLDTOCount> GetDoctorAppointList(int limit, int offset, string doctorId, DateTime date);
+        Task<GetALLDTOCount> GetDoctorAppointList(int limit, int offset, string userId, DateTime date);
         Task<PresDTO> GeneratePres(GeneratePrescriptionDTO dto);
 
         Task<List<MedicineManaDTO>> SearchMedicineByName(string name);

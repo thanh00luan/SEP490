@@ -185,17 +185,18 @@ namespace DataAccess.DAO
                 throw;
             }
         }
-        public async Task<StaffListDTO> GetAllStaff(string clinicId, int limit, int offset)
+        public async Task<StaffListDTO> GetAllStaff(string userId, int limit, int offset)
         {
             try
             {
+                var emp = _context.Employees.FirstOrDefault(e => e.UserId == userId);
                 var staffQuery = _context.Employees
                     .Include(e =>e.Clinic)
                     .Include(e => e.User).OrderBy(e => e.UserId);
-                if(clinicId !=null)
+                if(emp.ClinicId !=null)
                 {
                     staffQuery = _context.Employees
-                        .Where(e=>e.ClinicId == clinicId)
+                        .Where(e=>e.ClinicId == emp.ClinicId)
                         .Include(e => e.User).OrderBy(e => e.UserId);
                 }
 
@@ -302,20 +303,20 @@ namespace DataAccess.DAO
         //    }
         //}
 
-        public async Task<StaffManaDTO> GetStaffById(string clinicId, string id)
+        public async Task<StaffManaDTO> GetStaffById(string userId, string id)
         {
             try
             {
-
+                var empl = await _context.Employees.FirstOrDefaultAsync(d => d.UserId == userId);
                 var staff = await _context.Employees
                     .Include(d => d.User)
                     .Include(d => d.Clinic)
                     .FirstOrDefaultAsync(d => d.EmployeeId == id);
 
-                if (clinicId != null)
+                if (empl.ClinicId != null)
                 {
                     staff = await _context.Employees
-                    .Where(e => e.ClinicId == clinicId)
+                    .Where(e => e.ClinicId == empl.ClinicId)
                     .Include(d => d.User)
                     .Include(d => d.Clinic)
                     .FirstOrDefaultAsync(d => d.EmployeeId == id);
@@ -363,10 +364,11 @@ namespace DataAccess.DAO
         }
 
         //Doctor
-        public async Task AddDoctor(DoctorManaDTO doctorDTO)
+        public async Task AddDoctor(string userId, DoctorManaDTO doctorDTO)
         {
             try
             {
+                var emp = await _context.Employees.FirstOrDefaultAsync(d=>d.UserId==userId);
                 if (!string.IsNullOrEmpty(doctorDTO.UserId))
                 {
                     var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == doctorDTO.UserId);
@@ -520,15 +522,16 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<DoctorListDTO> GetAllDoctors(string clinicId, int limit, int offset)
+        public async Task<DoctorListDTO> GetAllDoctors(string userId, int limit, int offset)
         {
             try
             {
+                var emp = _context.Employees.FirstOrDefault(e => e.UserId == userId);
                 var doctorsQuery = _context.Doctors.Include(d => d.User).Include(d => d.DoctorDegree).OrderBy(d => d.DoctorId);
-                if (clinicId != null)
+                if (emp.ClinicId != null)
                 {
                     doctorsQuery = _context.Doctors
-                        .Where(d => d.ClinicId == clinicId)
+                        .Where(d => d.ClinicId == emp.ClinicId)
                         .Include(d => d.User)
                         .Include(d => d.DoctorDegree)
                         .OrderBy(d => d.DoctorId);
@@ -573,20 +576,20 @@ namespace DataAccess.DAO
 
 
 
-        public async Task<DoctorManaDTO> GetDoctorById(string clinicId,string id)
+        public async Task<DoctorManaDTO> GetDoctorById(string userId,string id)
         {
             try
             {
-                
+                var emp = _context.Employees.FirstOrDefault(e => e.UserId == userId);
                 var doctor = await _context.Doctors
                     .Include(d => d.User)
                     .Include(d =>d.DoctorDegree)
                     .FirstOrDefaultAsync(d => d.DoctorId == id);
 
-                if(clinicId != null)
+                if(emp.ClinicId != null)
                 {
                     doctor = await _context.Doctors
-                   .Where(d => d.ClinicId == clinicId)
+                   .Where(d => d.ClinicId == emp.ClinicId)
                    .Include(d => d.User)
                    .Include(d => d.DoctorDegree)
                    .FirstOrDefaultAsync(d => d.DoctorId == id);
@@ -645,7 +648,7 @@ namespace DataAccess.DAO
 
 
 
-        public async Task UpdateDoctor(DoctorManaDTO updateDTO)
+        public async Task UpdateDoctor(string userId, DoctorManaDTO updateDTO)
         {
 
             try
@@ -686,8 +689,9 @@ namespace DataAccess.DAO
         }
 
         //Medicine
-        public async Task CreateMedicineAsync(string clinicId, MedicineManaDTO medicineDTO)
+        public async Task CreateMedicineAsync(string userId, MedicineManaDTO medicineDTO)
         {
+            var emp = _context.Employees.FirstOrDefault(e => e.UserId == userId);   
             var medicine = new Medicine
             {
                 MedicineId = Guid.NewGuid().ToString(),
@@ -697,19 +701,20 @@ namespace DataAccess.DAO
                 Inventory = medicineDTO.Inventory,
                 Specifications = medicineDTO.Specifications,
                 MedicineCateId = medicineDTO.MedicineCateId,
-                ClinicId = clinicId 
+                ClinicId = emp.ClinicId 
             };
 
             _context.Medicines.Add(medicine);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<MedicineListDTO> GetAllMedicineAsync(string clinicId, int limit, int offset)
+        public async Task<MedicineListDTO> GetAllMedicineAsync(string userId, int limit, int offset)
         {
             try
             {
+                var emp = _context.Employees.FirstOrDefault(e => e.UserId == userId);
                 var clinicMedicinesQuery = _context.Medicines
-                    .Where(m => m.ClinicId == clinicId) 
+                    .Where(m => m.ClinicId == emp.ClinicId) 
                     .Include(m => m.MedicineCategory)
                     .OrderBy(m => m.MedicineId);
 
@@ -746,11 +751,12 @@ namespace DataAccess.DAO
                 throw;
             }
         }
-        public async Task<MedicineManaDTO> GetMedicineByIdAsync(string clinicId, string medicineId)
+        public async Task<MedicineManaDTO> GetMedicineByIdAsync(string userId, string medicineId)
         {
             var medicine = await _context.Medicines.FindAsync(medicineId);
+            var emp = _context.Employees.FirstOrDefault(e => e.UserId == userId);
 
-            if (medicine == null || medicine.ClinicId != clinicId)
+            if (medicine == null || medicine.ClinicId != emp.ClinicId)
             {
                 return null;
             }

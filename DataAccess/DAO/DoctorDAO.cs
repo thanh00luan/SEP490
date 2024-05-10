@@ -65,12 +65,13 @@ namespace DataAccess.DAO
             }
         }
 
-        public List<SetDoctorRequest> GetDoctorAvailability(string doctorId, DateTime startDate, DateTime endDate)
+        public List<SetDoctorRequest> GetDoctorAvailability(string userId, DateTime startDate, DateTime endDate)
         {
             try
             {
+                var doctor = _context.Doctors.FirstOrDefault(d=>d.UserId == userId);
                 var doctorSlots = _context.DoctorSlots
-                    .Where(ds => ds.DoctorId == doctorId && ds.RegisterDate.Date >= startDate.Date && ds.RegisterDate.Date <= endDate.Date)
+                    .Where(ds => ds.DoctorId == doctor.DoctorId && ds.RegisterDate.Date >= startDate.Date && ds.RegisterDate.Date <= endDate.Date)
                     .ToList();
 
                 if (doctorSlots.Any())
@@ -81,7 +82,7 @@ namespace DataAccess.DAO
                     {
                         SetDoctorRequest availability = new SetDoctorRequest
                         {
-                            DoctorId = doctorId,
+                            DoctorId = doctor.DoctorId,
                             availabilitySlots = new List<int>(),
                             RegisterDate = slot.RegisterDate
                         };
@@ -111,18 +112,19 @@ namespace DataAccess.DAO
 
 
 
-        public async Task<GetALLDTOCount> GetDoctorAppointList(int limit, int offset, string doctorId, DateTime date)
+        public async Task<GetALLDTOCount> GetDoctorAppointList(int limit, int offset, string userId, DateTime date)
         {
             try
             {
                 var currentTime = DateTime.UtcNow;
+                var doctor = _context.Doctors.FirstOrDefault(d=>d.UserId == userId);
 
                 var appointments = await _context.Appointments
                     .Include(a => a.Pet)
                     .Include(a => a.Clinic)
                     .Include(a => a.User)
                     .Include(a => a.Doctor)
-                    .Where(a => a.DoctorId == doctorId && a.AppointmentDate.Date == date.Date)
+                    .Where(a => a.DoctorId == doctor.DoctorId && a.AppointmentDate.Date == date.Date)
                     .OrderBy(a => a.Status == "waiting" ? (a.AppointmentDate <= currentTime ? 0 : 1) :
                                   a.Status == "inProgress" ? (a.AppointmentDate <= currentTime ? 2 : 3) : 4)
                     .ThenBy(a => a.AppointmentDate)
@@ -156,7 +158,7 @@ namespace DataAccess.DAO
                 var appointmentDTOWithCount = new GetALLDTOCount();
                 appointmentDTOWithCount.AppointmentDTOs = appointmentDTOs;
                 appointmentDTOWithCount.Total = await _context.Appointments
-                    .Where(a => a.DoctorId == doctorId && a.AppointmentDate.Date == date.Date)
+                    .Where(a => a.DoctorId == doctor.DoctorId && a.AppointmentDate.Date == date.Date)
                     .CountAsync();
 
                 return appointmentDTOWithCount;
@@ -169,11 +171,13 @@ namespace DataAccess.DAO
         }
 
 
-        public void ConfirmAppointment(string doctorId, string appointmentId)
+        public void ConfirmAppointment(string userId, string appointmentId)
         {
             try
             {
-                var appointment = _context.Appointments.FirstOrDefault(a => a.AppointmentId == appointmentId && a.DoctorId == doctorId && a.Status == "waiting");
+                var doctor = _context.Doctors.FirstOrDefault(d => d.UserId == userId);
+
+                var appointment = _context.Appointments.FirstOrDefault(a => a.AppointmentId == appointmentId && a.DoctorId == doctor.DoctorId && a.Status == "waiting");
 
                 if (appointment != null)
                 {

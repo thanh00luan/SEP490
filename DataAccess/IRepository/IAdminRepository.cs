@@ -24,9 +24,9 @@ namespace DataAccess.IRepository
         Task UpdatePetCateAsync(PetTypeManaDTO dto);
 
         //Medicine interface
-        Task<MedicineListDTO> getAllMedicineAsync(string clinicId, int limit, int offset);
-        Task CreateMedicineAsync(string clinicId, MedicineManaDTO medicineDTO);
-        Task<MedicineManaDTO> GetMedicineByIdAsync(string clinicId, string medicineId);
+        Task<MedicineListDTO> getAllMedicineAsync(string userId, int limit, int offset);
+        Task CreateMedicineAsync(string userId, MedicineManaDTO medicineDTO);
+        Task<MedicineManaDTO> GetMedicineByIdAsync(string userId, string medicineId);
         Task UpdateMedicineAsync(MedicineManaDTO medicineDTO);
         Task DeleteMedicineAsync(string medicineId);
 
@@ -45,12 +45,12 @@ namespace DataAccess.IRepository
         Task DeleteStaffAsync(string id);
 
         //Doctor
-        Task AddDoctor(DoctorManaDTO doctorDTO);
+        Task AddDoctor(string userId, DoctorManaDTO doctorDTO);
         Task DeleteDoctor(string id);
-        Task<DoctorListDTO> GetAllDoctors(string clinicId,int limit, int offset);
-        Task<DoctorManaDTO> GetDoctorById(string clinicId, string id);
+        Task<DoctorListDTO> GetAllDoctors(string userId,int limit, int offset);
+        Task<DoctorManaDTO> GetDoctorById(string userId, string id);
         Task<IEnumerable<DoctorManaDTO>> SortDoctorByName();
-        Task UpdateDoctor(DoctorManaDTO updateDTO);
+        Task UpdateDoctor(string userId, DoctorManaDTO updateDTO);
         Task<PresDTO> GetPrescription(string appointmentId);
 
         //Category medicine

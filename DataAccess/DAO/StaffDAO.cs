@@ -182,15 +182,17 @@ namespace DataAccess.DAO
             }
         }
 
-        public async Task<GetALLDTOCount> GetPendingAppointment(DateTime date, int limit, int offset)
+        public async Task<GetALLDTOCount> GetPendingAppointment(string userId, DateTime date, int limit, int offset)
         {
             try
             {
+                var employee = _context.Employees.FirstOrDefault(e=>e.UserId == userId);
+
                 var appointments = await _context.Appointments
                         .Include(a => a.Pet)
                         .Include(a => a.Clinic)
                         .Include(a => a.User)
-                        .Where(a => a.Status == "pending" && a.AppointmentDate.Date == date.Date )
+                        .Where(a => a.Status == "pending" && a.AppointmentDate.Date == date.Date && a.ClinicId == employee.ClinicId )
                         .OrderByDescending(a => a.AppointmentDate)
                         .Skip(offset)
                         .Take(limit)

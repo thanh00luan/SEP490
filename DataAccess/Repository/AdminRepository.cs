@@ -37,8 +37,8 @@ namespace DataAccess.Repository
         //Medicine
         public Task<MedicineListDTO> getAllMedicineAsync(string clinicId, int limit, int offset)
             => _adminDAO.GetAllMedicineAsync(clinicId, limit ,offset);
-        public Task CreateMedicineAsync(string clinicId, MedicineManaDTO medicineDTO)
-            => _adminDAO.CreateMedicineAsync(clinicId, medicineDTO);
+        public Task CreateMedicineAsync(string userId, MedicineManaDTO medicineDTO)
+            => _adminDAO.CreateMedicineAsync(userId, medicineDTO);
         public Task<MedicineManaDTO> GetMedicineByIdAsync(string clinicId, string medicineId)
             =>_adminDAO.GetMedicineByIdAsync(clinicId, medicineId);
         public Task UpdateMedicineAsync(MedicineManaDTO medicineDTO)
@@ -73,18 +73,18 @@ namespace DataAccess.Repository
         //Doctor
         public Task<PresDTO> GetPrescription(string appointmentId)
             => null;
-        public Task AddDoctor(DoctorManaDTO doctorDTO)
-            =>_adminDAO.AddDoctor(doctorDTO);
+        public Task AddDoctor(string userId, DoctorManaDTO doctorDTO)
+            =>_adminDAO.AddDoctor(userId, doctorDTO);
         public Task DeleteDoctor(string id)
             =>_adminDAO.DeleteDoctor(id);
-        public Task<DoctorListDTO> GetAllDoctors(string clinicId, int limit, int offset)
-            => _adminDAO.GetAllDoctors(clinicId,limit,offset);
-        public Task<DoctorManaDTO> GetDoctorById(string clinicId, string id)
-            =>_adminDAO.GetDoctorById(clinicId,id);
+        public Task<DoctorListDTO> GetAllDoctors(string userId, int limit, int offset)
+            => _adminDAO.GetAllDoctors(userId, limit,offset);
+        public Task<DoctorManaDTO> GetDoctorById(string userId, string id)
+            =>_adminDAO.GetDoctorById(userId, id);
         public Task<IEnumerable<DoctorManaDTO>> SortDoctorByName()
             =>_adminDAO.SortDoctorByName();
-        public Task UpdateDoctor(DoctorManaDTO updateDTO)
-            =>_adminDAO.UpdateDoctor(updateDTO);
+        public Task UpdateDoctor(string userId, DoctorManaDTO updateDTO)
+            =>_adminDAO.UpdateDoctor(userId, updateDTO);
 
         //Category
         public Task AddCategory(CateManaDTO dto)

@@ -79,11 +79,13 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("getLists")]
-        public async Task<IActionResult> GetPendingList(DateTime date, int limit, int offset)
+        public async Task<IActionResult> GetPendingList([FromHeader(Name = "Authorization")] string authorizationHeader, DateTime date, int limit, int offset)
         {
             try
             {
-                var appointments = await _StaffRepository.GetPendingAppointment(date, limit, offset);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                var appointments = await _StaffRepository.GetPendingAppointment(userId, date, limit, offset);
                 return Ok(appointments);
             }
             catch (Exception ex)

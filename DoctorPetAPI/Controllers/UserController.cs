@@ -34,9 +34,11 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDTO>> GetUserById(string id)
+        public async Task<ActionResult<UserDTO>> GetUserById([FromHeader(Name = "Authorization")] string authorizationHeader)
         {
-            var user = await _userRepository.GetUserByIdAsync(id);
+            Authen authen = new Authen();
+            var userId = authen.GetIdFromToken(authorizationHeader);
+            var user = await _userRepository.GetUserByIdAsync(userId);
 
             if (user == null)
             {
@@ -119,9 +121,11 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeletePet(string id)
+        public async Task<ActionResult> DeletePet([FromHeader(Name = "Authorization")] string authorizationHeader)
         {
-            await _userRepository.DeleteUserAsync(id);
+            Authen au = new Authen();
+            var userId = au.GetIdFromToken(authorizationHeader);
+            await _userRepository.DeleteUserAsync(userId);
             return NoContent();
         }
 
@@ -167,10 +171,12 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetAllPet")]
-        public async Task<IActionResult> GetAllPet(string userId)
+        public async Task<IActionResult> GetAllPet([FromHeader(Name = "Authorization")] string authorizationHeader)
         {
             try
             {
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
                 var Pets = await _petRepository.GetAllPet(userId);
                 return Ok(Pets);
             }
@@ -181,11 +187,13 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetPetById/{id}")]
-        public async Task<IActionResult> GetPetById( string id)
+        public async Task<IActionResult> GetPetById([FromHeader(Name = "Authorization")] string authorizationHeader)
         {
             try
             {
-                var Pet = await _petRepository.GetPetById(id);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                var Pet = await _petRepository.GetPetById(userId);
                 if (Pet != null)
                     return Ok(Pet);
                 else

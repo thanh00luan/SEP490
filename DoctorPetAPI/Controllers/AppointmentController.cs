@@ -43,10 +43,9 @@ namespace DoctorPetAPI.Controllers
         {
             try
             {
-                // Xác thực và lấy thông tin từ token
-                var userId = GetUserIdFromToken(authorizationHeader);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
 
-                // Sử dụng userId để lấy danh sách cuộc hẹn từ repository
                 var appointments = await _repository.GetAll(userId, limit, offset);
 
                 return Ok(appointments);
@@ -57,41 +56,7 @@ namespace DoctorPetAPI.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-
-        private string GetUserIdFromToken(string token)
-        {
-            if (!string.IsNullOrEmpty(token))
-            {
-                if (token.StartsWith("Bearer "))
-                {
-                    token = token.Replace("Bearer ", "");
-
-                    var tokenHandler = new JwtSecurityTokenHandler();
-                    var decodedToken = tokenHandler.ReadJwtToken(token);
-
-                    var userIdClaim = decodedToken.Claims.FirstOrDefault(claim => claim.Type == "UserID");
-
-                    if (userIdClaim != null)
-                    {
-                        return userIdClaim.Value;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-            [HttpPost("book")]
+        [HttpPost("book")]
         public IActionResult BookAppointment([FromBody] DoctorClinicDTO appointment)
         {
             try
@@ -142,11 +107,13 @@ namespace DoctorPetAPI.Controllers
             }
         }
 
-        [HttpGet("pet/{userId}/{clinicId}")]
-        public async Task<ActionResult<List<PetManaDTO>>> GetPetCategoryByUserId(string userId, string clinicId)
+        [HttpGet("pet/{clinicId}")]
+        public async Task<ActionResult<List<PetManaDTO>>> GetPetByUserId([FromHeader(Name = "Authorization")] string authorizationHeader, string clinicId)
         {
             try
             {
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
                 var pets = await _repository.GetPetCategoryByUserId(userId, clinicId);
                 return Ok(pets);
             }

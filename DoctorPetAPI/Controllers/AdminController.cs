@@ -25,11 +25,13 @@ namespace DoctorPetAPI.Controllers
 
         //Medicine
         [HttpPost("AddMedicine")]
-        public async Task<IActionResult> AddMedicine(string clinicId, MedicineManaDTO dto)
+        public async Task<IActionResult> AddMedicine([FromHeader(Name = "Authorization")] string authorizationHeader, MedicineManaDTO dto)
         {
             try
             {
-                await _repository.CreateMedicineAsync(clinicId, dto);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                await _repository.CreateMedicineAsync(userId, dto);
                 return Ok("Medicine added successfully");
             }
             catch (Exception ex)
@@ -39,11 +41,13 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetAllMedicine")]
-        public async Task<IActionResult> GetAllMedicine(string clinicId, int limit, int offset)
+        public async Task<IActionResult> GetAllMedicine([FromHeader(Name = "Authorization")] string authorizationHeader, int limit, int offset)
         {
             try
             {
-                var medicines = await _repository.getAllMedicineAsync(clinicId, limit, offset);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                var medicines = await _repository.getAllMedicineAsync(userId, limit, offset);
                 return Ok(medicines);
             }
             catch (Exception ex)
@@ -53,11 +57,13 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetMedicineById/{id}")]
-        public async Task<IActionResult> GetMedicineById(string clinicId, string id)
+        public async Task<IActionResult> GetMedicineById([FromHeader(Name = "Authorization")] string authorizationHeader, string id)
         {
             try
             {
-                var medicine = await _repository.GetMedicineByIdAsync(clinicId, id);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                var medicine = await _repository.GetMedicineByIdAsync(userId, id);
                 if (medicine != null)
                     return Ok(medicine);
                 else
@@ -106,11 +112,13 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetAllStaff")]
-        public async Task<IActionResult> GetAllStaff(string clinicId,int limit, int offset)
+        public async Task<IActionResult> GetAllStaff([FromHeader(Name = "Authorization")] string authorizationHeader, int limit, int offset)
         {
             try
             {
-                var staff = await _repository.GetAllStaff(clinicId,limit,offset);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                var staff = await _repository.GetAllStaff(userId, limit,offset);
                 return Ok(staff);
             }
             catch (Exception ex)
@@ -120,11 +128,13 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetStaffById/{id}")]
-        public async Task<IActionResult> GetStaffById(string clinicId, string id)
+        public async Task<IActionResult> GetStaffById([FromHeader(Name = "Authorization")] string authorizationHeader, string id)
         {
             try
             {
-                var staff = await _repository.GetStaffById(clinicId, id);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                var staff = await _repository.GetStaffById(userId, id);
                 if (staff != null)
                     return Ok(staff);
                 else
@@ -225,11 +235,13 @@ namespace DoctorPetAPI.Controllers
 
         //Doctor
         [HttpPost("AddDoctor")]
-        public async Task<IActionResult> AddDoctor(DoctorManaDTO dto)
+        public async Task<IActionResult> AddDoctor([FromHeader(Name = "Authorization")] string authorizationHeader, DoctorManaDTO dto)
         {
             try
             {
-                await _repository.AddDoctor(dto);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                await _repository.AddDoctor(userId, dto);
                 return Ok("Doctor added successfully");
             }
             catch (Exception ex)
@@ -252,11 +264,13 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetAllDoctors")]
-        public async Task<IActionResult> GetAllDoctor(string clinicId,int limit, int offset)
+        public async Task<IActionResult> GetAllDoctor([FromHeader(Name = "Authorization")] string authorizationHeader, int limit, int offset)
         {
             try
             {
-                var doctors = await _repository.GetAllDoctors(clinicId, limit, offset);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                var doctors = await _repository.GetAllDoctors(userId, limit, offset);
                 return Ok(doctors);
             }
             catch (Exception ex)
@@ -265,12 +279,14 @@ namespace DoctorPetAPI.Controllers
             }
         }
 
-        [HttpGet("GetDoctorById/{clinicId}/{doctorId}")]
-        public async Task<IActionResult> GetDoctorById(string clinicId,string doctorId)
+        [HttpGet("GetDoctorById/{doctorId}")]
+        public async Task<IActionResult> GetDoctorById([FromHeader(Name = "Authorization")] string authorizationHeader, string doctorId)
         {
             try
             {
-                var doctor = await _repository.GetDoctorById(clinicId, doctorId);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                var doctor = await _repository.GetDoctorById(userId, doctorId);
                 if (doctor != null)
                     return Ok(doctor);
                 else
@@ -283,11 +299,13 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpPut("UpdateDoctor")]
-        public async Task<IActionResult> UpdateDoctor(DoctorManaDTO doctor)
+        public async Task<IActionResult> UpdateDoctor([FromHeader(Name = "Authorization")] string authorizationHeader, DoctorManaDTO doctor)
         {
             try
             {
-                await _repository.UpdateDoctor(doctor);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                await _repository.UpdateDoctor(userId,doctor);
                 return Ok("Doctor updated successfully");
             }
             catch (Exception ex)

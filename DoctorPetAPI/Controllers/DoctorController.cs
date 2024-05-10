@@ -36,11 +36,13 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("getSlot/{doctorId}/{start}/{end}")]
-        public IActionResult GetDoctorAvailability(string doctorId, DateTime start, DateTime end)
+        public IActionResult GetDoctorAvailability([FromHeader(Name = "Authorization")] string authorizationHeader, DateTime start, DateTime end)
         {
             try
             {
-                var availabilitySlots = _repository.GetDoctorAvailability(doctorId, start, end);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                var availabilitySlots = _repository.GetDoctorAvailability(userId, start, end);
                 return Ok(availabilitySlots);
             }
             catch (Exception ex)
@@ -50,11 +52,13 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("getAppointments")]
-        public async Task<IActionResult> GetDoctorAppointments(int limit, int offset, string doctorId, DateTime date)
+        public async Task<IActionResult> GetDoctorAppointments(int limit, int offset, [FromHeader(Name = "Authorization")] string authorizationHeader, DateTime date)
         {
             try
             {
-                var appointments = await _repository.GetDoctorAppointList(limit, offset, doctorId, date);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                var appointments = await _repository.GetDoctorAppointList(limit, offset, userId, date);
                 return Ok(appointments);
             }
             catch (Exception ex)
@@ -64,11 +68,13 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpPost("confirmAppointment")]
-        public IActionResult ConfirmAppointment([FromBody] AppointmentConfirmationRequest request)
+        public IActionResult ConfirmAppointment([FromHeader(Name = "Authorization")] string authorizationHeader, string appontmentId)
         {
             try
             {
-                _repository.ConfirmAppointment(request.DoctorId, request.AppointmentId);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                _repository.ConfirmAppointment(userId, appontmentId);
                 return Ok("Appointment confirmed successfully.");
             }
             catch (Exception ex)
