@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataAccess.DAO;
+using DataAccess.DTO.Precscription;
 using DataAccess.DTO.User;
 using DataAccess.IRepository;
 
@@ -44,5 +45,14 @@ namespace DataAccess.Repository
         {
             throw new NotImplementedException();
         }
+
+        public Task<PresDTO> GetPrescription(string appointmentId)
+            =>_userDAO.GetPrescription(appointmentId);
+
+        public Task ResetPasswordAsync(string userName, string token, string newPassword)
+            =>_userDAO.ResetPasswordAsync(userName, token, newPassword);
+
+        public Task ForgotPasswordAsync(string userName)
+            =>_userDAO.ForgotPasswordAsync(userName);
     }
 }

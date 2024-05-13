@@ -24,10 +24,14 @@ namespace DoctorPetAPI.Controllers
 
 
         [HttpGet("clinics")]
-        public async Task<IActionResult> GetAllClinics()
+        public async Task<IActionResult> GetAllClinics([FromHeader(Name = "Authorization")] string authorizationHeader)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var clinics = await _repository.GetAllClinic();
                 return Ok(clinics);
             }
@@ -43,8 +47,16 @@ namespace DoctorPetAPI.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 Authen authen = new Authen();
                 var userId = authen.GetIdFromToken(authorizationHeader);
+                if (userId == null)
+                {
+                    return Unauthorized("Invalid token.");
+                }
 
                 var appointments = await _repository.GetAll(userId, limit, offset);
 
@@ -57,11 +69,21 @@ namespace DoctorPetAPI.Controllers
             }
         }
         [HttpPost("book")]
-        public IActionResult BookAppointment([FromBody] DoctorClinicDTO appointment)
+        public IActionResult BookAppointment([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] DoctorClinicDTO appointment)
         {
             try
             {
-                _repository.BookAppointment(appointment);
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                if (userId == null)
+                {
+                    return Unauthorized("Invalid token.");
+                }
+                _repository.BookAppointment(userId,appointment);
                 return Ok("Appointment booked successfully");
             }
             catch (Exception ex)
@@ -71,10 +93,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("slots/{clinicId}")]
-        public async Task<IActionResult> GetAvailableSlotsInRange(string clinicId,DateTime startDate, DateTime endDate)
+        public async Task<IActionResult> GetAvailableSlotsInRange([FromHeader(Name = "Authorization")] string authorizationHeader, string clinicId,DateTime startDate, DateTime endDate)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var slots = await _repository.GetAvailableSlotsInRange(clinicId, startDate, endDate);
                 return Ok(slots);
             }
@@ -86,10 +112,14 @@ namespace DoctorPetAPI.Controllers
 
 
         [HttpGet("availableSlots/{clinicId}/{date}")]
-        public async Task<IActionResult> GetAvailableSlots(string clinicId, DateTime date)
+        public async Task<IActionResult> GetAvailableSlots([FromHeader(Name = "Authorization")] string authorizationHeader, string clinicId, DateTime date)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var availableSlotsResponse = await _repository.GetAvailableSlots(clinicId, date);
 
                 if (availableSlotsResponse != null)
@@ -112,8 +142,16 @@ namespace DoctorPetAPI.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 Authen authen = new Authen();
                 var userId = authen.GetIdFromToken(authorizationHeader);
+                if (userId == null)
+                {
+                    return Unauthorized("Invalid token.");
+                }
                 var pets = await _repository.GetPetCategoryByUserId(userId, clinicId);
                 return Ok(pets);
             }

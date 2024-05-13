@@ -12,5 +12,6 @@ namespace DataAccess.IRepository
         Task SendMail(MailContent mailContent);
 
         Task SendEmailAsync(string email, string subject, string htmlMessage);
+        Task SendForgotPasswordEmailAsync(string email, string resetLink);
     }
 }

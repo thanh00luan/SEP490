@@ -10,5 +10,8 @@ namespace DataAccess.DTO.DDoctor
     {
         public string MedicineId { get; set; }
         public int Quantity { get; set; }
+        public string MedicineName { get; set; }
+        public double PricePerUnit { get; set; } 
+        public double TotalPrice { get; set; }
     }
 }

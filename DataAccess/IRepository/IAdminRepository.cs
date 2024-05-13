@@ -37,7 +37,7 @@ namespace DataAccess.IRepository
         Task DeleteUserAsync(string userId);
 
         //Staff interface
-        Task AddStaff(StaffManaDTO staffDTO);
+        Task AddStaff(string user,StaffManaDTO staffDTO);
         Task<StaffListDTO> GetAllStaff(string clinicId, int limit, int offset);
         Task<StaffManaDTO> GetStaffById(string clinicId,string id);
         Task UpdateStaff(StaffManaDTO staffDTO);
@@ -65,5 +65,7 @@ namespace DataAccess.IRepository
         Task AddDegree(DoctorDegree dto);
 
         Task<IEnumerable<DoctorDegree>> GetDoctorDegrees();
+
+        Task<MedicineReponse> GenerateMedicineSalesReport(DateTime startDate, DateTime endDate, string userId);
     }
 }

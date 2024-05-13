@@ -11,6 +11,10 @@ using System.Threading.Tasks;
 using System;
 using DataAccess.DTO.Admin;
 using DataAccess.DTO.DPet;
+using Microsoft.EntityFrameworkCore;
+using BussinessObject.Data;
+using System.Security.Cryptography;
+using DataAccess.RequestDTO;
 
 namespace DoctorPetAPI.Controllers
 {
@@ -20,24 +24,39 @@ namespace DoctorPetAPI.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly IPetRepository _petRepository;
-        public UserController(IUserRepository userRepository, IPetRepository petRepository)
+
+        private ApplicationDbContext _context;
+        public UserController(IUserRepository userRepository, IPetRepository petRepository,ApplicationDbContext dbcontext)
         {
             _userRepository = userRepository;
             _petRepository = petRepository;
+            _context = dbcontext;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers([FromHeader(Name = "Authorization")] string authorizationHeader)
         {
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
             var users = await _userRepository.GetAllUsersAsync();
             return Ok(users);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UserDTO>> GetUserById([FromHeader(Name = "Authorization")] string authorizationHeader)
+        [HttpGet("GetUserInfo")]
+        public async Task<IActionResult> GetUserById([FromHeader(Name = "Authorization")] string authorizationHeader)
         {
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
             Authen authen = new Authen();
             var userId = authen.GetIdFromToken(authorizationHeader);
+            if (userId == null)
+            {
+                return Unauthorized("Invalid token.");
+            }
             var user = await _userRepository.GetUserByIdAsync(userId);
 
             if (user == null)
@@ -85,11 +104,21 @@ namespace DoctorPetAPI.Controllers
             return Ok(registeredUser);
         }
 
-        [HttpPost("changepassword/{userId}")]
-        public async Task<ActionResult> ChangePasswordAsync(string userId, [FromBody] ChangePassDTO dto)
+        [HttpPost("changepassword")]
+        public async Task<ActionResult> ChangePasswordAsync([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] ChangePassDTO dto)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                if (userId == null)
+                {
+                    return Unauthorized("Invalid token.");
+                }
                 await _userRepository.ChangePasswordAsync(userId, dto);
                 return Ok("Password changed successfully.");
             }
@@ -113,7 +142,7 @@ namespace DoctorPetAPI.Controllers
                 issuer: "issuer",
                 audience: "audience",
                 claim,
-                expires: DateTime.Now.AddMinutes(20),
+                expires: DateTime.Now.AddHours(1),
                 signingCredentials: credentials
                 );
             var encodeToken = new JwtSecurityTokenHandler().WriteToken(token);
@@ -123,15 +152,27 @@ namespace DoctorPetAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePet([FromHeader(Name = "Authorization")] string authorizationHeader)
         {
-            Authen au = new Authen();
-            var userId = au.GetIdFromToken(authorizationHeader);
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
+            Authen authen = new Authen();
+            var userId = authen.GetIdFromToken(authorizationHeader);
+            if (userId == null)
+            {
+                return Unauthorized("Invalid token.");
+            }
             await _userRepository.DeleteUserAsync(userId);
             return NoContent();
         }
 
         [HttpGet("ByUsername/{username}")]
-        public async Task<ActionResult<UserDTO>> GetUserByUserName(string username)
+        public async Task<ActionResult<UserDTO>> GetUserByUserName([FromHeader(Name = "Authorization")] string authorizationHeader, string username)
         {
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
             var user = await _userRepository.GetUserByUsernameAsync(username);
 
             if (user == null)
@@ -143,10 +184,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("ByRole/{userRole}")]
-        public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsersByRoleAsync(int userRole)
+        public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsersByRoleAsync([FromHeader(Name = "Authorization")] string authorizationHeader, int userRole)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var users = await _userRepository.GetUsersByRoleAsync(userRole);
                 return Ok(users);
             }
@@ -157,10 +202,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpPost("AddPet")]
-        public async Task<IActionResult> AddPet(PetManaDTO dto)
+        public async Task<IActionResult> AddPet([FromHeader(Name = "Authorization")] string authorizationHeader, PetManaDTO dto)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 await _petRepository.AddPet(dto);
                 return Ok("Pet added successfully");
             }
@@ -175,8 +224,16 @@ namespace DoctorPetAPI.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 Authen authen = new Authen();
                 var userId = authen.GetIdFromToken(authorizationHeader);
+                if (userId == null)
+                {
+                    return Unauthorized("Invalid token.");
+                }
                 var Pets = await _petRepository.GetAllPet(userId);
                 return Ok(Pets);
             }
@@ -191,8 +248,16 @@ namespace DoctorPetAPI.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 Authen authen = new Authen();
                 var userId = authen.GetIdFromToken(authorizationHeader);
+                if (userId == null)
+                {
+                    return Unauthorized("Invalid token.");
+                }
                 var Pet = await _petRepository.GetPetById(userId);
                 if (Pet != null)
                     return Ok(Pet);
@@ -206,10 +271,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpPut("UpdatePet")]
-        public async Task<IActionResult> UpdatePet(PetManaDTO dto)
+        public async Task<IActionResult> UpdatePet([FromHeader(Name = "Authorization")] string authorizationHeader, PetManaDTO dto)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 await _petRepository.UpdatePet(dto);
                 return Ok("Pet updated successfully");
             }
@@ -219,12 +288,68 @@ namespace DoctorPetAPI.Controllers
             }
         }
         [HttpDelete("{petId}")]
-        public async Task<IActionResult> DeletePetAsync(string petId)
+        public async Task<IActionResult> DeletePetAsync([FromHeader(Name = "Authorization")] string authorizationHeader, string petId)
         {
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
             await _petRepository.DeletePet(petId);
             return Ok("Pet deleted successfully.");
         }
+        [HttpGet("getUserInvoice/{appointmentId}")]
+        public async Task<IActionResult> GetUserInvoice([FromHeader(Name = "Authorization")] string authorizationHeader, string appointmentId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+                var prescriptionDTO = await _userRepository.GetPrescription(appointmentId);
 
+                if (prescriptionDTO == null)
+                {
+                    return NotFound();
+                }
 
+                return Ok(prescriptionDTO);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting user invoice: {ex.Message}");
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost("forgot")]
+        public async Task<IActionResult> ForgotPasswordAsync(string userName)
+        {
+            try
+            {
+                await _userRepository.ForgotPasswordAsync(userName);
+
+                return Ok("An email with instructions to reset your password has been sent to your email address.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Failed to send reset password email: {ex.Message}");
+            }
+        }
+
+        [HttpPost("reset")]
+        public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordRequest request)
+        {
+            try
+            {
+                await _userRepository.ResetPasswordAsync(request.UserName, request.Token, request.NewPassword);
+
+                return Ok("Password reset successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Failed to reset password: {ex.Message}");
+            }
+        }
     }
 }

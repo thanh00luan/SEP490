@@ -15,7 +15,7 @@ namespace DataAccess.IRepository
         Task<ClinicSlotsResponse> GetAvailableSlots(string clinicId, DateTime date);
         Task<IEnumerable<ClinicDTO>> GetAllClinic();
         Task<List<ClinicSlotsResponse>> GetAvailableSlotsInRange(string clinicId, DateTime startDate, DateTime endDate);
-        void BookAppointment(DoctorClinicDTO appointment);
+        void BookAppointment(string userId, DoctorClinicDTO appointment);
         Task<bool> SetDoctorAvailableSlots(string doctorId, string clinicId, DateTime date, List<int> availableSlots);
 
         Task<GetALLDTOCount> GetAll(string userId, int limit, int offset);

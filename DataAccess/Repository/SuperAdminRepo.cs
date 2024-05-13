@@ -2,6 +2,7 @@
 using DataAccess.DTO.Admin;
 using DataAccess.DTO.SuperAD;
 using DataAccess.IRepository;
+using DataAccess.RequestDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,9 +56,14 @@ namespace DataAccess.Repository
             =>_adminDAO.GetCateByIdAsync(id);
 
         public Task UpdatePetCate(PetCateManaDTO updateDTO)
-            =>_adminDAO.UpdateCateAsync(updateDTO); 
+            =>_adminDAO.UpdateCateAsync(updateDTO);
 
-        
+        public Task<DoctorListDTO> GetAllDoctors(string clinicId, int limit, int offset)
+            => _adminDAO.GetAllDoctors(clinicId,limit,offset);
+        public Task<StaffListDTO> GetAllStaff(string clinicId, int limit, int offset)
+            => _adminDAO.GetAllStaff(clinicId, limit, offset);
 
+        public Task<MedicineReponse> GenerateMedicineSalesReport(DateTime startDate, DateTime endDate, string clinicId)
+            => _adminDAO.GenerateMedicineSalesReport(startDate, endDate, clinicId);
     }
 }

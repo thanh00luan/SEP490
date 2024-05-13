@@ -1,6 +1,7 @@
 ﻿using DataAccess.DTO.Admin;
 using DataAccess.DTO.Precscription;
 using DataAccess.DTO.SuperAD;
+using DataAccess.RequestDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace DataAccess.IRepository
         Task<double> moneyStatisticByClinic(DateTime start, DateTime end, string clinicId);
 
         Task<int> countCustomer(string clinicId);
+        Task<MedicineReponse> GenerateMedicineSalesReport(DateTime startDate, DateTime endDate, string clinicId);
 
         //clinic 
         Task AddClinic(ClinicManaDTO dto);
@@ -33,5 +35,8 @@ namespace DataAccess.IRepository
         Task<PetCateManaDTO> GetPetCateById(string id);
         Task UpdatePetCate(PetCateManaDTO updateDTO);
 
+        //
+        Task<DoctorListDTO> GetAllDoctors(string clinicId, int limit, int offset);
+        Task<StaffListDTO> GetAllStaff(string clinicId, int limit, int offset);
     }
 }

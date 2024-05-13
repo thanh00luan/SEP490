@@ -39,7 +39,6 @@ namespace DataAccess.Repository
             builder.HtmlBody = mailContent.Body;
             email.Body = builder.ToMessageBody();
 
-            // dùng SmtpClient của MailKit
             using var smtp = new MailKit.Net.Smtp.SmtpClient();
 
             try
@@ -50,7 +49,6 @@ namespace DataAccess.Repository
             }
             catch (Exception ex)
             {
-                // Gửi mail thất bại, nội dung email sẽ lưu vào thư mục mailssave
                 System.IO.Directory.CreateDirectory("mailssave");
                 var emailsavefile = string.Format(@"mailssave/{0}.eml", Guid.NewGuid());
                 await email.WriteToAsync(emailsavefile);
@@ -73,5 +71,14 @@ namespace DataAccess.Repository
                 Body = htmlMessage
             });
         }
+
+        public async Task SendForgotPasswordEmailAsync(string email, string resetLink)
+        {
+            string subject = "Forgot Password";
+            string htmlMessage = $"Please click <a href=\"{resetLink}\">here</a> to reset your password.";
+
+            await SendEmailAsync(email, subject, htmlMessage);
+        }
+
     }
 }

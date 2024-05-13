@@ -20,10 +20,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("appointmentStatistics")]
-        public async Task<IActionResult> GetAppointmentStatistics(DateTime start, DateTime end, string clinicId)
+        public async Task<IActionResult> GetAppointmentStatistics([FromHeader(Name = "Authorization")] string authorizationHeader, DateTime start, DateTime end, string clinicId)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var appointmentStatistics = await _superAdminRepo.appointmentStatistics(start, end, clinicId);
                 return Ok(appointmentStatistics);
             }
@@ -34,10 +38,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("countCustomer")]
-        public async Task<IActionResult> GetCustomerCount(string clinicId)
+        public async Task<IActionResult> GetCustomerCount([FromHeader(Name = "Authorization")] string authorizationHeader, string clinicId)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var customerCount = await _superAdminRepo.countCustomer(clinicId);
                 return Ok(customerCount);
             }
@@ -48,12 +56,34 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("moneyStatisticByClinic")]
-        public async Task<IActionResult> GetMoneyStatistic(DateTime start, DateTime end, string clinicId)
+        public async Task<IActionResult> GetMoneyStatistic([FromHeader(Name = "Authorization")] string authorizationHeader, DateTime start, DateTime end, string clinicId)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var moneyStatistic = await _superAdminRepo.moneyStatisticByClinic(start, end, clinicId);
                 return Ok(moneyStatistic);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("GenerateReport")]
+        public async Task<ActionResult> GenerateMedicineSalesReport([FromHeader(Name = "Authorization")] string authorizationHeader, DateTime startDate, DateTime endDate, string clinicId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+                var report = await _superAdminRepo.GenerateMedicineSalesReport(startDate, endDate, clinicId);
+                return Ok(report);
             }
             catch (Exception ex)
             {
@@ -64,10 +94,14 @@ namespace DoctorPetAPI.Controllers
         //Clinic
 
         [HttpPost("AddClinic")]
-        public async Task<IActionResult> AddClinic(ClinicManaDTO dto)
+        public async Task<IActionResult> AddClinic([FromHeader(Name = "Authorization")] string authorizationHeader, ClinicManaDTO dto)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 await _superAdminRepo.AddClinic(dto);
                 return Ok("Clinic added successfully");
             }
@@ -77,10 +111,14 @@ namespace DoctorPetAPI.Controllers
             }
         }
         [HttpDelete("DeleteClinic/{clinicId}")]
-        public async Task<IActionResult> DeleteClinic(string clinicId)
+        public async Task<IActionResult> DeleteClinic([FromHeader(Name = "Authorization")] string authorizationHeader, string clinicId)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 await _superAdminRepo.DeleteClinic(clinicId);
                 return Ok("Clinic deleted successfully");
             }
@@ -91,10 +129,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetAllClinics")]
-        public async Task<IActionResult> GetAllClinic(int limit, int offset)
+        public async Task<IActionResult> GetAllClinic([FromHeader(Name = "Authorization")] string authorizationHeader, int limit, int offset)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var Clinics = await _superAdminRepo.GetAllClinic(limit, offset);
                 return Ok(Clinics);
             }
@@ -105,10 +147,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("GetClinicById/{clinicId}")]
-        public async Task<IActionResult> GetClinicById(string clinicId)
+        public async Task<IActionResult> GetClinicById([FromHeader(Name = "Authorization")] string authorizationHeader, string clinicId)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var Clinic = await _superAdminRepo.GetClinicById(clinicId);
                 if (Clinic != null)
                     return Ok(Clinic);
@@ -122,10 +168,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpPut("UpdateClinic")]
-        public async Task<IActionResult> UpdateClinic(ClinicManaDTO Clinic)
+        public async Task<IActionResult> UpdateClinic([FromHeader(Name = "Authorization")] string authorizationHeader, ClinicManaDTO Clinic)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 await _superAdminRepo.UpdateClinic(Clinic);
                 return Ok("Clinic updated successfully");
             }
@@ -137,29 +187,45 @@ namespace DoctorPetAPI.Controllers
 
         //Pet Category
         [HttpPost("AddCategory")]
-        public async Task<IActionResult> AddCategory([FromBody] PetCateManaDTO dto)
+        public async Task<IActionResult> AddCategory([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] PetCateManaDTO dto)
         {
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
             await _superAdminRepo.AddPetCategory(dto);
             return Ok("Category added successfully");
         }
 
         [HttpDelete("DeleteCategory/{id}")]
-        public async Task<IActionResult> DeleteCategory(string id)
+        public async Task<IActionResult> DeleteCategory([FromHeader(Name = "Authorization")] string authorizationHeader, string id)
         {
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
             await _superAdminRepo.DeletePetCategory(id);
             return Ok("Category deleted successfully");
         }
 
         [HttpGet("GetAllCategories")]
-        public async Task<IActionResult> GetAllCategories()
+        public async Task<IActionResult> GetAllCategories([FromHeader(Name = "Authorization")] string authorizationHeader)
         {
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
             var categories = await _superAdminRepo.GetAllPetCategories();
             return Ok(categories);
         }
 
         [HttpGet("GetCategoryById/{id}")]
-        public async Task<IActionResult> GetCategoryById(string id)
+        public async Task<IActionResult> GetCategoryById([FromHeader(Name = "Authorization")] string authorizationHeader, string id)
         {
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
             var category = await _superAdminRepo.GetPetCateById(id);
             if (category == null)
                 return NotFound("Category not found");
@@ -167,10 +233,51 @@ namespace DoctorPetAPI.Controllers
             return Ok(category);
         }
         [HttpPut("UpdateCategory")]
-        public async Task<IActionResult> UpdateCategory([FromBody] PetCateManaDTO updateDTO)
+        public async Task<IActionResult> UpdateCategory([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] PetCateManaDTO updateDTO)
         {
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
             await _superAdminRepo.UpdatePetCate(updateDTO);
             return Ok("Category updated successfully");
+        }
+
+        //Doctor
+        [HttpGet("GetDoctors")]
+        public async Task<IActionResult> GetAllDoctor([FromHeader(Name = "Authorization")] string authorizationHeader, string clinicId, int limit, int offset)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+                var doctors = await _superAdminRepo.GetAllDoctors(clinicId, limit, offset);
+                return Ok(doctors);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("GetAllStaff")]
+        public async Task<IActionResult> GetAllStaff([FromHeader(Name = "Authorization")] string authorizationHeader, string clinicId,  int limit, int offset)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+                var staff = await _superAdminRepo.GetAllStaff(clinicId, limit, offset);
+                return Ok(staff);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

@@ -18,15 +18,19 @@ namespace DoctorPetAPI.Controllers
             _StaffRepository = StaffRepository;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<StaffDTO>>> GetAllStaffs()
+        public async Task<ActionResult<IEnumerable<StaffDTO>>> GetAllStaffs([FromHeader(Name = "Authorization")] string authorizationHeader)
         {
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
             var Staffs = await _StaffRepository.getAlls();
             return Ok(Staffs);
         }
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<StaffDTO>> GetStaffById(string id)
+        public async Task<ActionResult<StaffDTO>> GetStaffById([FromHeader(Name = "Authorization")] string authorizationHeader, string id)
         {
             var Staff = await _StaffRepository.GetStaffById(id);
 
@@ -39,36 +43,52 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddStaff([FromBody] StaffDTO StaffDTO)
+        public async Task<ActionResult> AddStaff([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] StaffDTO StaffDTO)
         {
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
             await _StaffRepository.AddStaff(StaffDTO);
             return CreatedAtAction(nameof(GetStaffById), new { id = StaffDTO.EmployeeId }, StaffDTO);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateStaff([FromBody] StaffDTO StaffDTO)
+        public async Task<ActionResult> UpdateStaff([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] StaffDTO StaffDTO)
         {
             // if (id != StaffDTO.StaffId)
             // {
             //     return BadRequest();
             // }
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
 
             await _StaffRepository.UpdateStaff(StaffDTO);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteStaff(string id)
+        public async Task<ActionResult> DeleteStaff([FromHeader(Name = "Authorization")] string authorizationHeader, string id)
         {
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
             await _StaffRepository.DeleteStaff(id);
             return NoContent();
         }
 
         [HttpGet("sortedByName")]
-        public async Task<IActionResult> GetStaffsSortedByName()
+        public async Task<IActionResult> GetStaffsSortedByName([FromHeader(Name = "Authorization")] string authorizationHeader)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var sortedStaffs = await _StaffRepository.SortStaffByName();
                 return Ok(sortedStaffs);
             }
@@ -83,8 +103,16 @@ namespace DoctorPetAPI.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 Authen authen = new Authen();
                 var userId = authen.GetIdFromToken(authorizationHeader);
+                if (userId == null)
+                {
+                    return Unauthorized("Invalid token.");
+                }
                 var appointments = await _StaffRepository.GetPendingAppointment(userId, date, limit, offset);
                 return Ok(appointments);
             }
@@ -95,10 +123,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("availableDoctors/{appointmentId}")]
-        public async Task<IActionResult> GetAvailableDoctors(string appointmentId)
+        public async Task<IActionResult> GetAvailableDoctors([FromHeader(Name = "Authorization")] string authorizationHeader, string appointmentId)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var availableDoctors = await _StaffRepository.GetAvailableDoctors(appointmentId);
                 return Ok(availableDoctors);
             }
@@ -109,10 +141,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpPost("assignDoctor")]
-        public async Task<IActionResult> AssignDoctorToAppointment([FromBody] AssignDoctorRequest request)
+        public async Task<IActionResult> AssignDoctorToAppointment([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] AssignDoctorRequest request)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 await _StaffRepository.AssignDoctorToAppointment(request.AppointmentId, request.DoctorId);
                 return Ok("Doctor assigned successfully.");
             }

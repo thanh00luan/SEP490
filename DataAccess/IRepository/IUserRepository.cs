@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataAccess.DTO.Precscription;
 using DataAccess.DTO.User;
+using DataAccess.RequestDTO;
 
 namespace DataAccess.IRepository
 {
@@ -18,6 +21,9 @@ namespace DataAccess.IRepository
         Task ChangePasswordAsync(string userId, ChangePassDTO dto);
 
         Task<IEnumerable<UserDTO>> GetUsersByRoleAsync(int userRole);
-        
+
+        Task<PresDTO> GetPrescription(string appointmentId);
+        Task ResetPasswordAsync(string userName, string token, string newPassword);
+        Task ForgotPasswordAsync(string userName);
     }
 }

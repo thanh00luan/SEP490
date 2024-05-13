@@ -22,10 +22,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpPost("SetSlot")]
-        public IActionResult SetDoctorAvailability([FromBody] List<SetDoctorRequest> requests)
+        public IActionResult SetDoctorAvailability([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] List<SetDoctorRequest> requests)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 _repository.SetDoctorAvailability(requests);
                 return Ok("Doctor availability set successfully.");
             }
@@ -35,13 +39,21 @@ namespace DoctorPetAPI.Controllers
             }
         }
 
-        [HttpGet("getSlot/{doctorId}/{start}/{end}")]
+        [HttpGet("getSlot/{start}/{end}")]
         public IActionResult GetDoctorAvailability([FromHeader(Name = "Authorization")] string authorizationHeader, DateTime start, DateTime end)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 Authen authen = new Authen();
                 var userId = authen.GetIdFromToken(authorizationHeader);
+                if (userId == null)
+                {
+                    return Unauthorized("Invalid token.");
+                }
                 var availabilitySlots = _repository.GetDoctorAvailability(userId, start, end);
                 return Ok(availabilitySlots);
             }
@@ -56,8 +68,16 @@ namespace DoctorPetAPI.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 Authen authen = new Authen();
                 var userId = authen.GetIdFromToken(authorizationHeader);
+                if (userId == null)
+                {
+                    return Unauthorized("Invalid token.");
+                }
                 var appointments = await _repository.GetDoctorAppointList(limit, offset, userId, date);
                 return Ok(appointments);
             }
@@ -72,8 +92,16 @@ namespace DoctorPetAPI.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 Authen authen = new Authen();
                 var userId = authen.GetIdFromToken(authorizationHeader);
+                if (userId == null)
+                {
+                    return Unauthorized("Invalid token.");
+                }
                 _repository.ConfirmAppointment(userId, appontmentId);
                 return Ok("Appointment confirmed successfully.");
             }
@@ -84,10 +112,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpPost("generate")]
-        public async Task<IActionResult> GeneratePrescription([FromBody] GeneratePrescriptionDTO dto)
+        public async Task<IActionResult> GeneratePrescription([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] GeneratePrescriptionDTO dto)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var presDTO = await _repository.GeneratePres(dto);
 
                 return Ok(presDTO);
@@ -99,10 +131,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("getMedicine/{clinicId}/{cateId}")]
-        public async Task<IActionResult> getMedicineByCate(string clinicId,string cateId, int limit, int offset)
+        public async Task<IActionResult> getMedicineByCate([FromHeader(Name = "Authorization")] string authorizationHeader, string clinicId,string cateId, int limit, int offset)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var appointments = await _repository.getMedicineByCate(clinicId, cateId, limit, offset);
                 return Ok(appointments);
             }
@@ -113,10 +149,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("search/{name}")]
-        public async Task<IActionResult> searchMedicineByName(string name)
+        public async Task<IActionResult> searchMedicineByName([FromHeader(Name = "Authorization")] string authorizationHeader, string name)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var medicine = await _repository.SearchMedicineByName(name);
                 if (medicine != null)
                     return Ok(medicine);
@@ -130,10 +170,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("getInvoice/{appointmentId}")]
-        public async Task<IActionResult> getInvoice(string appointmentId)
+        public async Task<IActionResult> getInvoice([FromHeader(Name = "Authorization")] string authorizationHeader, string appointmentId)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var press = await _repository.GetPrescription(appointmentId);
                 if (press != null)
                     return Ok(press);
@@ -147,10 +191,14 @@ namespace DoctorPetAPI.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<List<MedicineManaDTO>>> SearchMedicineByCategoryAndKeyword([FromQuery] string clinicId, [FromQuery] string categoryId, [FromQuery] string keyword,int limit,int offset)
+        public async Task<ActionResult<List<MedicineManaDTO>>> SearchMedicineByCategoryAndKeyword([FromHeader(Name = "Authorization")] string authorizationHeader, [FromQuery] string clinicId, [FromQuery] string categoryId, [FromQuery] string keyword,int limit,int offset)
         {
             try
             {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
                 var medicines = await _repository.SearchMedicineByCategoryAndKeyword(clinicId, categoryId, keyword, limit, offset);
                 return Ok(medicines);
             }

@@ -11,10 +11,8 @@ namespace DataAccess.DTO.Appointment
         public DateTime Date { get; set; }
         public string Reason { get; set; }
         public string PetId { get; set; }
-
         public CreatePetDTO PetDTO { get; set; }
         public string ClinicId { get; set; }
-        public string UserId { get; set; }
         public int Slot { get; set; }
 
 

@@ -49,8 +49,8 @@ namespace DataAccess.Repository
         //Staff
         public Task UpdateStaff(StaffManaDTO staffDTO)
             => _adminDAO.UpdateStaff(staffDTO);
-        public Task AddStaff(StaffManaDTO staffDTO)
-            =>_adminDAO.AddStaff(staffDTO);
+        public Task AddStaff(string userId, StaffManaDTO staffDTO)
+            =>_adminDAO.AddStaff(userId,staffDTO);
         public Task<StaffListDTO> GetAllStaff(string clinicId, int limit, int offset)
             => _adminDAO.GetAllStaff(clinicId, limit,offset);
         public Task<StaffManaDTO> GetStaffById(string clinicId, string id)
@@ -116,6 +116,9 @@ namespace DataAccess.Repository
 
         public Task<IEnumerable<DoctorDegree>> GetDoctorDegrees()
             => _adminDAO.GetAllDegreeAsync();
+        public Task<MedicineReponse> GenerateMedicineSalesReport(DateTime startDate, DateTime endDate, string userId)
+            => _adminDAO.GenerateMedicineSalesReport(startDate, endDate, userId);
+
 
 
     }

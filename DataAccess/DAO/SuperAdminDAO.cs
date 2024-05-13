@@ -121,10 +121,11 @@ namespace DataAccess.DAO
 
         //Doctor Management
         //Staff management
-        public async Task AddStaff(StaffManaDTO staffDTO)
+        public async Task AddStaff(string userId, StaffManaDTO staffDTO)
         {
             try
             {
+                var emp = await _context.Employees.FirstOrDefaultAsync(e=>e.UserId == userId);
 
                 if (!string.IsNullOrEmpty(staffDTO.UserId))
                 {
@@ -132,12 +133,12 @@ namespace DataAccess.DAO
 
                     if (existingUser != null)
                     {
-                        existingUser.UserRole = 2;
+                        existingUser.UserRole = 3;
                         var Employee = new Employee
                         {
                             EmployeeId = existingUser.UserId,
                             UserId = existingUser.UserId,
-                            ClinicId = staffDTO.ClinicId,
+                            ClinicId = emp.ClinicId,
                         };
 
                         await _context.Employees.AddAsync(Employee);
@@ -158,7 +159,7 @@ namespace DataAccess.DAO
                         PhoneNumber = staffDTO.PhoneNumber,
                         Address = staffDTO.Address,
                         Birthday = staffDTO.Birthday,
-                        UserRole = 2,
+                        UserRole = 3,
                     };
                     await _context.Users.AddAsync(user);
                     await _context.SaveChangesAsync();
@@ -167,7 +168,7 @@ namespace DataAccess.DAO
                         EmployeeId = user.UserId,
                         UserId = user.UserId,
                         EmployeeStatus = staffDTO.EmployeeStatus,
-                        ClinicId = staffDTO.ClinicId,
+                        ClinicId = emp.ClinicId,
                     };
 
                     await _context.Employees.AddAsync(newEmployee);
@@ -189,7 +190,8 @@ namespace DataAccess.DAO
         {
             try
             {
-                var emp = _context.Employees.FirstOrDefault(e => e.UserId == userId);
+                var emp = _context.Employees
+                    .FirstOrDefault(e => e.UserId == userId);
                 var staffQuery = _context.Employees
                     .Include(e =>e.Clinic)
                     .Include(e => e.User).OrderBy(e => e.UserId);
@@ -214,7 +216,7 @@ namespace DataAccess.DAO
                     Birthday = e.User.Birthday,
                     EmployeeStatus = e.EmployeeStatus,
                     UserId = e.UserId,
-                    ClinicId = e.ClinicId,
+                    ClinicId = emp.ClinicId,
                 });
 
                 return new StaffListDTO
@@ -375,7 +377,7 @@ namespace DataAccess.DAO
 
                     if (existingUser != null)
                     {
-                        existingUser.UserRole = 3;
+                        existingUser.UserRole = 2;
                         var doctor = new Doctor
                         {
                             DoctorId = existingUser.UserId,
@@ -383,7 +385,7 @@ namespace DataAccess.DAO
                             DegreeId = doctorDTO.DegreeId,
                             Specialized = doctorDTO.Specialized,
                             Status = doctorDTO.DoctorStatus,
-                            ClinicId = doctorDTO.ClinicId
+                            ClinicId = emp.ClinicId
                         };
 
                         await _context.Doctors.AddAsync(doctor);
@@ -406,7 +408,8 @@ namespace DataAccess.DAO
                         PhoneNumber = doctorDTO.PhoneNumber,
                         Address = doctorDTO.Address,
                         Birthday = doctorDTO.BirthDate,
-                        UserRole = 3,
+                        UserRole = 2,
+                        
                         
                     };
                     var password = "12345678";
@@ -425,7 +428,7 @@ namespace DataAccess.DAO
                         DegreeId = doctorDTO.DegreeId,
                         Specialized = doctorDTO.Specialized,
                         Status = doctorDTO.DoctorStatus,
-                        ClinicId = doctorDTO.ClinicId
+                        ClinicId = emp.ClinicId
                     };
 
                     await _context.Doctors.AddAsync(newDoctor);
@@ -473,18 +476,94 @@ namespace DataAccess.DAO
 
         private string GenerateBaseUsername(string doctorName)
         {
+            Dictionary<char, char> unikeyMap = new Dictionary<char, char>
+    {
+        {'á', 'a'},
+        {'à', 'a'},
+        {'ả', 'a'},
+        {'ã', 'a'},
+        {'ạ', 'a'},
+        {'ă', 'a'},
+        {'ắ', 'a'},
+        {'ằ', 'a'},
+        {'ẳ', 'a'},
+        {'ẵ', 'a'},
+        {'ặ', 'a'},
+        {'â', 'a'},
+        {'ấ', 'a'},
+        {'ầ', 'a'},
+        {'ẩ', 'a'},
+        {'ẫ', 'a'},
+        {'ậ', 'a'},
+        {'đ', 'd'},
+        {'é', 'e'},
+        {'è', 'e'},
+        {'ẻ', 'e'},
+        {'ẽ', 'e'},
+        {'ẹ', 'e'},
+        {'ê', 'e'},
+        {'ế', 'e'},
+        {'ề', 'e'},
+        {'ể', 'e'},
+        {'ễ', 'e'},
+        {'ệ', 'e'},
+        {'í', 'i'},
+        {'ì', 'i'},
+        {'ỉ', 'i'},
+        {'ĩ', 'i'},
+        {'ị', 'i'},
+        {'ó', 'o'},
+        {'ò', 'o'},
+        {'ỏ', 'o'},
+        {'õ', 'o'},
+        {'ọ', 'o'},
+        {'ô', 'o'},
+        {'ố', 'o'},
+        {'ồ', 'o'},
+        {'ổ', 'o'},
+        {'ỗ', 'o'},
+        {'ộ', 'o'},
+        {'ơ', 'o'},
+        {'ớ', 'o'},
+        {'ờ', 'o'},
+        {'ở', 'o'},
+        {'ỡ', 'o'},
+        {'ợ', 'o'},
+        {'ú', 'u'},
+        {'ù', 'u'},
+        {'ủ', 'u'},
+        {'ũ', 'u'},
+        {'ụ', 'u'},
+        {'ư', 'u'},
+        {'ứ', 'u'},
+        {'ừ', 'u'},
+        {'ử', 'u'},
+        {'ữ', 'u'},
+        {'ự', 'u'},
+        {'ý', 'y'},
+        {'ỳ', 'y'},
+        {'ỷ', 'y'},
+        {'ỹ', 'y'},
+        {'ỵ', 'y'}
+    };
+
             string lowercaseName = doctorName.ToLower();
 
             StringBuilder usernameBuilder = new StringBuilder();
             foreach (char c in lowercaseName)
             {
-                if (char.IsLetterOrDigit(c)) 
+                if (unikeyMap.ContainsKey(c))
+                {
+                    usernameBuilder.Append(unikeyMap[c]);
+                }
+                else if (char.IsLetterOrDigit(c))
                 {
                     usernameBuilder.Append(c);
                 }
             }
             return usernameBuilder.ToString();
         }
+
         private string HashPassword(string password)
         {
             using (SHA256 sha256Hash = SHA256.Create())
@@ -553,6 +632,7 @@ namespace DataAccess.DAO
                     DoctorStatus = e.Status,
                     DegreeId = e.DegreeId,
                     Specialized = e.Specialized,
+                    ClinicId = e.ClinicId,
                     UserId = e.UserId
                 });
                 return new DoctorListDTO
@@ -1129,7 +1209,66 @@ namespace DataAccess.DAO
         }
 
         // 
-        
+        public async Task<MedicineReponse> GenerateMedicineSalesReport(DateTime startDate, DateTime endDate, string userId)
+        {
+            try
+            {
+                var emp = await _context.Employees.FirstOrDefaultAsync(e => e.UserId == userId);
+                if (emp == null)
+                {
+                    throw new ArgumentException("ClinicId is required.");
+                }
+
+                var prescriptions = _context.Prescriptions
+                .Where(p => p.ExaminationDay >= startDate && p.ExaminationDay <= endDate && p.Appointment.ClinicId == emp.ClinicId && p.Appointment.Status == "done")
+                .Include(p => p.PrescriptionMedicines)
+                .ThenInclude(pm => pm.Medicine);
+
+                var medicineReport = new List<MedicineReport>();
+
+                double duePrice = 0;
+
+                foreach (var prescription in prescriptions)
+                {
+                    foreach (var medicine in prescription.PrescriptionMedicines)
+                    {
+                        var existingMedicine = medicineReport.FirstOrDefault(m => m.MedicineName == medicine.Medicine.MedicineName);
+
+                        if (existingMedicine != null)
+                        {
+                            existingMedicine.Quantity += medicine.Quantity;
+                            existingMedicine.TotalPrice += medicine.Quantity * medicine.Medicine.Prices;
+                        }
+                        else
+                        {
+                            medicineReport.Add(new MedicineReport
+                            {
+                                MedicineName = medicine.Medicine.MedicineName,
+                                Unit = medicine.Medicine.MedicineUnit,
+                                Quantity = medicine.Quantity,
+                                Price = medicine.Medicine.Prices,
+                                TotalPrice = (medicine.Quantity * medicine.Medicine.Prices)
+                            });
+                        }
+
+                        duePrice += medicine.Quantity * medicine.Medicine.Prices;
+                    }
+                }
+
+                var responseDTO = new MedicineReponse
+                {
+                    DuePrice = duePrice,
+                    MedicineReport = medicineReport
+                };
+
+                return responseDTO;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error generating medicine sales report.", ex);
+            }
+        }
+
 
     }
 }

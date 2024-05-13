@@ -7,7 +7,9 @@ using DataAccess.DTO.DDoctor;
 using DataAccess.DTO.Employee;
 using DataAccess.DTO.SuperAD;
 using DataAccess.Repository;
+using DataAccess.RequestDTO;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -154,6 +156,64 @@ namespace DataAccess.DAO
 
             return totalRevenue;
         }
+        public async Task<MedicineReponse> GenerateMedicineSalesReport(DateTime startDate, DateTime endDate, string clinicId)
+        {
+            try
+            {
+                var allClinics = string.IsNullOrEmpty(clinicId);
+
+                var prescriptions = _context.Prescriptions
+                    .Where(p => p.ExaminationDay >= startDate && p.ExaminationDay <= endDate && (allClinics || p.Appointment.ClinicId == clinicId) && p.Appointment.Status == "done")
+                    .Include(p => p.PrescriptionMedicines)
+                    .ThenInclude(pm => pm.Medicine);
+
+                var medicineReport = new List<MedicineReport>();
+                double duePrice = 0;
+
+                foreach (var prescription in prescriptions)
+                {
+                    foreach (var medicine in prescription.PrescriptionMedicines)
+                    {
+                        var existingMedicine = medicineReport.FirstOrDefault(m => m.MedicineName == medicine.Medicine.MedicineName);
+
+                        if (existingMedicine != null)
+                        {
+                            existingMedicine.Quantity += medicine.Quantity;
+                            existingMedicine.TotalPrice += medicine.Quantity * medicine.Medicine.Prices;
+                        }
+                        else
+                        {
+                            medicineReport.Add(new MedicineReport
+                            {
+                                MedicineName = medicine.Medicine.MedicineName,
+                                Unit = medicine.Medicine.MedicineUnit,
+                                Quantity = medicine.Quantity,
+                                Price = medicine.Medicine.Prices,
+                                TotalPrice = (medicine.Quantity * medicine.Medicine.Prices)
+                            });
+                        }
+
+                        duePrice += medicine.Quantity * medicine.Medicine.Prices;
+                    }
+                }
+
+                var responseDTO = new MedicineReponse
+                {
+                    DuePrice = duePrice,
+                    MedicineReport = medicineReport
+                };
+
+                return responseDTO;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error generating medicine sales report.", ex);
+            }
+        }
+
+
+
+
 
         internal async Task<int> countCustomer(string clinicId)
         {
@@ -529,6 +589,104 @@ namespace DataAccess.DAO
             _context.PetTypes.Remove(cate);
             await _context.SaveChangesAsync();
         }
+
+        //Doctor
+        public async Task<DoctorListDTO> GetAllDoctors(string clinicId, int limit, int offset)
+        {
+            try
+            {
+                IQueryable<Doctor> doctorsQuery = _context.Doctors
+                    .Include(d => d.User)
+                    .Include(d => d.DoctorDegree)
+                    .OrderBy(d => d.DoctorId);
+
+                if (clinicId != null)
+                {
+                    doctorsQuery = doctorsQuery.Where(d => d.ClinicId == clinicId);
+                }
+
+                var totalDoctors = await doctorsQuery.CountAsync();
+
+                var doctors = await doctorsQuery.Skip(offset).Take(limit).ToListAsync();
+
+                var doctorDTOs = doctors.Select(e => new DoctorManaDTO
+                {
+                    DoctorId = e.DoctorId,
+                    DoctorName = e.User.FullName,
+                    Address = e.User.Address,
+                    PhoneNumber = e.User.PhoneNumber,
+                    Email = e.User.Email,
+                    BirthDate = e.User.Birthday,
+                    DoctorStatus = e.Status,
+                    DegreeId = e.DegreeId,
+                    Specialized = e.Specialized,
+                    UserId = e.UserId
+                });
+
+                return new DoctorListDTO
+                {
+                    TotalDoctor = totalDoctors,
+                    Doctors = doctorDTOs
+                };
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in GetAllDoctors: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAllDoctors: {ex.Message}");
+                throw;
+            }
+        }
+
+
+        //Staff
+        public async Task<StaffListDTO> GetAllStaff(string clinicId, int limit, int offset)
+        {
+            try
+            {
+                IQueryable<Employee> staffQuery = _context.Employees
+                    .Include(e => e.Clinic)
+                    .Include(e => e.User)
+                    .OrderBy(e => e.UserId);
+
+                if (clinicId != null)
+                {
+                    staffQuery = staffQuery.Where(e => e.ClinicId == clinicId);
+                }
+
+                var totalStaff = await staffQuery.CountAsync();
+
+                var employees = await staffQuery.Skip(offset).Take(limit).ToListAsync();
+
+                var staffDTOs = employees.Select(e => new StaffManaDTO
+                {
+                    EmployeeId = e.EmployeeId,
+                    EmployeeName = e.User.FullName,
+                    Address = e.User.Address,
+                    PhoneNumber = e.User.PhoneNumber,
+                    Email = e.User.Email,
+                    Birthday = e.User.Birthday,
+                    EmployeeStatus = e.EmployeeStatus,
+                    UserId = e.UserId,
+                    ClinicId = e.ClinicId,
+                });
+
+                return new StaffListDTO
+                {
+                    TotalStaff = totalStaff,
+                    Staffs = staffDTOs
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAllStaff: {ex.Message}");
+                throw;
+            }
+        }
+
 
         //public async Task<IEnumerable<CateManaDTO>> SearchByName(string name)
         //{

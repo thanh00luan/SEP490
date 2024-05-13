@@ -125,13 +125,14 @@ namespace DataAccess.DAO
             }
         }
 
-        public void BookAppointment(DoctorClinicDTO appointment)
+        public void BookAppointment(string userId, DoctorClinicDTO appointment)
         {
             Appointment newAppointment = _mapper.Map<Appointment>(appointment);
             newAppointment.SlotNumber = appointment.Slot;
             newAppointment.AppointmentDate = appointment.Date;
             newAppointment.AppointmentId = Guid.NewGuid().ToString();
             newAppointment.Status = "pending";
+            newAppointment.UserId = userId;
 
             if (appointment.PetId == null)
             {
@@ -139,7 +140,7 @@ namespace DataAccess.DAO
                 newPet.PetId = Guid.NewGuid().ToString();
                 newAppointment.PetId = newPet.PetId;
                 newAppointment.Pet = newPet;
-                newAppointment.Pet.UserId = appointment.UserId;
+                newAppointment.Pet.UserId = userId;
                 _context.Pets.Add(newPet);
             }
             else
@@ -147,7 +148,7 @@ namespace DataAccess.DAO
                 Pet existingPet = _context.Pets.Find(appointment.PetId);
                 newAppointment.PetId = appointment.PetId;
                 newAppointment.Pet = existingPet;
-                newAppointment.Pet.UserId = appointment.UserId;
+                newAppointment.Pet.UserId = userId;
             }
 
             _context.Appointments.Add(newAppointment);

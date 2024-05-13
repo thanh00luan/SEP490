@@ -26,8 +26,8 @@ namespace DataAccess.Repository
         public Task<ClinicSlotsResponse> GetAvailableSlots(string clinicId, DateTime date)
         => _appointmentDAO.GetAvailableSlots(clinicId, date);
 
-        public void BookAppointment(DoctorClinicDTO appointment)
-        => _appointmentDAO.BookAppointment(appointment);
+        public void BookAppointment(string userId, DoctorClinicDTO appointment)
+        => _appointmentDAO.BookAppointment(userId,appointment);
 
         public Task<bool> SetDoctorAvailableSlots(string doctorId, string clinicId, DateTime date, List<int> availableSlots)
         => _appointmentDAO.SetDoctorAvailableSlots(doctorId, clinicId, date, availableSlots);
