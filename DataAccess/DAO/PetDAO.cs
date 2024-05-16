@@ -85,7 +85,7 @@ namespace DataAccess.DAO
                 throw;
             }
         }
-        public async Task<PetManaDTO> GetPetByIdAsync( string PetId)
+        public async Task<PetManaDTO> GetPetByIdAsync(string PetId)
         {
             var Pet = await _context.Pets
                 .FindAsync(PetId);
@@ -108,7 +108,7 @@ namespace DataAccess.DAO
             };
         }
 
-        public async Task UpdatePetAsync(PetManaDTO PetDTO)
+        public async Task UpdatePetAsync(string userId, PetManaDTO PetDTO)
         {
             var Pet = await _context.Pets.FindAsync(PetDTO.PetId);
 
@@ -123,10 +123,7 @@ namespace DataAccess.DAO
             Pet.PetAge = PetDTO.PetAge;
             Pet.PetSpecies = PetDTO.PetSpecies;
             Pet.PetTypeId = PetDTO.PetTypeId;
-            if(PetDTO.UserId == "")
-            {
-                PetDTO.UserId = Pet.UserId;
-            }
+            Pet.UserId = userId;
 
             _context.Pets.Update(Pet);
             await _context.SaveChangesAsync();

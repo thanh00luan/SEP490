@@ -120,12 +120,20 @@ namespace DoctorPetAPI.Controllers
         [HttpDelete("{medicineId}")]
         public async Task<IActionResult> DeleteMedicineAsync([FromHeader(Name = "Authorization")] string authorizationHeader, string medicineId)
         {
-            if (string.IsNullOrEmpty(authorizationHeader))
+            try
             {
-                return Unauthorized("Authorization header is missing.");
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+                await _repository.DeleteMedicineAsync(medicineId);
+                return Ok("Medicine deleted successfully.");
             }
-            await _repository.DeleteMedicineAsync(medicineId);
-            return Ok("Medicine deleted successfully.");
+            catch(Exception ex)
+            {
+                return StatusCode(500, $"Delete Error:  {ex.Message}");
+            }
+            
         }
 
 
@@ -237,7 +245,7 @@ namespace DoctorPetAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return StatusCode(500, $"Error in delete staff: {ex.Message}");
             }
         }
 
@@ -439,34 +447,59 @@ namespace DoctorPetAPI.Controllers
         [HttpPost("AddCategory")]
         public async Task<IActionResult> AddCategory([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] CateManaDTO dto)
         {
-            if (string.IsNullOrEmpty(authorizationHeader))
+            try
             {
-                return Unauthorized("Authorization header is missing.");
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+                await _repository.AddCategory(dto);
+                return Ok("Category added successfully");
             }
-            await _repository.AddCategory(dto);
-            return Ok("Category added successfully");
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpDelete("DeleteCategory/{id}")]
         public async Task<IActionResult> DeleteCategory([FromHeader(Name = "Authorization")] string authorizationHeader, string id)
         {
-            if (string.IsNullOrEmpty(authorizationHeader))
+            try
             {
-                return Unauthorized("Authorization header is missing.");
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+                await _repository.DeleteCategory(id);
+                return Ok("Category deleted successfully");
             }
-            await _repository.DeleteCategory(id);
-            return Ok("Category deleted successfully");
+            catch(Exception ex)
+            {
+                return StatusCode(500, $"Error in delete Category: {ex.Message}");
+            }
+            
         }
 
         [HttpGet("GetAllCategories")]
         public async Task<IActionResult> GetAllCategories([FromHeader(Name = "Authorization")] string authorizationHeader)
         {
-            if (string.IsNullOrEmpty(authorizationHeader))
+            try
             {
-                return Unauthorized("Authorization header is missing.");
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+                var categories = await _repository.GetAllCategories();
+                return Ok(categories);
+
             }
-            var categories = await _repository.GetAllCategories();
-            return Ok(categories);
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+            
         }
 
         [HttpGet("GetCategoryById/{id}")]

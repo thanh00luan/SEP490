@@ -14,6 +14,6 @@ namespace DataAccess.IRepository
         Task DeletePet(string id);
         Task<PetListDTO> GetAllPet(string userId);
         Task<PetManaDTO> GetPetById(string id);
-        Task UpdatePet(PetManaDTO updateDTO);
+        Task UpdatePet(string userId, PetManaDTO updateDTO);
     }
 }

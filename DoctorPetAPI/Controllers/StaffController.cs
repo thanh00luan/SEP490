@@ -20,64 +20,108 @@ namespace DoctorPetAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StaffDTO>>> GetAllStaffs([FromHeader(Name = "Authorization")] string authorizationHeader)
         {
-            if (string.IsNullOrEmpty(authorizationHeader))
+            try
             {
-                return Unauthorized("Authorization header is missing.");
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+                var Staffs = await _StaffRepository.getAlls();
+                return Ok(Staffs);
             }
-            var Staffs = await _StaffRepository.getAlls();
-            return Ok(Staffs);
+            catch(Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+            
         }
 
 
         [HttpGet("{id}")]
         public async Task<ActionResult<StaffDTO>> GetStaffById([FromHeader(Name = "Authorization")] string authorizationHeader, string id)
         {
-            var Staff = await _StaffRepository.GetStaffById(id);
-
-            if (Staff == null)
+            try
             {
-                return NotFound();
-            }
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return BadRequest();
+                }
+                var Staff = await _StaffRepository.GetStaffById(id);
 
-            return Ok(Staff);
+                if (Staff == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(Staff);
+            }
+            catch (Exception ex)
+            {
+
+                return NotFound(ex.Message);
+            }
+            
         }
 
         [HttpPost]
         public async Task<ActionResult> AddStaff([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] StaffDTO StaffDTO)
         {
-            if (string.IsNullOrEmpty(authorizationHeader))
+            try
             {
-                return Unauthorized("Authorization header is missing.");
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+                await _StaffRepository.AddStaff(StaffDTO);
+                return CreatedAtAction(nameof(GetStaffById), new { id = StaffDTO.EmployeeId }, StaffDTO);
             }
-            await _StaffRepository.AddStaff(StaffDTO);
-            return CreatedAtAction(nameof(GetStaffById), new { id = StaffDTO.EmployeeId }, StaffDTO);
+            catch (Exception e)
+            {
+
+                return StatusCode(500, e.Message);
+            }
+            
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateStaff([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] StaffDTO StaffDTO)
         {
-            // if (id != StaffDTO.StaffId)
-            // {
-            //     return BadRequest();
-            // }
-            if (string.IsNullOrEmpty(authorizationHeader))
+            try
             {
-                return Unauthorized("Authorization header is missing.");
-            }
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
 
-            await _StaffRepository.UpdateStaff(StaffDTO);
-            return NoContent();
+                await _StaffRepository.UpdateStaff(StaffDTO);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+                
+            }
+            
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteStaff([FromHeader(Name = "Authorization")] string authorizationHeader, string id)
         {
-            if (string.IsNullOrEmpty(authorizationHeader))
+            try
             {
-                return Unauthorized("Authorization header is missing.");
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+                await _StaffRepository.DeleteStaff(id);
+                return NoContent();
             }
-            await _StaffRepository.DeleteStaff(id);
-            return NoContent();
+            catch (Exception e)
+            {
+
+                return StatusCode(500,e.Message);
+            }
+            
         }
 
         [HttpGet("sortedByName")]

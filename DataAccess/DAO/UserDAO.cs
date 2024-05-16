@@ -13,6 +13,8 @@ using DataAccess.DTO.User;
 using DataAccess.IRepository;
 using DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace DataAccess.DAO
 {
@@ -22,15 +24,17 @@ namespace DataAccess.DAO
         private readonly IMapper _mapper;
         private readonly ICache _cache;
         private readonly ISendMailService _sendMailService;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
         private readonly string ngrokLink = "https://d5f8-2001-ee0-533c-84a0-6122-1d18-8549-4457.ngrok-free.app";
         
-        public UserDAO(ApplicationDbContext context, IMapper mapper, ICache cache, ISendMailService sendMailService)
+        public UserDAO(ApplicationDbContext context, IMapper mapper, ICache cache, ISendMailService sendMailService,IHttpContextAccessor http)
         {
             _context = context;
             _mapper = mapper;
             _cache = cache;
             _sendMailService = sendMailService;
+            httpContextAccessor = http;
         }
 
         private string HashPassword(string password)
@@ -273,8 +277,10 @@ namespace DataAccess.DAO
             }
         }
 
-        //Forgot pass
-        public async Task ForgotPasswordAsync(string userName)
+
+
+
+        public async Task<string> ForgotPasswordAsync(string userName)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
 
@@ -282,34 +288,122 @@ namespace DataAccess.DAO
             {
                 throw new Exception("User not found");
             }
-            string resetToken = GenerateResetToken();
 
-            _cache.Set($"resetToken:{userName}", resetToken, TimeSpan.FromHours(1));
-            await _sendMailService.SendForgotPasswordEmailAsync(user.Email, resetToken);
-        }
+            // Kiểm tra xem đã gửi OTP cho người dùng trước đó chưa
+            var existingUserOTP = await _context.UserOTPs.FirstOrDefaultAsync(u => u.UserId == user.UserId);
 
-        public async Task ResetPasswordAsync(string userName, string token, string newPassword)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
-            if (user == null)
+            string otp = GenerateOTP();
+            string hashedOTP = HashString(otp);
+
+            if (existingUserOTP == null)
             {
-                throw new Exception("User not found");
+                // Nếu chưa gửi OTP trước đó, tạo mới bản ghi UserOTP
+                var newUserOTP = new UserOTP
+                {
+                    OTP = hashedOTP,
+                    UserId = user.UserId,
+                    ExpiryTime = DateTimeOffset.UtcNow.AddMinutes(10),
+                };
+
+                _context.UserOTPs.Add(newUserOTP);
             }
-
-            string cachedToken = _cache.Get<string>($"resetToken:{userName}");
-
-            if (token != cachedToken)
+            else
             {
-                throw new Exception("Invalid or expired token");
+                existingUserOTP.OTP = hashedOTP;
+                existingUserOTP.ExpiryTime = DateTimeOffset.UtcNow.AddMinutes(10);
             }
-
-            string hashedNewPassword = HashPassword(newPassword);
-            user.Password = hashedNewPassword;
 
             await _context.SaveChangesAsync();
 
-            _cache.Remove($"resetToken:{userName}");
+            string subject = "Your OTP. Active on 10 minutes.";
+            await _sendMailService.SendEmailAsync(user.Email, subject, otp);
+
+            return user.UserId;
         }
+
+
+        public async Task<bool> VerifyOTPAsync(string userId, string otp)
+        {
+            var userOTP = await _context.UserOTPs.FirstOrDefaultAsync(u => u.UserId == userId);
+            if (userOTP == null)
+            {
+                return false; 
+            }
+
+            if (!string.IsNullOrEmpty(userOTP.Token))
+            {
+                return true; 
+            }
+
+            string cachedHashedOTP = userOTP.OTP;
+            string hashedOTP = HashString(otp);
+            if (hashedOTP != cachedHashedOTP)
+            {
+                return false; 
+            }
+
+            string resetToken = GenerateResetToken();
+            userOTP.Token = resetToken;
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+        public async Task<bool> ResetPasswordAsync(string userId,string newPassword)
+        {
+            var userOTP = await _context.UserOTPs.FirstOrDefaultAsync(u => u.UserId == userId);
+            if (string.IsNullOrEmpty(userOTP.Token))
+            {
+                return false; 
+            }
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            if (user ==null)
+            {
+                return false;
+            }
+            else
+            {
+                string hashedNewPassword = HashPassword(newPassword);
+                user.Password = hashedNewPassword;
+                _context.UserOTPs.Remove(userOTP);
+                await _context.SaveChangesAsync();
+            }
+            return true;
+        }
+
+
+        private string HashString(string input)
+            {
+                using (SHA256 sha256Hash = SHA256.Create())
+                {
+                    byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+                    StringBuilder builder = new StringBuilder();
+                    foreach (byte b in bytes)
+                    {
+                        builder.Append(b.ToString("x2"));
+                    }
+                    return builder.ToString();
+                }
+            }
+
+
+        private string GenerateOTP()
+        {
+            int otpLength = 6;
+
+            char[] chars = "0123456789".ToCharArray();
+
+            StringBuilder otpBuilder = new StringBuilder();
+
+            Random random = new Random();
+            for (int i = 0; i < otpLength; i++)
+            {
+                char c = chars[random.Next(chars.Length)];
+                otpBuilder.Append(c);
+            }
+
+            return otpBuilder.ToString();
+        }
+
         private string GenerateResetToken()
         {
             const int tokenLength = 32;

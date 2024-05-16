@@ -535,6 +535,30 @@ namespace BussinessObject.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("BussinessObject.Models.UserOTP", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("ExpiryTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("OTP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserOTPs");
+                });
+
             modelBuilder.Entity("BussinessObject.Models.Appointment", b =>
                 {
                     b.HasOne("BussinessObject.Models.Clinic", "Clinic")

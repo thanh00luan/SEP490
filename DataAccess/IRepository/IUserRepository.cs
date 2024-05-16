@@ -23,7 +23,8 @@ namespace DataAccess.IRepository
         Task<IEnumerable<UserDTO>> GetUsersByRoleAsync(int userRole);
 
         Task<PresDTO> GetPrescription(string appointmentId);
-        Task ResetPasswordAsync(string userName, string token, string newPassword);
-        Task ForgotPasswordAsync(string userName);
+        Task<bool> ResetPasswordAsync(string userId, string newPassword);
+        Task<string> ForgotPasswordAsync(string userName);
+        Task<bool> VerifyOTPAsync(string userId, string oTP);
     }
 }

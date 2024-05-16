@@ -64,8 +64,7 @@ namespace DoctorPetAPI.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetAllAppointments: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
         [HttpPost("book")]

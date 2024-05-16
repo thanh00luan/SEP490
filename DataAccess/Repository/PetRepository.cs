@@ -28,7 +28,7 @@ namespace DataAccess.Repository
         public Task<PetManaDTO> GetPetById(string id)
             =>_petDAO.GetPetByIdAsync(id);
 
-        public Task UpdatePet(PetManaDTO updateDTO)
-            =>_petDAO.UpdatePetAsync(updateDTO);
+        public Task UpdatePet(string userId, PetManaDTO updateDTO)
+            =>_petDAO.UpdatePetAsync(userId, updateDTO);
     }
 }

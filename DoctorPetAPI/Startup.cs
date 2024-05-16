@@ -106,6 +106,7 @@ namespace DoctorPetAPI
             services.AddScoped<SuperAdminDAO>();
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<ICache, MemoryCacheService>();
+            services.AddHttpContextAccessor(); 
 
             services.AddScoped<PetDAO>();
 

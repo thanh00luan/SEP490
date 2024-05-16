@@ -149,23 +149,6 @@ namespace DoctorPetAPI.Controllers
             return encodeToken;
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeletePet([FromHeader(Name = "Authorization")] string authorizationHeader)
-        {
-            if (string.IsNullOrEmpty(authorizationHeader))
-            {
-                return Unauthorized("Authorization header is missing.");
-            }
-            Authen authen = new Authen();
-            var userId = authen.GetIdFromToken(authorizationHeader);
-            if (userId == null)
-            {
-                return Unauthorized("Invalid token.");
-            }
-            await _userRepository.DeleteUserAsync(userId);
-            return NoContent();
-        }
-
         [HttpGet("ByUsername/{username}")]
         public async Task<ActionResult<UserDTO>> GetUserByUserName([FromHeader(Name = "Authorization")] string authorizationHeader, string username)
         {
@@ -243,8 +226,8 @@ namespace DoctorPetAPI.Controllers
             }
         }
 
-        [HttpGet("GetPetById/{id}")]
-        public async Task<IActionResult> GetPetById([FromHeader(Name = "Authorization")] string authorizationHeader)
+        [HttpGet("GetPetById/{petId}")]
+        public async Task<IActionResult> GetPetById([FromHeader(Name = "Authorization")] string authorizationHeader,string petId)
         {
             try
             {
@@ -258,7 +241,7 @@ namespace DoctorPetAPI.Controllers
                 {
                     return Unauthorized("Invalid token.");
                 }
-                var Pet = await _petRepository.GetPetById(userId);
+                var Pet = await _petRepository.GetPetById(petId);
                 if (Pet != null)
                     return Ok(Pet);
                 else
@@ -279,7 +262,13 @@ namespace DoctorPetAPI.Controllers
                 {
                     return Unauthorized("Authorization header is missing.");
                 }
-                await _petRepository.UpdatePet(dto);
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                if (userId == null)
+                {
+                    return Unauthorized("Invalid token.");
+                }
+                await _petRepository.UpdatePet(userId,dto);
                 return Ok("Pet updated successfully");
             }
             catch (Exception ex)
@@ -287,16 +276,26 @@ namespace DoctorPetAPI.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        [HttpDelete("{petId}")]
+        [HttpDelete("DeletePet/{petId}")]
         public async Task<IActionResult> DeletePetAsync([FromHeader(Name = "Authorization")] string authorizationHeader, string petId)
         {
-            if (string.IsNullOrEmpty(authorizationHeader))
+            try
             {
-                return Unauthorized("Authorization header is missing.");
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+
+                await _petRepository.DeletePet(petId);
+
+                return Ok("Pet deleted successfully.");
             }
-            await _petRepository.DeletePet(petId);
-            return Ok("Pet deleted successfully.");
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
+
         [HttpGet("getUserInvoice/{appointmentId}")]
         public async Task<IActionResult> GetUserInvoice([FromHeader(Name = "Authorization")] string authorizationHeader, string appointmentId)
         {
@@ -327,9 +326,16 @@ namespace DoctorPetAPI.Controllers
         {
             try
             {
-                await _userRepository.ForgotPasswordAsync(userName);
+                var result = await _userRepository.ForgotPasswordAsync(userName);
 
-                return Ok("An email with instructions to reset your password has been sent to your email address.");
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("Failed to send reset password email.");
+                }
             }
             catch (Exception ex)
             {
@@ -337,19 +343,50 @@ namespace DoctorPetAPI.Controllers
             }
         }
 
-        [HttpPost("reset")]
-        public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordRequest request)
+        [HttpPost("verify")]
+        public async Task<IActionResult> VerifyOTPAsync(string userId, string OTP)
         {
             try
             {
-                await _userRepository.ResetPasswordAsync(request.UserName, request.Token, request.NewPassword);
+                bool result = await _userRepository.VerifyOTPAsync(userId, OTP);
 
-                return Ok("Password reset successfully.");
+                if (result)
+                {
+                    return Ok("OTP verified successfully.");
+                }
+                else
+                {
+                    return BadRequest("Invalid OTP or expired.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Failed to verify OTP: {ex.Message}");
+            }
+        }
+
+        [HttpPost("reset")]
+        public async Task<IActionResult> ResetPasswordAsync(string userId, string newPass)
+        {
+            try
+            {
+                bool result = await _userRepository.ResetPasswordAsync(userId, newPass);
+
+                if (result)
+                {
+                    return Ok("Password reset successfully.");
+                }
+                else
+                {
+                    return BadRequest("Failed to reset password.");
+                }
             }
             catch (Exception ex)
             {
                 return BadRequest($"Failed to reset password: {ex.Message}");
             }
         }
+
+
     }
 }

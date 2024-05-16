@@ -49,10 +49,13 @@ namespace DataAccess.Repository
         public Task<PresDTO> GetPrescription(string appointmentId)
             =>_userDAO.GetPrescription(appointmentId);
 
-        public Task ResetPasswordAsync(string userName, string token, string newPassword)
-            =>_userDAO.ResetPasswordAsync(userName, token, newPassword);
+        public Task<bool> ResetPasswordAsync(string userId,string newPassword)
+            =>_userDAO.ResetPasswordAsync(userId, newPassword);
 
-        public Task ForgotPasswordAsync(string userName)
+        public Task<string> ForgotPasswordAsync(string userName)
             =>_userDAO.ForgotPasswordAsync(userName);
+
+        public Task<bool> VerifyOTPAsync(string userId, string oTP)
+            =>_userDAO.VerifyOTPAsync(userId, oTP);
     }
 }
