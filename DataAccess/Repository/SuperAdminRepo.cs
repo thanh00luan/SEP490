@@ -19,7 +19,7 @@ namespace DataAccess.Repository
             _adminDAO = adminDAO;
         }
         //statis
-        public Task<List<AppointmentStatisticReponse>> appointmentStatistics(DateTime start, DateTime end, string clinicId)
+        public Task<StaticDTO> appointmentStatistics(DateTime start, DateTime end, string clinicId)
             => _adminDAO.appointmentStatistics(start, end, clinicId);
 
         public Task<int> countCustomer(string clinicId)

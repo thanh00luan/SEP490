@@ -83,7 +83,7 @@ namespace DataAccess.DAO
             return await query.CountAsync();
         }
 
-        public async Task<List<AppointmentStatisticReponse>> appointmentStatistics(DateTime start, DateTime end, string clinicId)
+        public async Task<StaticDTO> appointmentStatistics(DateTime start, DateTime end, string clinicId)
         {
             IQueryable<Appointment> query = _context.Appointments;
 
@@ -94,8 +94,9 @@ namespace DataAccess.DAO
                 query = query.Where(a => a.ClinicId == clinicId);
             }
 
-            List<AppointmentStatisticReponse> dailyStatistics = new List<AppointmentStatisticReponse>();
+            int totalAppoint = await query.CountAsync();
 
+            List<AppointmentStatisticReponse> dailyStatistics = new List<AppointmentStatisticReponse>();
             for (DateTime date = start.Date; date <= end.Date; date = date.AddDays(1))
             {
                 int totalAppointments = await query.CountAsync(a => a.AppointmentDate.Date == date);
@@ -106,13 +107,15 @@ namespace DataAccess.DAO
 
                 if (totalAppointments == 0)
                 {
+
                     dailyStatistics.Add(new AppointmentStatisticReponse
                     {
+                        
                         Date = date,
                         total = 0,
                         doneQuantity = 0,
                         inProgressQuantity = 0,
-                        watingQuantity = 0,
+                        waitingQuantity = 0,
                         pendingQuantity = 0
                     });
                 }
@@ -124,7 +127,7 @@ namespace DataAccess.DAO
                         total = totalAppointments,
                         doneQuantity = doneQuantity,
                         inProgressQuantity = inProgressQuantity,
-                        watingQuantity = waitingQuantity,
+                        waitingQuantity = waitingQuantity,
                         pendingQuantity = pendingQuantity
                     };
 
@@ -132,20 +135,31 @@ namespace DataAccess.DAO
                 }
             }
 
-            return dailyStatistics;
+            StaticDTO result = new StaticDTO
+            {
+                TotalAppointment = totalAppoint,
+                AppointmentStatistics = dailyStatistics
+            };
+
+            return result;
         }
 
 
-        public async Task<double> moneyStatistic(DateTime start, DateTime end, string clinicId)
+        public async Task<double> moneyStatistic(DateTime start, DateTime end, string clinicId )
         {
             double totalRevenue = 0;
 
-            var prescriptions = _context.Prescriptions
-                .Where(p => p.ExaminationDay >= start && p.ExaminationDay <= end && p.Appointment.ClinicId == clinicId && p.Appointment.Status == "done")
+            IQueryable<Prescription> prescriptions = _context.Prescriptions
+                .Where(p => p.ExaminationDay >= start && p.ExaminationDay <= end && p.Appointment.Status == "done")
                 .Include(p => p.PrescriptionMedicines)
                 .ThenInclude(pm => pm.Medicine);
 
-            foreach (var prescription in prescriptions)
+            if (!string.IsNullOrEmpty(clinicId))
+            {
+                prescriptions = prescriptions.Where(p => p.Appointment.ClinicId == clinicId);
+            }
+
+            foreach (var prescription in await prescriptions.ToListAsync())
             {
                 foreach (var prescriptionMedicine in prescription.PrescriptionMedicines)
                 {
@@ -156,6 +170,7 @@ namespace DataAccess.DAO
 
             return totalRevenue;
         }
+
         public async Task<MedicineReponse> GenerateMedicineSalesReport(DateTime startDate, DateTime endDate, string clinicId)
         {
             try

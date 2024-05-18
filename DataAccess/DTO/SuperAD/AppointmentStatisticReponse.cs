@@ -12,7 +12,7 @@ namespace DataAccess.DTO.SuperAD
         public int total { get; set; }
         public int doneQuantity { get; set; }
         public int inProgressQuantity { get; set; }
-        public int watingQuantity { get; set; }
+        public int waitingQuantity { get; set; }
         public int pendingQuantity { get; set; }
     }
 }
