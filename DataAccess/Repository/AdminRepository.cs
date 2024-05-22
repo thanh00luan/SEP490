@@ -23,15 +23,15 @@ namespace DataAccess.Repository
         }
 
         //Pet type Category per clinic
-        public Task CreatePetType(PetTypeManaDTO dto)
-            =>_adminDAO.CreatePetCateAsync(dto);
+        //public Task CreatePetType(PetTypeManaDTO dto)
+        //    =>_adminDAO.CreatePetCateAsync(dto);
 
         public Task<PetTypeManaDTO> GetAllPetCateAsync(string clinicId)
             => _adminDAO.GetAllPetCateAsync(clinicId);
         public Task<PetCateManaDTO> GetCateByIdAsync(string clinicId, string id)
             =>_adminDAO.GetCateByIdAsync(clinicId, id);
-        public Task UpdatePetCateAsync(PetTypeManaDTO dto)
-            => _adminDAO.UpdatePetCateAsync(dto);
+        public Task UpdatePetCateAsync(string userId, List<PetCateManaDTO> PetTypeList)
+            => _adminDAO.UpdatePetCateAsync(userId, PetTypeList);
         
 
         //Medicine
@@ -119,7 +119,7 @@ namespace DataAccess.Repository
         public Task<MedicineReponse> GenerateMedicineSalesReport(DateTime startDate, DateTime endDate, string userId)
             => _adminDAO.GenerateMedicineSalesReport(startDate, endDate, userId);
 
-
-
+        public Task<PetTypeManaDTO> GetPetsCateAsync(string userId)
+            =>_adminDAO.GetPetsCateAsync(userId);
     }
 }

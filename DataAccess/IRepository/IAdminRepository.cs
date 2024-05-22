@@ -18,10 +18,10 @@ namespace DataAccess.IRepository
         //Pet interface
 
         //Pet Category interface
-        public Task CreatePetType(PetTypeManaDTO dto);
+        //public Task CreatePetType(PetTypeManaDTO dto);
         Task<PetTypeManaDTO> GetAllPetCateAsync(string clinicId);
         Task<PetCateManaDTO> GetCateByIdAsync(string clinicId, string id);
-        Task UpdatePetCateAsync(PetTypeManaDTO dto);
+        Task UpdatePetCateAsync(string userId, List<PetCateManaDTO> PetTypeList);
 
         //Medicine interface
         Task<MedicineListDTO> getAllMedicineAsync(string userId, int limit, int offset);
@@ -67,5 +67,7 @@ namespace DataAccess.IRepository
         Task<IEnumerable<DoctorDegree>> GetDoctorDegrees();
 
         Task<MedicineReponse> GenerateMedicineSalesReport(DateTime startDate, DateTime endDate, string userId);
+        Task<PetTypeManaDTO> GetPetsCateAsync(string userId);
+
     }
 }

@@ -191,11 +191,14 @@ namespace DataAccess.DAO
             try
             {
                 var emp = _context.Employees
+                    .Include(e=>e.Clinic)
                     .FirstOrDefault(e => e.UserId == userId);
                 var staffQuery = _context.Employees
                     .Include(e =>e.Clinic)
                     .Include(e => e.User).OrderBy(e => e.UserId);
-                if(emp.ClinicId !=null)
+
+                
+                if(emp.ClinicId != null)
                 {
                     staffQuery = _context.Employees
                         .Where(e=>e.ClinicId == emp.ClinicId)
@@ -630,7 +633,7 @@ namespace DataAccess.DAO
                     Email = e.User.Email,
                     BirthDate = e.User.Birthday,
                     DoctorStatus = e.Status,
-                    DegreeId = e.DegreeId,
+                    DegreeId = e.DegreeId,  
                     Specialized = e.Specialized,
                     ClinicId = e.ClinicId,
                     UserId = e.UserId
@@ -1046,42 +1049,41 @@ namespace DataAccess.DAO
             await _context.SaveChangesAsync();
         }
 
-        public async Task CreatePetCateAsync(PetTypeManaDTO dto)
-        {
-            try
-            {
-                foreach (var petCate in dto.PetTypeList)
-                {
+        //public async Task CreatePetCateAsync(PetTypeManaDTO dto)
+        //{
+        //    try
+        //    {
+        //        foreach (var petCate in dto.PetTypeList)
+        //        {
                     
-                    var existingPetTypePerClinic = await _context.PetTypePerClinics
-                        .FirstOrDefaultAsync(d => d.ClinicId == dto.ClinicId && d.PetTypeId == petCate.PetTypeId);
+        //            var existingPetTypePerClinic = await _context.PetTypePerClinics
+        //                .FirstOrDefaultAsync(d => d.ClinicId == dto.ClinicId && d.PetTypeId == petCate.PetTypeId);
 
-                    if (existingPetTypePerClinic == null)
-                    {
-                        var newPetTypePerClinic = new PetTypePerClinic
-                        {
-                            ClinicPetTypeId = Guid.NewGuid().ToString(),  
-                            ClinicId = dto.ClinicId,
-                            PetTypeId = petCate.PetTypeId,
-                        };
+        //            if (existingPetTypePerClinic == null)
+        //            {
+        //                var newPetTypePerClinic = new PetTypePerClinic
+        //                {
+        //                    ClinicPetTypeId = Guid.NewGuid().ToString(),  
+        //                    PetTypeId = petCate.PetTypeId,
+        //                };
 
-                        _context.PetTypePerClinics.Add(newPetTypePerClinic);
-                    }
-                }
+        //                _context.PetTypePerClinics.Add(newPetTypePerClinic);
+        //            }
+        //        }
 
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException ex)
-            {
-                Console.WriteLine($"Error:  CreatePetTypePerClinicsAsync: {ex.Message}");
-                throw;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error:  CreatePetTypePerClinicsAsync: {ex.Message}");
-                throw;
-            }
-        }
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateException ex)
+        //    {
+        //        Console.WriteLine($"Error:  CreatePetTypePerClinicsAsync: {ex.Message}");
+        //        throw;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error:  CreatePetTypePerClinicsAsync: {ex.Message}");
+        //        throw;
+        //    }
+        //}
 
 
         public async Task<PetTypeManaDTO> GetAllPetCateAsync(string clinicId)
@@ -1103,7 +1105,43 @@ namespace DataAccess.DAO
 
                 var petTypeManaDTO = new PetTypeManaDTO
                 {
-                    ClinicId = clinicId,
+                    PetTypeList = cateDTOs
+                };
+
+                return petTypeManaDTO;
+            }
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine($"Database Error in GetAllPetCateAsync: {ex.Message}");
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAllPetCateAsync: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<PetTypeManaDTO> GetPetsCateAsync(string userId)
+        {
+            try
+            {
+                var emp = _context.Employees.FirstOrDefault(e => e.UserId == userId);
+                var cateQuery = _context.PetTypePerClinics
+                    .Where(d => d.ClinicId == emp.ClinicId)
+                    .Include(d => d.PetType)
+                    .OrderBy(m => m.ClinicPetTypeId);
+
+                var cate = await cateQuery.ToListAsync();
+
+                var cateDTOs = cate.Select(c => new PetCateManaDTO
+                {
+                    PetTypeId = c.PetTypeId,
+                    PetTypeName = c.PetType.PetTypeName
+                }).ToList();
+
+                var petTypeManaDTO = new PetTypeManaDTO
+                {
                     PetTypeList = cateDTOs
                 };
 
@@ -1149,24 +1187,25 @@ namespace DataAccess.DAO
         }
 
 
-        public async Task UpdatePetCateAsync(PetTypeManaDTO dto)
+        public async Task UpdatePetCateAsync(string userId, List<PetCateManaDTO> PetTypeList)
         {
             try
             {
-                
-                foreach (var petCate in dto.PetTypeList)
+                var emp = _context.Employees.FirstOrDefault(e => e.UserId == userId);
+
+                foreach (var petCate in PetTypeList)
                 {
                     var existingPetType = await _context.PetTypePerClinics
                         .Include(d => d.PetType)
                         .Include(d => d.Clinic)
-                        .FirstOrDefaultAsync(d => d.ClinicId == dto.ClinicId && d.PetTypeId == petCate.PetTypeId);
+                        .FirstOrDefaultAsync(d => d.ClinicId == emp.ClinicId && d.PetTypeId == petCate.PetTypeId);
 
                     if (existingPetType == null)
                     {
                         var newPetType = new PetTypePerClinic
                         {
                             ClinicPetTypeId = Guid.NewGuid().ToString(),
-                            ClinicId = dto.ClinicId,
+                            ClinicId = emp.ClinicId,
                             PetTypeId = petCate.PetTypeId
                         };
                         _context.PetTypePerClinics.Add(newPetType);
@@ -1179,16 +1218,16 @@ namespace DataAccess.DAO
                 }
 
                 var existingPetTypes = await _context.PetTypePerClinics
-                    .Where(d => d.ClinicId == dto.ClinicId)
+                    .Where(d => d.ClinicId == emp.ClinicId)
                     .Select(d => d.PetTypeId)
                     .ToListAsync();
 
                 foreach (var existingPetTypeId in existingPetTypes)
                 {
-                    if (!dto.PetTypeList.Any(p => p.PetTypeId == existingPetTypeId))
+                    if (!PetTypeList.Any(p => p.PetTypeId == existingPetTypeId))
                     {
                         var petTypeToDelete = await _context.PetTypePerClinics
-                            .FirstOrDefaultAsync(d => d.ClinicId == dto.ClinicId && d.PetTypeId == existingPetTypeId);
+                            .FirstOrDefaultAsync(d => d.ClinicId == emp.ClinicId && d.PetTypeId == existingPetTypeId);
 
                         _context.PetTypePerClinics.Remove(petTypeToDelete);
                     }

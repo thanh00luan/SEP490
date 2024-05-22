@@ -226,10 +226,6 @@ namespace DataAccess.DAO
             }
         }
 
-
-
-
-
         internal async Task<int> countCustomer(string clinicId)
         {
             int customerCount = await _context.Appointments
@@ -263,7 +259,7 @@ namespace DataAccess.DAO
 
                     if (existingUser != null)
                     {
-                        existingUser.UserRole = 2;
+                        existingUser.UserRole = 4;
                         var Employee = new Employee
                         {
                             EmployeeId = existingUser.UserId,
@@ -272,10 +268,6 @@ namespace DataAccess.DAO
 
                         await _context.Employees.AddAsync(Employee);
                         await _context.SaveChangesAsync();
-                    }
-                    else
-                    {
-
                     }
                 }
                 else
@@ -288,7 +280,8 @@ namespace DataAccess.DAO
                         PhoneNumber = dto.Staff.PhoneNumber,
                         Address = dto.Staff.Address,
                         Birthday = dto.Staff.Birthday,
-                        UserRole = 2,
+                        UserRole = 4,
+                        
                     };
 
                     var password = "12345678";
@@ -304,6 +297,7 @@ namespace DataAccess.DAO
                         EmployeeId = user.UserId,
                         UserId = user.UserId,
                         EmployeeStatus = dto.Staff.EmployeeStatus,
+                        ClinicId = clinic.ClinicId,
                     };
 
                     var email = user.Email;
@@ -365,7 +359,9 @@ namespace DataAccess.DAO
                         PhoneNumber = e.Employee.User?.PhoneNumber, 
                         Address = e.Employee.User?.Address,
                         Birthday = e.Employee.User.Birthday,
-                        EmployeeStatus = e.Employee.EmployeeStatus
+                        EmployeeStatus = e.Employee.EmployeeStatus,
+                        ClinicId = e.ClinicId,
+                        UserId = e.Employee.UserId
                     }
 
             }) ;
@@ -441,7 +437,9 @@ namespace DataAccess.DAO
                         PhoneNumber = e.Employee.User?.PhoneNumber,
                         Address = e.Employee.User?.Address,
                         Birthday = e.Employee.User.Birthday,
-                        EmployeeStatus = e.Employee.EmployeeStatus
+                        EmployeeStatus = e.Employee.EmployeeStatus,
+                        ClinicId = e.ClinicId,
+                        UserId = e.Employee.UserId,
                     }
                 };
 
@@ -635,7 +633,8 @@ namespace DataAccess.DAO
                     DoctorStatus = e.Status,
                     DegreeId = e.DegreeId,
                     Specialized = e.Specialized,
-                    UserId = e.UserId
+                    UserId = e.UserId,
+                    ClinicId = e.ClinicId
                 });
 
                 return new DoctorListDTO

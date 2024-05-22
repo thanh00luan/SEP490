@@ -11,6 +11,7 @@ using BussinessObject.Models;
 using DataAccess.RequestDTO;
 using DataAccess.DTO.SuperAD;
 using DataAccess.Repository;
+using System.Collections.Generic;
 
 namespace DoctorPetAPI.Controllers
 {
@@ -539,16 +540,16 @@ namespace DoctorPetAPI.Controllers
         }
 
         //Pet Category
-        [HttpPost("AddPetCategory")]
-        public async Task<IActionResult> CreatePetType([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] PetTypeManaDTO dto)
-        {
-            if (string.IsNullOrEmpty(authorizationHeader))
-            {
-                return Unauthorized("Authorization header is missing.");
-            }
-            await _repository.CreatePetType(dto);
-            return Ok("Category added successfully");
-        }
+        //[HttpPost("AddPetCategory")]
+        //public async Task<IActionResult> CreatePetType([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] PetTypeManaDTO dto)
+        //{
+        //    if (string.IsNullOrEmpty(authorizationHeader))
+        //    {
+        //        return Unauthorized("Authorization header is missing.");
+        //    }
+        //    await _repository.CreatePetType(dto);
+        //    return Ok("Category added successfully");
+        //}
 
         [HttpGet("GetAllPetCategories")]
         public async Task<IActionResult> GetAllPetCategories([FromHeader(Name = "Authorization")] string authorizationHeader, string clinicId)
@@ -558,6 +559,23 @@ namespace DoctorPetAPI.Controllers
                 return Unauthorized("Authorization header is missing.");
             }
             var categories = await _repository.GetAllPetCateAsync(clinicId);
+            return Ok(categories);
+        }
+
+        [HttpGet("GetPetCategories")]
+        public async Task<IActionResult> GetPetCategories([FromHeader(Name = "Authorization")] string authorizationHeader)
+        {
+            if (string.IsNullOrEmpty(authorizationHeader))
+            {
+                return Unauthorized("Authorization header is missing.");
+            }
+            Authen authen = new Authen();
+            var userId = authen.GetIdFromToken(authorizationHeader);
+            if (userId == null)
+            {
+                return Unauthorized("Invalid token.");
+            }
+            var categories = await _repository.GetPetsCateAsync(userId);
             return Ok(categories);
         }
 
@@ -577,13 +595,19 @@ namespace DoctorPetAPI.Controllers
 
 
         [HttpPut("UpdatePetCategory")]
-        public async Task<IActionResult> UpdatePetCategory([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] PetTypeManaDTO updateDTO)
+        public async Task<IActionResult> UpdatePetCategory([FromHeader(Name = "Authorization")] string authorizationHeader, [FromBody] List<PetCateManaDTO> updateDTO)
         {
             if (string.IsNullOrEmpty(authorizationHeader))
             {
                 return Unauthorized("Authorization header is missing.");
             }
-            await _repository.UpdatePetCateAsync(updateDTO);
+            Authen authen = new Authen();
+            var userId = authen.GetIdFromToken(authorizationHeader);
+            if (userId == null)
+            {
+                return Unauthorized("Invalid token.");
+            }
+            await _repository.UpdatePetCateAsync(userId, updateDTO);
             return Ok("Category updated successfully");
         }
 

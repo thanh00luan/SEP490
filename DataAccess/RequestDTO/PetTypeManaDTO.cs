@@ -9,7 +9,6 @@ namespace DataAccess.RequestDTO
 {
     public class PetTypeManaDTO
     {
-        public string ClinicId { get; set; }
         public List<PetCateManaDTO> PetTypeList { get; set; }
     }
 }
