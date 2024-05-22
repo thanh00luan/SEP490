@@ -238,96 +238,114 @@ namespace DataAccess.DAO
         }
 
         //Clinic Manager
-        public async Task CreateClinic( ClinicManaDTO dto)
+        public async Task CreateClinic(ClinicManaDTO dto)
         {
             var clinic = new Clinic
             {
                 ClinicId = Guid.NewGuid().ToString(),
                 ClinicName = dto.ClinicName,
                 Address = dto.Address,
-                ClinicPhoneNumber = dto.ClinicPhoneNumber,  
+                ClinicPhoneNumber = dto.ClinicPhoneNumber,
                 Email = dto.Staff.Email,
-                Latitude = dto.Latitude,    
+                Latitude = dto.Latitude,
                 Longitude = dto.Longitude,
             };
-            try
+
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-
-                if (!string.IsNullOrEmpty(dto.Staff.UserId))
+                try
                 {
-                    var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == dto.Staff.UserId);
+                    // Add the clinic first
+                    await _context.Clinics.AddAsync(clinic);
+                    await _context.SaveChangesAsync();
 
-                    if (existingUser != null)
+                    Employee employee = null;
+
+                    if (!string.IsNullOrEmpty(dto.Staff.UserId))
                     {
-                        existingUser.UserRole = 4;
-                        var Employee = new Employee
+                        var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == dto.Staff.UserId);
+
+                        if (existingUser != null)
                         {
-                            EmployeeId = existingUser.UserId,
-                            UserId = existingUser.UserId,
+                            existingUser.UserRole = 4;
+                            await _context.SaveChangesAsync(); // Update the user role
+
+                            employee = new Employee
+                            {
+                                EmployeeId = existingUser.UserId,
+                                UserId = existingUser.UserId,
+                                ClinicId = clinic.ClinicId,
+                                EmployeeStatus = dto.Staff.EmployeeStatus // Add EmployeeStatus if needed
+                            };
+
+                            await _context.Employees.AddAsync(employee);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+                    else
+                    {
+                        var user = new User
+                        {
+                            UserId = Guid.NewGuid().ToString(),
+                            FullName = dto.Staff.EmployeeName,
+                            Email = dto.Staff.Email,
+                            PhoneNumber = dto.Staff.PhoneNumber,
+                            Address = dto.Staff.Address,
+                            Birthday = dto.Staff.Birthday,
+                            UserRole = 4,
                         };
 
-                        await _context.Employees.AddAsync(Employee);
+                        var password = "12345678";
+                        var hashedPassword = HashPassword(password);
+                        user.Password = hashedPassword;
+                        user.UserName = user.Email;
+
+                        await _context.Users.AddAsync(user);
+                        await _context.SaveChangesAsync();
+
+                        employee = new Employee
+                        {
+                            EmployeeId = user.UserId,
+                            UserId = user.UserId,
+                            ClinicId = clinic.ClinicId,
+                            EmployeeStatus = dto.Staff.EmployeeStatus,
+                        };
+
+                        var email = user.Email;
+                        var subject = "Thông tin tài khoản của bạn";
+                        var body = $"Xin chào {user.FullName},\n\nTài khoản của bạn đã được tạo thành công.\n\nTên đăng nhập: {user.UserName}\nMật khẩu: {password}\n\nXin cảm ơn.";
+
+                        await _sendMailService.SendEmailAsync(email, subject, body);
+
+                        await _context.Employees.AddAsync(employee);
                         await _context.SaveChangesAsync();
                     }
+
+                    // Update the clinic with the employee ID if needed
+                    clinic.EmployeeId = employee.EmployeeId;
+                    _context.Clinics.Update(clinic);
+
+                    employee.ClinicId = clinic.ClinicId;
+                    _context.Employees.Update(employee);
+                    
+                    await _context.SaveChangesAsync();
+
+                    // Commit the transaction
+                    await transaction.CommitAsync();
                 }
-                else
+                catch (DbUpdateException ex)
                 {
-                    var user = new User
-                    {
-                        UserId = Guid.NewGuid().ToString(),
-                        FullName = dto.Staff.EmployeeName,
-                        Email = dto.Staff.Email,
-                        PhoneNumber = dto.Staff.PhoneNumber,
-                        Address = dto.Staff.Address,
-                        Birthday = dto.Staff.Birthday,
-                        UserRole = 4,
-                        
-                    };
-
-                    var password = "12345678";
-
-                    var hashedPassword = HashPassword(password);
-
-                    user.Password = hashedPassword;
-                    user.UserName = user.Email;
-                    await _context.Users.AddAsync(user);
-                    await _context.SaveChangesAsync();
-                    var newEmployee = new Employee
-                    {
-                        EmployeeId = user.UserId,
-                        UserId = user.UserId,
-                        EmployeeStatus = dto.Staff.EmployeeStatus,
-                        ClinicId = clinic.ClinicId,
-                    };
-
-                    var email = user.Email;
-                    var subject = "Thông tin tài khoản của bạn";
-                    var body = $"Xin chào {user.FullName},\n\nTài khoản của bạn đã được tạo thành công.\n\nTên đăng nhập: {user.UserName}\nMật khẩu: {password}\n\nXin cảm ơn.";
-
-                    await _sendMailService.SendEmailAsync(email, subject, body);
-
-                    clinic.EmployeeId = user.UserId;
-                    clinic.Employee = newEmployee;
-
-                    await _context.Employees.AddAsync(newEmployee);
-                    await _context.SaveChangesAsync();
+                    await transaction.RollbackAsync();
+                    Console.WriteLine($"Database Error: {ex.Message}");
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    Console.WriteLine($"Error: {ex.Message}");
+                    throw;
                 }
             }
-            catch (DbUpdateException ex)
-            {
-                Console.WriteLine($"Database Error: {ex.Message}");
-                throw;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-                throw;
-            }
-
-
-
-            _context.Clinics.Add(clinic);
-            await _context.SaveChangesAsync();
         }
 
         public async Task<ClinicListDTO> GetAllClinic(int limit, int offset)

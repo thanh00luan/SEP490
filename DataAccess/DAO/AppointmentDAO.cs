@@ -108,7 +108,17 @@ namespace DataAccess.DAO
                 var appointmentDTOs = new List<GetAllDTO>();
                 foreach (var appointment in appointments)
                 {
+                    
+                        var doctor = await _context.Doctors
+                        .Include(d => d.User)
+                        .FirstOrDefaultAsync(d => d.DoctorId == appointment.DoctorId);
+                   
+                     
                     var appointmentDTO = _mapper.Map<GetAllDTO>(appointment);
+                    if (doctor != null)
+                    { 
+                        appointmentDTO.Doctor.DoctorName = doctor.User.FullName;
+                    }
                     var slot = slots.FirstOrDefault(s => s.SlotNumber == appointment.SlotNumber);
                     appointmentDTOs.Add(appointmentDTO);
                 }

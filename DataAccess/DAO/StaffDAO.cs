@@ -267,19 +267,28 @@ namespace DataAccess.DAO
                 var appointment = await _context.Appointments
                     .Include(a => a.User)
                     .Include(a => a.Clinic)
+                    .Include(a => a.Doctor)
                     .FirstOrDefaultAsync(a => a.AppointmentId == appointmentId);
 
                 if (appointment == null)
                 {
                     return new List<AvaibleDoctorDTO>();
                 }
-                var doctors = _context.Doctors.Include(d => d.User).Include(d=>d.Clinic).Where(d => d.ClinicId == appointment.ClinicId).ToList();
+
+                var doctors = await _context.Doctors
+                    .Include(d => d.User)
+                    .Include(d => d.Clinic)
+                    .Include(d => d.DoctorDegree)
+                    .Where(d => d.ClinicId == appointment.ClinicId)
+                    .ToListAsync();
+
                 var availableDoctors = new List<AvaibleDoctorDTO>();
 
                 foreach (var doctor in doctors)
                 {
                     var doctorAvailability = GetDoctorAvailability(doctor.DoctorId, appointment.AppointmentDate, appointment.AppointmentDate);
 
+                    bool isDoctorAdded = false;
 
                     foreach (var availabilitySlot in doctorAvailability)
                     {
@@ -291,7 +300,7 @@ namespace DataAccess.DAO
                                                a.SlotNumber == appointment.SlotNumber &&
                                                a.AppointmentId != appointmentId);
 
-                            if (!isBooked)
+                            if (!isBooked && !isDoctorAdded)
                             {
                                 var doctorDTO = new AvaibleDoctorDTO
                                 {
@@ -302,9 +311,13 @@ namespace DataAccess.DAO
                                     Address = doctor.User.Address,
                                     PhoneNumber = doctor.User.PhoneNumber,
                                     Specialized = doctor.Specialized,
+                                    Email = doctor.User.Email,
+                                    DegreeId = doctor.DegreeId,
+                                    BirthDate = doctor.User.Birthday
                                 };
 
                                 availableDoctors.Add(doctorDTO);
+                                isDoctorAdded = true; // Ensure the doctor is added only once
                             }
                         }
                     }
@@ -317,6 +330,7 @@ namespace DataAccess.DAO
                 throw;
             }
         }
+
 
 
         public async Task AssignDoctorToAppointment(string appointmentId, string doctorId)
