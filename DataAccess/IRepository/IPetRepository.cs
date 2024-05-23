@@ -11,7 +11,7 @@ namespace DataAccess.IRepository
     public interface IPetRepository
     {
         Task AddPet(PetManaDTO dto);
-        Task DeletePet(string id);
+        Task DeletePet(string userId);
         Task<PetListDTO> GetAllPet(string userId);
         Task<PetManaDTO> GetPetById(string id);
         Task UpdatePet(string userId, PetManaDTO updateDTO);

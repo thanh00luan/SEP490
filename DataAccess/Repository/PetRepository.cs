@@ -19,8 +19,8 @@ namespace DataAccess.Repository
         public Task AddPet(PetManaDTO dto)
             =>_petDAO.CreatePetAsync(dto);
 
-        public Task DeletePet(string id)
-            =>_petDAO.DeletePetAsync(id);
+        public Task DeletePet(string userId)
+            =>_petDAO.DeletePetAsync(userId);
 
         public Task<PetListDTO> GetAllPet(string userId)
             =>_petDAO.GetAllPetAsync(userId);

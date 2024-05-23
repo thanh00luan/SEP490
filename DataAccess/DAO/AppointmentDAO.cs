@@ -259,38 +259,39 @@ namespace DataAccess.DAO
                     .Where(ds => doctorIds.Contains(ds.DoctorId) && ds.RegisterDate >= startDate.Date && ds.RegisterDate <= endDate.Date)
                     .ToListAsync();
 
-                var availableSlots = new List<ClinicSlotsResponse>();
+                var availableSlots = new Dictionary<string, ClinicSlotsResponse>();
 
                 foreach (var doctorSlot in doctorSlots)
                 {
-                    if (!string.IsNullOrEmpty(doctorSlot.Slots)) 
+                    var date = doctorSlot.RegisterDate.ToString("yyyy-MM-dd");
+
+                    var slots = string.IsNullOrEmpty(doctorSlot.Slots)
+                        ? new List<int>()
+                        : doctorSlot.Slots.Split(',').Select(int.Parse).ToList();
+
+                    if (availableSlots.ContainsKey(date))
                     {
-                        var slots = doctorSlot.Slots.Split(',').Select(int.Parse).ToList();
-
-                        var clinicSlotResponse = new ClinicSlotsResponse
-                        {
-                            ClinicId = clinicId,
-                            Date = doctorSlot.RegisterDate.ToString("yyyy-MM-dd"),
-                            Slots = slots
-                        };
-
-                        availableSlots.Add(clinicSlotResponse);
+                        // Update existing slots
+                        availableSlots[date].Slots = availableSlots[date].Slots.Union(slots).Distinct().ToList();
                     }
                     else
                     {
-                        var clinicSlotResponse = new ClinicSlotsResponse
+                        // Add new slot entry
+                        availableSlots[date] = new ClinicSlotsResponse
                         {
                             ClinicId = clinicId,
-                            Date = doctorSlot.RegisterDate.ToString("yyyy-MM-dd"),
-                            Slots = new List<int> {  }
+                            Date = date,
+                            Slots = slots
                         };
-                        availableSlots.Add(clinicSlotResponse);
+                    }
 
-                        Console.WriteLine($"Slots are empty for doctor slot on {doctorSlot.RegisterDate.ToString("yyyy-MM-dd")}");
+                    if (string.IsNullOrEmpty(doctorSlot.Slots))
+                    {
+                        Console.WriteLine($"Slots are empty for doctor slot on {date}");
                     }
                 }
 
-                return availableSlots;
+                return availableSlots.Values.ToList();
             }
             catch (Exception ex)
             {
@@ -298,6 +299,7 @@ namespace DataAccess.DAO
                 throw;
             }
         }
+
 
         public async Task<List<PetManaDTO>> GetPetCategoryByUserId(string userId, string clinicId)
         {

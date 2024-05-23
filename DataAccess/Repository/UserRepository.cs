@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataAccess.DAO;
 using DataAccess.DTO.Precscription;
+using DataAccess.DTO.SuperAD;
 using DataAccess.DTO.User;
 using DataAccess.IRepository;
 
@@ -16,10 +17,8 @@ namespace DataAccess.Repository
         {
             _userDAO = userDAO;
         }
-
-        //Todo Repo đã triển khai
-        
-
+        public Task UpdateUser(string id, EditProfileDTO updateDTO)
+            => _userDAO.UpdateUser(id, updateDTO);
         public Task<LoginDTO> LoginAsync(LoginDTO user) => _userDAO.LoginAsync(user);
         public Task<RegisterDTO> RegisterUserAsync(RegisterDTO newUser) => _userDAO.RegisterUserAsync(newUser);
         public Task<IEnumerable<UserDTO>> GetAllUsersAsync() => _userDAO.GetAllUsersAsync();
@@ -27,11 +26,6 @@ namespace DataAccess.Repository
         public Task ChangePasswordAsync(string userId, ChangePassDTO dto)=> _userDAO.ChangePasswordAsync(userId, dto);
         public Task DeleteUserAsync(string userId) => _userDAO.DeleteUserAsync(userId);
         public Task<UserDTO> GetUserByUsernameAsync(string username) => _userDAO.GetUserByUsernameAsync(username);
-        //public Task<IEnumerable<UserDTO>> GetUsersByRoleAsync(int userRole) => _userDAO.GetUsersByRoleAsync(userRole);
-
-
-        //Todo Repo chưa triển khai
-
         public Task GrantPermissionAsync(string userId)
         {
             throw new NotImplementedException();

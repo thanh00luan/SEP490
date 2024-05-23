@@ -26,5 +26,6 @@ namespace DataAccess.IRepository
         Task<bool> ResetPasswordAsync(string userId, string newPassword);
         Task<string> ForgotPasswordAsync(string userName);
         Task<bool> VerifyOTPAsync(string userId, string oTP);
+        Task UpdateUser(string id, EditProfileDTO updateDTO);
     }
 }

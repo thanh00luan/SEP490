@@ -276,8 +276,8 @@ namespace DoctorPetAPI.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        [HttpDelete("DeletePet/{petId}")]
-        public async Task<IActionResult> DeletePetAsync([FromHeader(Name = "Authorization")] string authorizationHeader, string petId)
+        [HttpDelete("DeletePet")]
+        public async Task<IActionResult> DeletePetAsync([FromHeader(Name = "Authorization")] string authorizationHeader)
         {
             try
             {
@@ -285,8 +285,14 @@ namespace DoctorPetAPI.Controllers
                 {
                     return Unauthorized("Authorization header is missing.");
                 }
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                if (userId == null)
+                {
+                    return Unauthorized("Invalid token.");
+                }
 
-                await _petRepository.DeletePet(petId);
+                await _petRepository.DeletePet(userId);
 
                 return Ok("Pet deleted successfully.");
             }
@@ -385,6 +391,33 @@ namespace DoctorPetAPI.Controllers
             {
                 return BadRequest($"Failed to reset password: {ex.Message}");
             }
+        }
+
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateUserInfo([FromHeader(Name = "Authorization")] string authorizationHeader, EditProfileDTO dto)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(authorizationHeader))
+                {
+                    return Unauthorized("Authorization header is missing.");
+                }
+                Authen authen = new Authen();
+                var userId = authen.GetIdFromToken(authorizationHeader);
+                if (userId == null)
+                {
+                    return Unauthorized("Invalid token.");
+                }
+
+                await _userRepository.UpdateUser(userId, dto);
+                return Ok("Update successfull");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+
         }
 
 
